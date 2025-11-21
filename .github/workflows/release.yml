@@ -13,6 +13,7 @@ env:
 
 permissions:
   contents: write
+  pull-requests: read
 
 jobs:
   publish:
@@ -110,6 +111,10 @@ jobs:
 
           $tags = $gitTags | ForEach-Object {
               $fullTag = $_
+              
+              # Skip if this is the tag we are currently building to avoid self-reference
+              if ($fullTag -eq $currentTag) { return }
+
               $isPrerelease = $fullTag -like "*-*"
 
               if ($isPrerelease) {
@@ -154,12 +159,18 @@ jobs:
           Write-Host "Previous tag: $previousTag"
 
           # Push the tag to the repository
-          Write-Host "Tagging release commit..."
-          git tag $currentTag
-          git push origin $currentTag
+          if ($(git tag -l "$currentTag")) {
+             Write-Host "Tag $currentTag already exists locally/remotely. Skipping create/push."
+          } else {
+             Write-Host "Tagging release commit..."
+             git tag $currentTag
+             git push origin $currentTag
+          }
 
           # Generate release notes
           Write-Host "Generating release notes..."
+          $repo = $env:GITHUB_REPOSITORY
+          
           $headers = @{
               "Authorization" = "Bearer ${{ github.token }}"
               "Accept" = "application/vnd.github.v3+json"
@@ -168,7 +179,7 @@ jobs:
               "tag_name" = "$currentTag"
               "previous_tag_name" = "$previousTag"
           } | ConvertTo-Json
-          $repo = $env:GITHUB_REPOSITORY
+          
           $apiUrl = "https://api.github.com/repos/$repo/releases/generate-notes"
           $response = Invoke-RestMethod -Uri $apiUrl -Method Post -Headers $headers -Body $body -ContentType 'application/json'
 

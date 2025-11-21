@@ -1,5 +1,4 @@
-using System;
-using System.ComponentModel;
+﻿using System;
 using System.Threading.Tasks;
 
 namespace Velopack
@@ -17,7 +16,7 @@ namespace Velopack
         public void ApplyUpdatesAndRestart(VelopackAsset? toApply, string[]? restartArgs = null)
         {
             WaitExitThenApplyUpdates(toApply, silent: false, restart: true, restartArgs);
-            Environment.Exit(0);
+            Locator.Process.Exit(0);
         }
 
         /// <summary>
@@ -30,7 +29,7 @@ namespace Velopack
         public void ApplyUpdatesAndExit(VelopackAsset? toApply)
         {
             WaitExitThenApplyUpdates(toApply, silent: true, restart: false);
-            Environment.Exit(0);
+            Locator.Process.Exit(0);
         }
         
         /// <summary>
@@ -45,13 +44,8 @@ namespace Velopack
         /// <param name="restartArgs">The arguments to pass to the application when it is restarted.</param>
         public void WaitExitThenApplyUpdates(VelopackAsset? toApply, bool silent = false, bool restart = true, string[]? restartArgs = null)
         {
-            UpdateExe.Apply(Locator, toApply, silent, Locator.ProcessId, restart, restartArgs);
+            UpdateExe.Apply(Locator, toApply, silent, Locator.Process.GetCurrentProcessId(), restart, restartArgs);
         }
-        
-        /// <inheritdoc cref="WaitExitThenApplyUpdates"/>
-        public async Task WaitExitThenApplyUpdatesAsync(VelopackAsset? toApply, bool silent = false, bool restart = true, string[]? restartArgs = null)
-        {
-            await UpdateExe.ApplyAsync(Locator, toApply, silent, Locator.ProcessId, restart, restartArgs).ConfigureAwait(false);
-        }
+      
     }
 }

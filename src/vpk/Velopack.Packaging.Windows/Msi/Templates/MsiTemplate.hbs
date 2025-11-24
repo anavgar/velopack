@@ -9,9 +9,11 @@
 
         <Media Id="1" Cabinet="app.cab" EmbedCab="yes"/>
         <StandardDirectory Id="TARGETDIR">
-            <Directory Id="INSTALLFOLDER" Name="{{AppTitleSanitized}}" ComponentGuidGenerationSeed="{{ComponentGenerationSeedGuid}}">
-                <Directory Name="current"/>
-                <Directory Id="PACKAGES_DIR" Name="packages"/>
+            <Directory Id="PublisherDir" Name="{{AppPublisherSanitized}}">
+                <Directory Id="INSTALLFOLDER" Name="{{AppTitleSanitized}}" ComponentGuidGenerationSeed="{{ComponentGenerationSeedGuid}}">
+                    <Directory Name="current"/>
+                    <Directory Id="PACKAGES_DIR" Name="packages"/>
+                </Directory>
             </Directory>
         </StandardDirectory>
 
@@ -222,10 +224,10 @@
                 <Publish Dialog="InstallScopeDlg" Control="Next" Property="ALLUSERS" Value="1" Order="3"
                          Condition="WixAppFolder = &quot;WixPerMachineFolder&quot;"/>
                 <Publish Dialog="InstallScopeDlg" Control="Next" Property="INSTALLFOLDER"
-                         Value="[LocalAppDataFolder][ApplicationFolderName]" Order="4"
+                         Value="[LocalAppDataFolder]{{AppPublisherSanitized}}\[ApplicationFolderName]" Order="4"
                          Condition="WixAppFolder = &quot;WixPerUserFolder&quot;"/>
                 <Publish Dialog="InstallScopeDlg" Control="Next" Property="INSTALLFOLDER"
-                         Value="{{ProgramFilesFolderName}}[ApplicationFolderName]" Order="5"
+                         Value="{{ProgramFilesFolderName}}{{AppPublisherSanitized}}\[ApplicationFolderName]" Order="5"
                          Condition="WixAppFolder = &quot;WixPerMachineFolder&quot;"/>
                 <Publish Dialog="InstallScopeDlg" Control="Next" Event="SetTargetPath" Value="INSTALLFOLDER" Order="6"/>
                 <Publish Dialog="InstallScopeDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg" Order="7"/>
@@ -236,7 +238,7 @@
                 <Publish Dialog="WelcomeDlg" Control="Next" Property="ALLUSERS" Value="{}" Order="1"
                          Condition="WixAppFolder = &quot;WixPerUserFolder&quot;"/>
                 <Publish Dialog="WelcomeDlg" Control="Next" Property="INSTALLFOLDER"
-                         Value="[LocalAppDataFolder][ApplicationFolderName]" Order=" 2"/>
+                         Value="[LocalAppDataFolder]{{AppPublisherSanitized}}\[ApplicationFolderName]" Order=" 2"/>
                 <Publish Dialog="WelcomeDlg" Control="Next" Event="SetTargetPath" Value="INSTALLFOLDER" Order="3"/>
             {{/if}}
 
@@ -244,7 +246,7 @@
                 <Publish Dialog="WelcomeDlg" Control="Next" Property="ALLUSERS" Value="1" Order="1"
                          Condition="WixAppFolder = &quot;WixPerMachineFolder&quot;"/>
                 <Publish Dialog="WelcomeDlg" Control="Next" Property="INSTALLFOLDER"
-                         Value="{{ProgramFilesFolderName}}[ApplicationFolderName]" Order="5"
+                         Value="{{ProgramFilesFolderName}}{{AppPublisherSanitized}}\[ApplicationFolderName]" Order="5"
                          Condition="WixAppFolder = &quot;WixPerMachineFolder&quot;"/>
                 <Publish Dialog="WelcomeDlg" Control="Next" Event="SetTargetPath" Value="INSTALLFOLDER" Order="3"/>
             {{/if}}

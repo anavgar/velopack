@@ -10,9 +10,30 @@
         <Media Id="1" Cabinet="app.cab" EmbedCab="yes"/>
         <StandardDirectory Id="TARGETDIR">
             <Directory Id="PublisherDir" Name="{{AppPublisherSanitized}}">
-                <Directory Id="INSTALLFOLDER" Name="{{AppTitleSanitized}}" ComponentGuidGenerationSeed="{{ComponentGenerationSeedGuid}}">
+                <Directory Id="INSTALLFOLDER" Name="{{AppId}}" ComponentGuidGenerationSeed="{{ComponentGenerationSeedGuid}}">
                     <Directory Name="current"/>
                     <Directory Id="PACKAGES_DIR" Name="packages"/>
+
+                    <Component Id="FileAssociations" Guid="*">
+                        <RegistryValue Root="HKCR" Key="{{AppId}}.Assoc" Value="{{AppTitle}} File" Type="string" />
+
+                        <RegistryValue Root="HKCR" Key="{{AppId}}.Assoc\shell\open\command"
+                                       Value="&quot;[INSTALLFOLDER]{{StubFileName}}&quot; &quot;%1&quot;" Type="string" />
+
+                        <RegistryValue Root="HKCR" Key="{{AppId}}.Assoc\DefaultIcon"
+                                       Value="[INSTALLFOLDER]{{StubFileName}},0" Type="string" />
+
+                        <RegistryValue Root="HKCR" Key=".bc3" Value="{{AppId}}.Assoc" Type="string" />
+                        <RegistryValue Root="HKCR" Key=".mba" Value="{{AppId}}.Assoc" Type="string" />
+                        <RegistryValue Root="HKCR" Key=".mbt" Value="{{AppId}}.Assoc" Type="string" />
+                        <RegistryValue Root="HKCR" Key=".mbr" Value="{{AppId}}.Assoc" Type="string" />
+                        <RegistryValue Root="HKCR" Key=".mbf" Value="{{AppId}}.Assoc" Type="string" />
+                        <RegistryValue Root="HKCR" Key=".mbp" Value="{{AppId}}.Assoc" Type="string" />
+
+                        <RegistryValue Root="HKCU" Key="Software\{{AppPublisherSanitized}}\{{AppId}}"
+                                       Name="FileAssociations" Value="1" Type="integer" KeyPath="yes" />
+                    </Component>
+
                 </Directory>
             </Directory>
         </StandardDirectory>

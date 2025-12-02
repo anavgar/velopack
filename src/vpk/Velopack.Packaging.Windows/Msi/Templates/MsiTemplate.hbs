@@ -8,9 +8,13 @@
              UpgradeCode="{{UpgradeCodeGuid}}">
 
         <Media Id="1" Cabinet="app.cab" EmbedCab="yes"/>
+        
         <MajorUpgrade
                 DowngradeErrorMessage="A newer version of [ProductName] is already installed."
                 Schedule="afterInstallInitialize" />
+        
+        <Property Id="ALLUSERS" Value="1" />
+        
         <StandardDirectory Id="TARGETDIR">
             <Directory Id="PublisherDir" Name="{{AppPublisherSanitized}}">
                 <Directory Id="INSTALLFOLDER" Name="{{AppId}}" ComponentGuidGenerationSeed="{{ComponentGenerationSeedGuid}}">

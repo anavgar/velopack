@@ -7,7 +7,7 @@
              Scope="perMachine"
              UpgradeCode="{{UpgradeCodeGuid}}">
 
-        <Property Id="ARPPRODUCTNAME" Value="{{AppTitle}}" />
+        <SetProperty Id="ARPPRODUCTNAME" Value="{{AppTitle}}" Before="RegisterProduct" Sequence="execute" />
 
         <Media Id="1" Cabinet="app.cab" EmbedCab="yes"/>
         

@@ -1,11 +1,13 @@
 <!--suppress CheckEmptyScriptTag -->
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
-    <Package Name="{{AppTitle}}"
+    <Package Name="{{AppTitle}} {{AppMsiVersion}}"
              Manufacturer="{{AppPublisher}}"
              Version="{{AppMsiVersion}}"
              Language="1033"
              Scope="perMachine"
              UpgradeCode="{{UpgradeCodeGuid}}">
+
+        <Property Id="ARPPRODUCTNAME" Value="{{AppTitle}}" />
 
         <Media Id="1" Cabinet="app.cab" EmbedCab="yes"/>
         

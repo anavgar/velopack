@@ -13,6 +13,7 @@ env:
 
 permissions:
   contents: write
+  pull-requests: read
   id-token: write
 
 jobs:
@@ -173,7 +174,7 @@ jobs:
               "tag_name" = "$currentTag"
               "previous_tag_name" = "$previousTag"
           } | ConvertTo-Json
-          $apiUrl = "https://api.github.com/repos/velopack/velopack/releases/generate-notes"
+          $apiUrl = "https://api.github.com/repos/${{ github.repository }}/releases/generate-notes"
           $response = Invoke-RestMethod -Uri $apiUrl -Method Post -Headers $headers -Body $body -ContentType 'application/json'
 
           $releaseName = $response.name

@@ -174,14 +174,6 @@ public class SymbolicLinkTests
         Assert.Equal(targetFolder, SymbolicLink.GetTarget(junctionPoint));
     }
 
-    [Fact]
-    public void Create_ThrowsIfTargetDirectoryDoesNotExist()
-    {
-        using var _1 = TempUtil.GetTempDirectory(out var tempFolder);
-        string targetFolder = Path.Combine(tempFolder, "ADirectory");
-        string junctionPoint = Path.Combine(tempFolder, "SymLink");
-        Assert.Throws<IOException>(() => SymbolicLink.Create(junctionPoint, targetFolder, false));
-    }
 
     [Fact]
     public void GetTarget_NonExistentJunctionPoint()

@@ -25,6 +25,16 @@ runs:
     - name: Print dotnet version
       shell: pwsh
       run: dotnet --info
+    - name: Fix DOTNET_ROOT on macOS
+      if: runner.os == 'macOS'
+      shell: pwsh
+      run: |
+        $dotnetRoot = "$HOME/.dotnet"
+        if (Test-Path $dotnetRoot) {
+            echo "DOTNET_ROOT=$dotnetRoot" >> $env:GITHUB_ENV
+            echo "DOTNET_ROOT_ARM64=$dotnetRoot" >> $env:GITHUB_ENV
+            Write-Host "Successfully set DOTNET_ROOT to $dotnetRoot"
+        }
     - name: Install NBGV CLI
       shell: pwsh
       run: dotnet tool update -g nbgv

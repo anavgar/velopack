@@ -238,6 +238,34 @@ impl BundleZip<'_> {
         Ok(())
     }
 
+    /// Extracts all `_ExecutionStub.exe` files from the archive to the given directory,
+    /// renaming them by stripping the `_ExecutionStub` suffix (e.g. `Blah_ExecutionStub.exe` -> `Blah.exe`).
+    pub fn extract_stubs_to_dir<P: AsRef<Path>>(&self, dir: P) -> Result<(), Error> {
+        let dir = dir.as_ref();
+        let mut archive = self.zip.borrow_mut();
+        let stub_suffix = "_ExecutionStub.exe";
+        for i in 0..archive.len() {
+            let name = match archive.by_index(i) {
+                Ok(f) => f.name().to_string(),
+                Err(_) => continue,
+            };
+            let file_name = match name.rsplit(&['/', '\\']).next() {
+                Some(n) if n.ends_with(stub_suffix) => n.to_string(),
+                _ => continue,
+            };
+            let dest_name = file_name.replace(stub_suffix, ".exe");
+            let dest_path = dir.join(&dest_name);
+            drop(archive);
+            info!("Extracting stub '{}' to '{:?}'", file_name, dest_path);
+            match self.extract_zip_idx_to_path(i, &dest_path) {
+                Ok(_) => info!("Successfully extracted stub executable: {:?}", dest_path),
+                Err(e) => warn!("Failed to extract stub executable {:?}: {} (non-fatal)", dest_path, e),
+            }
+            archive = self.zip.borrow_mut();
+        }
+        Ok(())
+    }
+
     #[cfg(not(target_os = "linux"))]
     pub fn extract_lib_contents_to_path<P: AsRef<Path>, F: Fn(i16)>(&self, current_path: P, progress: F) -> Result<(), Error> {
         let current_path = current_path.as_ref();
@@ -350,9 +378,10 @@ pub struct Manifest {
     pub os_min_version: String,
     pub channel: String,
     pub shortcut_locations: String,
-    pub shortcut_amuid: String,
+    pub shortcut_aumid: String,
     pub release_notes: String,
     pub release_notes_html: String,
+    pub splash_progress_color: String,
 }
 
 /// Parse manifest object from an XML string.
@@ -366,7 +395,7 @@ pub fn read_manifest_from_string(xml: &str) -> Result<Manifest, Error> {
             Ok(XmlEvent::StartElement { name, .. }) => {
                 vec.push(name.local_name);
             }
-            Ok(XmlEvent::Characters(text)) => {
+            Ok(XmlEvent::Characters(text)) | Ok(XmlEvent::CData(text)) => {
                 if vec.is_empty() {
                     continue;
                 }
@@ -395,12 +424,16 @@ pub fn read_manifest_from_string(xml: &str) -> Result<Manifest, Error> {
                     obj.channel = text;
                 } else if el_name == "shortcutLocations" {
                     obj.shortcut_locations = text;
-                } else if el_name == "shortcutAmuid" {
-                    obj.shortcut_amuid = text;
+                } else if el_name == "shortcutAumid" {
+                    obj.shortcut_aumid = text;
+                } else if el_name == "shortcutAmuid" { // legacy typo / backwards compatibility
+                    obj.shortcut_aumid = text;
                 } else if el_name == "releaseNotes" {
                     obj.release_notes = text;
                 } else if el_name == "releaseNotesHtml" {
                     obj.release_notes_html = text;
+                } else if el_name == "splashProgressColor" {
+                    obj.splash_progress_color = text;
                 }
             }
             Ok(XmlEvent::EndElement { .. }) => {
@@ -530,4 +563,68 @@ fn test_parse_package_file_name() {
     assert!(parse_package_file_name("MyCoolApp-1.2.3-beta1-win7-x64-full.zip").is_none());
     assert!(parse_package_file_name("MyCoolApp-1.2.3.nupkg").is_none());
     assert!(parse_package_file_name("MyCoolApp-1.2-full.nupkg").is_none());
+}
+
+#[test]
+fn test_read_manifest_with_cdata_release_notes() {
+    let xml = r#"<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+<metadata>
+<id>TestApp</id>
+<title>Test App</title>
+<description>Test App</description>
+<authors>test</authors>
+<version>1.0.0</version>
+<channel></channel>
+<mainExe>test.exe</mainExe>
+<os>win</os>
+<rid>win-x64</rid>
+<machineArchitecture>x64</machineArchitecture>
+<releaseNotes><![CDATA[
+Feature A&B: support for <configuration> files
+Fixed: paths with '&' and '<' characters
+Unicode: café 🎉
+]]></releaseNotes>
+</metadata>
+</package>"#;
+
+    let manifest = read_manifest_from_string(xml).unwrap();
+    assert_eq!(manifest.id, "TestApp");
+    assert_eq!(manifest.version, Version::parse("1.0.0").unwrap());
+    assert_eq!(manifest.machine_architecture, "x64");
+    assert!(manifest.release_notes.contains("Feature A&B"));
+    assert!(manifest.release_notes.contains("<configuration>"));
+    assert!(manifest.release_notes.contains("café 🎉"));
+}
+
+#[test]
+fn test_read_manifest_plain_and_cdata_mixed() {
+    // Verify that plain text elements still work alongside CDATA elements
+    let xml = r#"<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+<metadata>
+<id>MixedApp</id>
+<title>Mixed App</title>
+<description>Mixed App</description>
+<authors>author</authors>
+<version>2.0.0</version>
+<channel>stable</channel>
+<mainExe>app.exe</mainExe>
+<os>win</os>
+<rid>win-x64</rid>
+<osMinVersion>10.0.19043</osMinVersion>
+<machineArchitecture>x64</machineArchitecture>
+<releaseNotes><![CDATA[
+Notes with special chars: & < > " '
+]]></releaseNotes>
+</metadata>
+</package>"#;
+
+    let manifest = read_manifest_from_string(xml).unwrap();
+    assert_eq!(manifest.id, "MixedApp");
+    assert_eq!(manifest.version, Version::parse("2.0.0").unwrap());
+    assert_eq!(manifest.os_min_version, "10.0.19043");
+    assert_eq!(manifest.machine_architecture, "x64");
+    assert_eq!(manifest.channel, "stable");
+    assert!(manifest.release_notes.contains("& < > \" '"));
 }

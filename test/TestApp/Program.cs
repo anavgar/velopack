@@ -56,6 +56,11 @@ try {
         return 0;
     }
 
+    if (args.Length == 1 && args[0] == "packagesdir") {
+        Console.WriteLine(locator.PackagesDir ?? "no_packages_dir");
+        return 0;
+    }
+
     if (args.Length == 2) {
         if (args[0] == "check") {
             var um = new UpdateManager(args[1], null, locator);
@@ -104,6 +109,23 @@ return -1;
 
 static void debugFile(string name, string message, string hook)
 {
-    var path = Path.Combine(AppContext.BaseDirectory, "..", name);
+    string dir;
+    var appImage = Environment.GetEnvironmentVariable("APPIMAGE");
+    if (!string.IsNullOrEmpty(appImage) && File.Exists(appImage)) {
+        dir = Path.GetDirectoryName(appImage)!;
+    } else {
+        dir = Path.Combine(AppContext.BaseDirectory, "..");
+    }
+    var path = Path.Combine(dir, name);
     File.AppendAllText(path, $"{hook}: {message}{Environment.NewLine}");
+
+    // Also write to temp so hook output survives MSI uninstall (which deletes the install dir)
+    try {
+        var resolvedDir = new DirectoryInfo(dir).Name;
+        var tempDir = Path.Combine(Path.GetTempPath(), $"velopack_hooks_{resolvedDir}");
+        Directory.CreateDirectory(tempDir);
+        File.AppendAllText(Path.Combine(tempDir, name), $"{hook}: {message}{Environment.NewLine}");
+    } catch {
+        // best effort
+    }
 }

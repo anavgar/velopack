@@ -2,11 +2,14 @@ use crate::shared::{self};
 use velopack::{constants, locator::VelopackLocator};
 
 use crate::windows;
-use anyhow::Result;
-use std::fs::File;
+use anyhow::{bail, Result};
 
 pub fn uninstall(locator: &VelopackLocator, delete_self: bool) -> Result<()> {
     info!("Command: Uninstall");
+
+    if locator.get_is_msi_install() {
+        bail!("MSI installation detected. Uninstall should be performed via msiexec, not Update.exe.");
+    }
 
     let root_path = locator.get_root_dir();
 
@@ -35,10 +38,11 @@ pub fn uninstall(locator: &VelopackLocator, delete_self: bool) -> Result<()> {
     let app_title = locator.get_manifest_title();
 
     info!("Finished successfully.");
-    shared::dialogs::show_info(format!("{} Uninstall", app_title).as_str(), None, "The application was successfully uninstalled.");
-
-    let dead_path = root_path.join(".dead");
-    let _ = File::create(dead_path);
+    shared::dialogs::show_info(
+        format!("{} Uninstall", app_title).as_str(),
+        None,
+        "The application was successfully uninstalled.",
+    );
 
     if delete_self {
         if let Err(e) = windows::register_intent_to_delete_self(3, &root_path) {

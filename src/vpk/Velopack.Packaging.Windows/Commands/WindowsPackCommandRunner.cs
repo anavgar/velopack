@@ -44,7 +44,12 @@ public class WindowsPackCommandRunner : PackageBuilder<WindowsPackOptions>
         // add nuspec metadata
         ExtraNuspecMetadata["runtimeDependencies"] = GetRuntimeDependencies();
         ExtraNuspecMetadata["shortcutLocations"] = GetShortcutLocations();
-        ExtraNuspecMetadata["shortcutAmuid"] = CoreUtil.GetAppUserModelId(Options.PackId);
+        ExtraNuspecMetadata["shortcutAumid"] = !string.IsNullOrEmpty(Options.Aumid)
+            ? Options.Aumid
+            : CoreUtil.GetAppUserModelId(Options.PackId);
+        if (!string.IsNullOrEmpty(Options.SplashProgressColor)) {
+            ExtraNuspecMetadata["splashProgressColor"] = Options.SplashProgressColor;
+        }
 
         // copy files to temp dir, so we can modify them
         var dir = TempDir.CreateSubdirectory("PreprocessPackDirWin");
@@ -78,7 +83,7 @@ public class WindowsPackCommandRunner : PackageBuilder<WindowsPackOptions>
 
         File.Copy(updatePath, Path.Combine(packDir, "Squirrel.exe"), true);
 
-        // create a stub for portable packages
+        // create a stub for portable / MSI packages
         var mainExeName = Options.EntryExecutableName;
         var mainPath = Path.Combine(packDir, mainExeName);
         var stubPath = Path.Combine(packDir, Path.GetFileNameWithoutExtension(mainExeName) + "_ExecutionStub.exe");
@@ -133,6 +138,9 @@ public class WindowsPackCommandRunner : PackageBuilder<WindowsPackOptions>
             "vcredist144-x86",
             "vcredist144-x64",
             "vcredist144-arm64",
+            "vcredist145-x86",
+            "vcredist145-x64",
+            "vcredist145-arm64",
             "net45",
             "net451",
             "net452",
@@ -205,17 +213,28 @@ public class WindowsPackCommandRunner : PackageBuilder<WindowsPackOptions>
         setupExeProgress(100);
 
         if (Options.BuildMsi && VelopackRuntimeInfo.IsWindows) {
+            var dir = TempDir.CreateSubdirectory("MsiPackage");
+            File.Copy(Path.Combine(packDir, "Squirrel.exe"), Path.Combine(dir.FullName, "Update.exe"), true);
+            var current = dir.CreateSubdirectory("current");
+            CopyFiles(new DirectoryInfo(packDir), current, CoreUtil.CreateProgressDelegate(msiProgress, 0, 45));
+            File.Delete(Path.Combine(current.FullName, "Squirrel.exe"));
+
+            // move the stub to the root of the MSI package
+            var msiStubPath = Path.Combine(
+                current.FullName,
+                Path.GetFileNameWithoutExtension(Options.EntryExecutableName) + "_ExecutionStub.exe");
+            File.Move(msiStubPath, Path.Combine(dir.FullName, GetStubFileName()));
+
+            File.Create(Path.Combine(dir.FullName, ".msi-installed")).Close();
+
+            msiProgress(50);
+            
             var msiName = DefaultName.GetSuggestedMsiName(Options.PackId, Options.Channel, TargetOs);
             var msiPath = createAsset(msiName, VelopackAssetType.Msi);
-            var portablePackage = new DirectoryInfo(Path.Combine(TempDir.FullName, "CreatePortablePackage"));
-            if (portablePackage.Exists) {
-                CompileWixTemplateToMsi(msiProgress, portablePackage, msiPath);
-                Log.Info($"MSI created '{Path.GetFileName(msiPath)}'.");
-                filesToSign.Add(msiPath);
-                msiProgress(100);
-            } else {
-                Log.Warn("Portable package not found, skipping MSI creation.");
-            }
+            CompileWixTemplateToMsi(msiProgress, dir, msiPath);
+            Log.Info($"MSI created '{Path.GetFileName(msiPath)}'.");
+            filesToSign.Add(msiPath);
+            msiProgress(100);
         }
 
         Log.Debug("Signing Setup files");
@@ -238,7 +257,7 @@ public class WindowsPackCommandRunner : PackageBuilder<WindowsPackOptions>
         var stubPath = Path.Combine(
             current.FullName,
             Path.GetFileNameWithoutExtension(Options.EntryExecutableName) + "_ExecutionStub.exe");
-        File.Move(stubPath, Path.Combine(dir.FullName, GetPortableStubFileName()));
+        File.Move(stubPath, Path.Combine(dir.FullName, GetStubFileName()));
 
         // create a .portable file to indicate this is a portable package
         File.Create(Path.Combine(dir.FullName, ".portable")).Close();
@@ -281,7 +300,7 @@ public class WindowsPackCommandRunner : PackageBuilder<WindowsPackOptions>
         var signTemplate = Options.SignTemplate;
         var signParallel = Options.SignParallel;
         var trustedSignMetadataPath = Options.AzureTrustedSignFile;
-        var helper = new CodeSign(Log);
+        var helper = new CodeSign(Log, Console);
 
         if (string.IsNullOrEmpty(signParams) && string.IsNullOrEmpty(signTemplate) && string.IsNullOrEmpty(trustedSignMetadataPath)) {
             Log.Warn($"No signing parameters provided, {filePaths.Length} file(s) will not be signed.");
@@ -298,7 +317,7 @@ public class WindowsPackCommandRunner : PackageBuilder<WindowsPackOptions>
         if (!string.IsNullOrEmpty(trustedSignMetadataPath)) {
             Log.Info($"Use Azure Trusted Signing service for code signing. Metadata file path: {trustedSignMetadataPath}");
 
-            string dlibPath = GetDlibPath(CancellationToken.None);
+            string dlibPath = GetDlibPath();
             signParams =
                 $"/fd SHA256 /tr http://timestamp.acs.microsoft.com /v /debug /td SHA256 /dlib {HelperFile.AzureDlibFileName} /dmdf \"{trustedSignMetadataPath}\"";
             helper.Sign(filePaths, signParams, signParallel, progress, false);
@@ -308,7 +327,7 @@ public class WindowsPackCommandRunner : PackageBuilder<WindowsPackOptions>
     }
 
     [SupportedOSPlatform("windows")]
-    private string GetDlibPath(CancellationToken cancellationToken)
+    private string GetDlibPath()
     {
         // DLib library is required for Azure Trusted Signing. It must be in the same directory as SignTool.exe.
         // https://learn.microsoft.com/azure/trusted-signing/how-to-signing-integrations#download-and-install-the-trusted-signing-dlib-package
@@ -320,24 +339,6 @@ public class WindowsPackCommandRunner : PackageBuilder<WindowsPackOptions>
         }
 
         throw new NotSupportedException("Azure Trusted Signing is not supported in this version of Velopack.");
-
-        // Log.Info($"Downloading Azure Trusted Signing dlib to '{dlibPath}'");
-        // var dl = new NuGetDownloader();
-        //
-        // using MemoryStream nupkgStream = new();
-        // await dl.DownloadPackageToStream("Microsoft.Trusted.Signing.Client", "1.*", nupkgStream, cancellationToken);
-        //
-        // nupkgStream.Position = 0;
-        //
-        // string parentDir = NugetUtil.BinDirectory + Path.AltDirectorySeparatorChar + "x64" + Path.AltDirectorySeparatorChar;
-        //
-        // ZipArchive zipPackage = new(nupkgStream);
-        // var entries = zipPackage.Entries.Where(x => x.FullName.StartsWith(parentDir, StringComparison.OrdinalIgnoreCase));
-        // foreach (var entry in entries) {
-        //     var relativePath = entry.FullName.Substring(parentDir.Length);
-        //     entry.ExtractToFile(Path.Combine(signToolDirectory, relativePath), true);
-        // }
-        // return dlibPath;
     }
 
     [SupportedOSPlatform("windows")]
@@ -372,7 +373,7 @@ public class WindowsPackCommandRunner : PackageBuilder<WindowsPackOptions>
         ];
     }
 
-    private string GetPortableStubFileName() => (Options.PackTitle ?? Options.PackId) + ".exe";
+    private string GetStubFileName() => (Options.PackTitle ?? Options.PackId) + ".exe";
 
     private ShortcutLocation GetShortcuts()
     {

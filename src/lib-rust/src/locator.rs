@@ -8,9 +8,7 @@ use std::path::PathBuf;
 use uuid::Uuid;
 
 #[cfg(windows)]
-use crate:: {
-    known_path::get_local_app_data
-};
+use crate::known_path::get_local_app_data;
 
 bitflags::bitflags! {
     #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
@@ -114,10 +112,16 @@ impl VelopackLocator {
     /// Creates a new VelopackLocator from the given paths, trying to auto-detect the manifest.
     pub fn new(config: &VelopackLocatorConfig) -> Result<VelopackLocator, Error> {
         if !config.UpdateExePath.exists() {
-            return Err(Error::NotInstalled(format!("Update.exe does not exist in the expected path ({})", config.UpdateExePath.display())));
+            return Err(Error::NotInstalled(format!(
+                "Update.exe does not exist in the expected path ({})",
+                config.UpdateExePath.display()
+            )));
         }
         if !config.ManifestPath.exists() {
-            return Err(Error::NotInstalled(format!("Manifest file does not exist in the expected path ({})", config.ManifestPath.display())));
+            return Err(Error::NotInstalled(format!(
+                "Manifest file does not exist in the expected path ({})",
+                config.ManifestPath.display()
+            )));
         }
 
         let manifest = read_current_manifest(&config.ManifestPath)?;
@@ -128,11 +132,52 @@ impl VelopackLocator {
     #[cfg(windows)]
     pub fn new_with_manifest(mut paths: VelopackLocatorConfig, manifest: Manifest) -> Self {
         let root = paths.RootAppDir.clone();
-        if root.starts_with("C:\\Program Files") || !misc::is_directory_writable(&root) {
-            let velopack_package_root = get_local_app_data().unwrap().join("velopack").join(&manifest.id);
-            paths.PackagesDir = velopack_package_root.join("packages");
-            if !paths.PackagesDir.exists() {
-                std::fs::create_dir_all(&paths.PackagesDir).unwrap();
+        let default_packages_dir = root.join("packages");
+        let has_custom_packages_dir = paths.PackagesDir != default_packages_dir;
+
+        if has_custom_packages_dir {
+            // A custom PackagesDir was provided (e.g. via --packageDir)
+            if misc::is_directory_writable(&paths.PackagesDir) {
+                info!("Using custom packages directory (writable): {}", paths.PackagesDir.display());
+            } else {
+                warn!(
+                    "Custom packages directory is not writable, falling through to standard logic: {}",
+                    paths.PackagesDir.display()
+                );
+                // Fall through to standard logic below
+                paths.PackagesDir = default_packages_dir.clone();
+            }
+        }
+
+        // Standard logic: only run if we don't have a valid custom dir
+        if paths.PackagesDir == default_packages_dir {
+            let is_writable = misc::is_directory_writable(&root);
+            info!("Root directory '{}' writable: {}", root.display(), is_writable);
+
+            if is_writable {
+                paths.PackagesDir = root.join("packages");
+                info!("Using root packages directory: {}", paths.PackagesDir.display());
+            } else if let Some(app_data) = get_local_app_data().ok() {
+                let fallback_base = app_data.join(&manifest.id);
+                paths.PackagesDir = fallback_base.join("packages");
+                paths.UpdateExePath = fallback_base.join("Update.exe");
+                info!("Using fallback directory: {}", fallback_base.display());
+
+                if let Err(e) = std::fs::create_dir_all(&paths.PackagesDir) {
+                    error!("Unable to create fallback packages directory: {}", e);
+                }
+
+                // If the fallback Update.exe doesn't exist yet (e.g. first launch after MSI install),
+                // copy it from the root directory so UpdateExePath always points to an existing file.
+                let root_update_exe = root.join("Update.exe");
+                if !paths.UpdateExePath.exists() && root_update_exe.exists() {
+                    match std::fs::copy(&root_update_exe, &paths.UpdateExePath) {
+                        Ok(_) => info!("Copied Update.exe from root to fallback: {}", paths.UpdateExePath.display()),
+                        Err(e) => error!("Failed to copy Update.exe to fallback path: {}", e),
+                    }
+                }
+            } else {
+                error!("Root directory is not writable and LocalAppData is unavailable. Updates may not work correctly.");
             }
         }
 
@@ -154,7 +199,7 @@ impl VelopackLocator {
     pub fn get_ideal_local_nupkg_path(&self, id: Option<&str>, version: Option<Version>) -> PathBuf {
         let id = id.unwrap_or(&self.manifest.id);
         let version = version.unwrap_or(self.manifest.version.clone());
-        self.paths.RootAppDir.join("packages").join(format!("{}-{}-full.nupkg", id, version))
+        self.paths.PackagesDir.join(format!("{}-{}-full.nupkg", id, version))
     }
 
     /// Returns the path to the current app temporary directory.
@@ -245,22 +290,39 @@ impl VelopackLocator {
         ShortcutLocationFlags::from_string(&self.manifest.shortcut_locations)
     }
 
-    /// Returns the desired shortcut AMUID, or None if no AMUID has been provided.
-    pub fn get_manifest_shortcut_amuid(&self) -> Option<String> {
-        if self.manifest.shortcut_amuid.is_empty() {
+    /// Returns the desired shortcut AUMID, or None if no AUMID has been provided.
+    pub fn get_manifest_shortcut_aumid(&self) -> Option<String> {
+        if self.manifest.shortcut_aumid.is_empty() {
             return None;
         }
-        Some(self.manifest.shortcut_amuid.clone())
+        Some(self.manifest.shortcut_aumid.clone())
+    }
+
+    /// Returns the Application User Model ID for this app.
+    /// If a custom AUMID was specified during packaging, it will be returned.
+    /// Otherwise, falls back to "velopack.{AppId}".
+    pub fn get_app_user_model_id(&self) -> String {
+        self.get_manifest_shortcut_aumid()
+            .unwrap_or_else(|| format!("velopack.{}", self.manifest.id))
     }
 
     /// Returns a copy of the current VelopackLocator with the manifest field set to the given manifest.
     pub fn clone_self_with_new_manifest(&self, manifest: &Manifest) -> VelopackLocator {
-        VelopackLocator { paths: self.paths.clone(), manifest: manifest.clone() }
+        VelopackLocator {
+            paths: self.paths.clone(),
+            manifest: manifest.clone(),
+        }
     }
 
     /// Returns whether the app is portable or installed.
     pub fn get_is_portable(&self) -> bool {
         self.paths.IsPortable
+    }
+
+    /// Returns whether the app was installed via MSI (indicated by a `.msi-installed` marker file).
+    #[cfg(windows)]
+    pub fn get_is_msi_install(&self) -> bool {
+        self.paths.RootAppDir.join(".msi-installed").exists()
     }
 
     /// Attemps to open / lock a file in the app's package directory for exclusive write access.
@@ -317,8 +379,9 @@ pub enum LocationContext {
     IAmUpdateExe,
     /// Locates the app manifest by assuming the current process is inside the application current/binary directory.
     FromCurrentExe,
-    /// Locates the app manifest by assuming the app is installed in the specified root directory.
-    FromSpecifiedRootDir(PathBuf),
+    /// Locates the app manifest by assuming the app is installed in the specified root directory,
+    /// with an optional packages directory override.
+    FromSpecifiedRootDir(PathBuf, Option<PathBuf>),
     /// Locates the app manifest by assuming the specified path is inside the application current/binary directory.
     FromSpecifiedAppExecutable(PathBuf),
 }
@@ -341,8 +404,11 @@ pub fn auto_locate_app_manifest(context: LocationContext) -> Result<VelopackLoca
             let current_exe = std::env::current_exe()?;
             return auto_locate_app_manifest(LocationContext::FromSpecifiedAppExecutable(current_exe));
         }
-        LocationContext::FromSpecifiedRootDir(root_dir) => {
-            let config = create_config_from_root_dir(&root_dir);
+        LocationContext::FromSpecifiedRootDir(root_dir, package_dir) => {
+            let mut config = create_config_from_root_dir(&root_dir);
+            if let Some(pkg_dir) = package_dir {
+                config.PackagesDir = pkg_dir;
+            }
             let locator = VelopackLocator::new(&config)?;
             return Ok(locator);
         }
@@ -364,7 +430,10 @@ pub fn auto_locate_app_manifest(context: LocationContext) -> Result<VelopackLoca
                 let maybe_root = &path[..i];
                 let maybe_root = PathBuf::from(maybe_root);
                 if maybe_root.join("Update.exe").exists() {
-                    info!("Found Update.exe by current path pattern search in directory: {}", maybe_root.to_string_lossy());
+                    info!(
+                        "Found Update.exe by current path pattern search in directory: {}",
+                        maybe_root.to_string_lossy()
+                    );
                     let config = create_config_from_root_dir(&maybe_root);
                     let locator = VelopackLocator::new(&config)?;
                     return Ok(locator);
@@ -389,7 +458,7 @@ pub fn auto_locate_app_manifest(context: LocationContext) -> Result<VelopackLoca
 pub fn auto_locate_app_manifest(context: LocationContext) -> Result<VelopackLocator, Error> {
     let mut search_path = std::env::current_exe()?;
     match context {
-        LocationContext::FromSpecifiedRootDir(dir) => search_path = dir.join("dummy"),
+        LocationContext::FromSpecifiedRootDir(dir, _) => search_path = dir.join("usr").join("bin").join("dummy"),
         LocationContext::FromSpecifiedAppExecutable(exe) => search_path = exe,
         _ => {}
     }
@@ -397,7 +466,10 @@ pub fn auto_locate_app_manifest(context: LocationContext) -> Result<VelopackLoca
     let search_string = search_path.to_string_lossy();
     let idx = search_string.rfind("/usr/bin/");
     if idx.is_none() {
-        return Err(Error::NotInstalled(format!("Could not locate '/usr/bin/' in executable path {}", search_string)));
+        return Err(Error::NotInstalled(format!(
+            "Could not locate '/usr/bin/' in executable path {}",
+            search_string
+        )));
     }
     let idx = idx.unwrap();
     let root_app_dir = PathBuf::from(search_string[..idx].to_string());
@@ -420,7 +492,9 @@ pub fn auto_locate_app_manifest(context: LocationContext) -> Result<VelopackLoca
             }
         }
         Err(_) => {
-            return Err(Error::NotInstalled("The 'APPIMAGE' environment variable should point to the current AppImage path.".to_string()));
+            return Err(Error::NotInstalled(
+                "The 'APPIMAGE' environment variable should point to the current AppImage path.".to_string(),
+            ));
         }
     };
 
@@ -444,7 +518,7 @@ pub fn auto_locate_app_manifest(context: LocationContext) -> Result<VelopackLoca
 pub fn auto_locate_app_manifest(context: LocationContext) -> Result<VelopackLocator, Error> {
     let mut search_path = std::env::current_exe()?;
     match context {
-        LocationContext::FromSpecifiedRootDir(dir) => search_path = dir.join("dummy"),
+        LocationContext::FromSpecifiedRootDir(dir, _) => search_path = dir.join("dummy"),
         LocationContext::FromSpecifiedAppExecutable(exe) => search_path = exe,
         _ => {}
     }
@@ -452,7 +526,10 @@ pub fn auto_locate_app_manifest(context: LocationContext) -> Result<VelopackLoca
     let search_string = search_path.to_string_lossy();
     let idx = search_string.rfind(".app/");
     if idx.is_none() {
-        return Err(Error::NotInstalled(format!("Could not locate '.app' in executable path {}", search_string)));
+        return Err(Error::NotInstalled(format!(
+            "Could not locate '.app' in executable path {}",
+            search_string
+        )));
     }
     let idx = idx.unwrap();
     let path = search_string[..(idx + 4)].to_string();
@@ -494,31 +571,37 @@ fn read_current_manifest(nuspec_path: &PathBuf) -> Result<Manifest, Error> {
             return bundle::read_manifest_from_string(&nuspec);
         }
     }
-    Err(Error::NotInstalled(format!("Manifest file does not exist or is not readable: {:?}", nuspec_path)))
+    Err(Error::NotInstalled(format!(
+        "Manifest file does not exist or is not readable: {:?}",
+        nuspec_path
+    )))
 }
 
-/// Returns the path and manifest of the latest full package in the given directory.
-pub fn find_latest_full_package(packages_dir: &PathBuf) -> Option<(PathBuf, Manifest)> {
-    let packages_dir = packages_dir.to_string_lossy();
-
-    info!("Attempting to auto-detect package in: {:?}", packages_dir);
-    let mut package: Option<(PathBuf, Manifest)> = None;
-
-    let search_glob = format!("{}/*-full.nupkg", packages_dir);
+/// Returns all full packages (path + manifest) found in the given directory.
+pub fn find_local_full_packages(packages_dir: &PathBuf) -> Vec<(PathBuf, Manifest)> {
+    let packages_dir_str = packages_dir.to_string_lossy();
+    info!("Searching for local packages in: {:?}", packages_dir_str);
+    let mut results = Vec::new();
+    let search_glob = format!("{}/*-full.nupkg", packages_dir_str);
     if let Ok(paths) = glob::glob(search_glob.as_str()) {
         for path in paths.into_iter().flatten() {
             trace!("Checking package: '{:?}'", path);
             if let Ok(mut bun) = bundle::load_bundle_from_file(&path) {
                 if let Ok(mani) = bun.read_manifest() {
-                    if package.is_none() || mani.version > package.clone()?.1.version {
-                        info!("Found {}: '{:?}'", mani.version, path);
-                        package = Some((path, mani));
-                    }
+                    info!("Found {}: '{:?}'", mani.version, path);
+                    results.push((path, mani));
                 }
             }
         }
     }
-    package
+    results
+}
+
+/// Returns the path and manifest of the latest full package in the given directory.
+pub fn find_latest_full_package(packages_dir: &PathBuf) -> Option<(PathBuf, Manifest)> {
+    find_local_full_packages(packages_dir)
+        .into_iter()
+        .max_by(|(_, a), (_, b)| a.version.cmp(&b.version))
 }
 
 #[test]

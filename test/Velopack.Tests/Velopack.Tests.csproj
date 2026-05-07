@@ -2,24 +2,29 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <OutputType>Exe</OutputType>
     <NoWarn>$(NoWarn);CA1416</NoWarn>
   </PropertyGroup>
 
   <Choose>
     <When Condition="$([MSBuild]::IsOSPlatform('Windows'))">
       <PropertyGroup>
-        <TargetFrameworks>net6.0;net8.0;net48</TargetFrameworks>
+        <TargetFrameworks>net8.0;net48</TargetFrameworks>
       </PropertyGroup>
     </When>
     <Otherwise>
       <PropertyGroup>
-        <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
+        <TargetFrameworks>net8.0</TargetFrameworks>
       </PropertyGroup>
     </Otherwise>
   </Choose>
 
   <ItemGroup>
-    <PackageReference Include="System.IO.Packaging" Version="9.0.5"/>
+    <Compile Include="..\Velopack.TestCommon\PathHelper.cs" Link="PathHelper.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.IO.Packaging" Version="10.0.5"/>
   </ItemGroup>
 
   <ItemGroup>
@@ -33,17 +38,8 @@
     <Reference Include="System.IO.Compression.FileSystem" />
   </ItemGroup>
 
-  <Choose>
-    <When Condition="'$(TargetFramework)' == 'net6.0'">
-      <ItemGroup>
-        <ProjectReference Include="..\..\src\lib-csharp\Velopack.csproj" SetTargetFramework="TargetFramework=netstandard2.0" />
-      </ItemGroup>
-    </When>
-    <Otherwise>
-      <ItemGroup>
-        <ProjectReference Include="..\..\src\lib-csharp\Velopack.csproj" />
-      </ItemGroup>
-    </Otherwise>
-  </Choose>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\lib-csharp\Velopack.csproj" />
+  </ItemGroup>
   
 </Project>

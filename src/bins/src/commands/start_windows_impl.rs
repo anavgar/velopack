@@ -112,12 +112,7 @@ pub fn start_impl(
     }
 }
 
-fn start_regular(
-    locator: LocatorResult,
-    exe_name: Option<&OsString>,
-    exe_args: Option<Vec<OsString>>,
-    legacy_args: Option<&OsString>,
-) -> Result<()> {
+fn start_regular(locator: LocatorResult, exe_name: Option<&OsString>, exe_args: Option<Vec<OsString>>, legacy_args: Option<&OsString>) -> Result<()> {
     // we can't just run the normal start_package command, because legacy squirrel might provide
     // an "exe name" to restart which no longer exists in the package
     let exe_to_execute = locator.get_exe_to_start(exe_name)?;
@@ -149,8 +144,7 @@ fn try_legacy_migration(root_dir: &PathBuf, manifest: &Manifest) -> Result<Velop
     // meaning we can not clean up properly.
     std::env::set_current_dir(&root_dir)?;
     let path_config = locator::create_config_from_root_dir(root_dir);
-    let package =
-        locator::find_latest_full_package(&path_config.PackagesDir).ok_or_else(|| anyhow!("Unable to find latest full package."))?;
+    let package = locator::find_latest_full_package(&path_config.PackagesDir).ok_or_else(|| anyhow!("Unable to find latest full package."))?;
 
     warn!("This application is installed in a folder prefixed with 'app-'. Attempting to migrate...");
     let _ = shared::force_stop_package(&root_dir);
@@ -160,21 +154,26 @@ fn try_legacy_migration(root_dir: &PathBuf, manifest: &Manifest) -> Result<Velop
     let mut modified_manifest = manifest.clone();
     modified_manifest.shortcut_locations = String::new();
     let locator = VelopackLocator::new_with_manifest(path_config, modified_manifest);
-    let _mutex = locator.try_get_exclusive_lock()?;
 
-    if !locator.get_current_bin_dir().exists() {
-        info!("Renaming latest app-* folder to current.");
-        if let Some((latest_app_dir, _latest_ver)) = shared::get_latest_app_version_folder(&root_dir)? {
-            fs::rename(latest_app_dir, locator.get_current_bin_dir())?;
+    // Acquire lock for the rename and shortcut operations, but drop it before calling apply(),
+    // because apply() will acquire the same exclusive lock internally.
+    {
+        let _mutex = locator.try_get_exclusive_lock()?;
+
+        if !locator.get_current_bin_dir().exists() {
+            info!("Renaming latest app-* folder to current.");
+            if let Some((latest_app_dir, _latest_ver)) = shared::get_latest_app_version_folder(&root_dir)? {
+                fs::rename(latest_app_dir, locator.get_current_bin_dir())?;
+            }
         }
-    }
 
-    info!("Removing old shortcuts...");
-    win::remove_all_shortcuts_for_root_dir(&root_dir);
+        info!("Removing old shortcuts...");
+        win::remove_all_shortcuts_for_root_dir(&root_dir);
+    }
 
     info!("Applying latest full package...");
     let buf = Path::new(&package.0).to_path_buf();
-    let new_locator = super::apply(&locator, false, OperationWait::NoWait, Some(&buf), None, false)?;
+    let new_locator = super::apply(&locator, false, OperationWait::NoWait, Some(&buf), None, super::HookRunMode::PostOnly)?;
 
     info!("Removing old app-* folders...");
     shared::delete_app_prefixed_folders(&root_dir);

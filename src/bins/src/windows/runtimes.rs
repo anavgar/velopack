@@ -6,9 +6,16 @@ use std::{collections::HashMap, fs, path::Path};
 use velopack::download;
 use winreg::{enums::*, RegKey};
 
+// 2015 to 2022 are all binary compatible, and support OS as old as Windows 7.
 const REDIST_2015_2022_X86: &str = "https://aka.ms/vs/17/release/vc_redist.x86.exe";
 const REDIST_2015_2022_X64: &str = "https://aka.ms/vs/17/release/vc_redist.x64.exe";
 const REDIST_2015_2022_ARM64: &str = "https://aka.ms/vs/17/release/vc_redist.arm64.exe";
+
+// The 2026 vcredist is also binary compatible, but only supports Windows 10, so we'll keep it separate.
+const REDIST_2015_2026_X86: &str = "https://aka.ms/vs/18/release/vc_redist.x86.exe";
+const REDIST_2015_2026_X64: &str = "https://aka.ms/vs/18/release/vc_redist.x64.exe";
+const REDIST_2015_2026_ARM64: &str = "https://aka.ms/vs/18/release/vc_redist.arm64.exe";
+
 const NDP_REG_KEY: &str = "SOFTWARE\\Microsoft\\NET Framework Setup\\NDP\\v4\\Full";
 const UNINSTALL_REG_KEY: &str = "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall";
 const WEBVIEW2_EVERGREEN: &str = "https://go.microsoft.com/fwlink/p/?LinkId=2124703";
@@ -42,6 +49,7 @@ lazy_static! {
         vcredist.insert("vcredist110-x64", VCRedistInfo::new("Visual C++ 2012 Redist (x64)", "11.00.61030", RuntimeArch::X64, "https://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x64.exe"));
         vcredist.insert("vcredist120-x86", VCRedistInfo::new("Visual C++ 2013 Redist (x86)", "12.00.40664", RuntimeArch::X86, "https://aka.ms/highdpimfc2013x86enu"));
         vcredist.insert("vcredist120-x64", VCRedistInfo::new("Visual C++ 2013 Redist (x64)", "12.00.40664", RuntimeArch::X64, "https://aka.ms/highdpimfc2013x64enu"));
+
         // from 2015-2022, the binaries are all compatible, so we can always just install the latest version
         // https://docs.microsoft.com/cpp/windows/latest-supported-vc-redist?view=msvc-170#visual-studio-2015-2017-2019-and-2022
         // https://docs.microsoft.com/cpp/porting/binary-compat-2015-2017?view=msvc-170
@@ -57,6 +65,11 @@ lazy_static! {
         vcredist.insert("vcredist144-x86", VCRedistInfo::new("Visual C++ 2022 Redist (x86)", "14.40.33810", RuntimeArch::X86, REDIST_2015_2022_X86));
         vcredist.insert("vcredist144-x64", VCRedistInfo::new("Visual C++ 2022 Redist (x64)", "14.40.33810", RuntimeArch::X64, REDIST_2015_2022_X64));
         vcredist.insert("vcredist144-arm64", VCRedistInfo::new("Visual C++ 2022 Redist (arm64)", "14.40.33810", RuntimeArch::Arm64, REDIST_2015_2022_ARM64));
+
+        // the 2026 redist is also binary compatible with 2015-2022, but it has higher minimum OS requirements, so we'll not use the same URL for both.
+        vcredist.insert("vcredist145-x86", VCRedistInfo::new("Visual C++ 2026 Redist (x86)", "14.50.35719", RuntimeArch::X86, REDIST_2015_2026_X86));
+        vcredist.insert("vcredist145-x64", VCRedistInfo::new("Visual C++ 2026 Redist (x64)", "14.50.35719", RuntimeArch::X64, REDIST_2015_2026_X64));
+        vcredist.insert("vcredist145-arm64", VCRedistInfo::new("Visual C++ 2026 Redist (arm64)", "14.50.35719", RuntimeArch::Arm64, REDIST_2015_2026_ARM64));
         vcredist
     };
 }
@@ -111,7 +124,11 @@ pub struct FullFrameworkInfo {
 
 impl FullFrameworkInfo {
     pub fn new(display_name: &str, download_url: &str, release_version: u32) -> Self {
-        FullFrameworkInfo { display_name: display_name.to_string(), download_url: download_url.to_string(), release_version }
+        FullFrameworkInfo {
+            display_name: display_name.to_string(),
+            download_url: download_url.to_string(),
+            release_version,
+        }
     }
 }
 
@@ -421,13 +438,22 @@ impl RuntimeInfo for DotnetInfo {
 
         let download_url = match self.runtime_type {
             DotnetRuntimeType::Runtime => {
-                format!("{}/Runtime/{}/dotnet-runtime-{}-win-{}.exe", DOTNET_CDN_FEED, version, version, cpu_arch_str)
+                format!(
+                    "{}/Runtime/{}/dotnet-runtime-{}-win-{}.exe",
+                    DOTNET_CDN_FEED, version, version, cpu_arch_str
+                )
             }
             DotnetRuntimeType::AspNetCore => {
-                format!("{}/aspnetcore/Runtime/{}/aspnetcore-runtime-{}-win-{}.exe", DOTNET_CDN_FEED, version, version, cpu_arch_str)
+                format!(
+                    "{}/aspnetcore/Runtime/{}/aspnetcore-runtime-{}-win-{}.exe",
+                    DOTNET_CDN_FEED, version, version, cpu_arch_str
+                )
             }
             DotnetRuntimeType::WindowsDesktop => {
-                format!("{}/WindowsDesktop/{}/windowsdesktop-runtime-{}-win-{}.exe", DOTNET_CDN_FEED, version, version, cpu_arch_str)
+                format!(
+                    "{}/WindowsDesktop/{}/windowsdesktop-runtime-{}-win-{}.exe",
+                    DOTNET_CDN_FEED, version, version, cpu_arch_str
+                )
             }
             DotnetRuntimeType::Sdk => {
                 format!("{}/Sdk/{}/dotnet-sdk-{}-win-{}.exe", DOTNET_CDN_FEED, version, version, cpu_arch_str)
@@ -496,14 +522,20 @@ fn test_dotnet_detects_installed_versions() {
 }
 
 lazy_static! {
-    static ref REGEX_DOTNET: Regex =
-        Regex::new(r"^net(?:coreapp)?(?<version>(?P<major>\d+)(\.(?P<minor>\d+))?(\.(?P<build>\d+))?)(?:-(?<arch>[a-zA-Z]+\d\d))?(?:-(?<type>[a-zA-Z]+))?$")
-            .unwrap();
+    static ref REGEX_DOTNET: Regex = Regex::new(
+        r"^net(?:coreapp)?(?<version>(?P<major>\d+)(\.(?P<minor>\d+))?(\.(?P<build>\d+))?)(?:-(?<arch>[a-zA-Z]+\d\d))?(?:-(?<type>[a-zA-Z]+))?$"
+    )
+    .unwrap();
 }
 
 fn parse_dotnet_version(version: &str) -> Result<DotnetInfo> {
-    let caps = REGEX_DOTNET.captures(version).ok_or_else(|| anyhow!("Invalid dotnet version string: '{}'", version))?;
-    let version_str = caps.name("version").ok_or_else(|| anyhow!("Invalid dotnet version string: '{}'", version))?.as_str();
+    let caps = REGEX_DOTNET
+        .captures(version)
+        .ok_or_else(|| anyhow!("Invalid dotnet version string: '{}'", version))?;
+    let version_str = caps
+        .name("version")
+        .ok_or_else(|| anyhow!("Invalid dotnet version string: '{}'", version))?
+        .as_str();
     let architecture_str = caps.name("arch").map(|m| m.as_str()).unwrap_or("x64");
     let runtime_type_str = caps.name("type").map(|m| m.as_str()).unwrap_or("desktop");
 
@@ -516,11 +548,15 @@ fn parse_dotnet_version(version: &str) -> Result<DotnetInfo> {
     }
 
     let architecture = RuntimeArch::from_str(architecture_str).ok_or_else(|| anyhow!("Invalid dotnet version string: '{}'", version))?;
-    let runtime_type =
-        DotnetRuntimeType::from_str(runtime_type_str).ok_or_else(|| anyhow!("Invalid dotnet version string: '{}'", version))?;
+    let runtime_type = DotnetRuntimeType::from_str(runtime_type_str).ok_or_else(|| anyhow!("Invalid dotnet version string: '{}'", version))?;
     let version_str = format!("{}.{}.{}", major, minor, build);
     let display_name = format!(".NET {} {:?} {:?}", version_str, architecture, runtime_type);
-    Ok(DotnetInfo { display_name, version: version_str, architecture, runtime_type })
+    Ok(DotnetInfo {
+        display_name,
+        version: version_str,
+        architecture,
+        runtime_type,
+    })
 }
 
 #[derive(Clone, Debug)]
@@ -701,6 +737,36 @@ fn test_parse_dotnet_version() {
     assert_eq!(info.version, "8.0.0");
     assert_eq!(info.architecture, RuntimeArch::X64);
     assert_eq!(info.runtime_type, DotnetRuntimeType::Sdk);
+
+    let info = parse_dotnet_version("net9").unwrap();
+    assert_eq!(info.version, "9.0.0");
+    assert_eq!(info.architecture, RuntimeArch::X64);
+    assert_eq!(info.runtime_type, DotnetRuntimeType::WindowsDesktop);
+
+    let info = parse_dotnet_version("net9.0-x86").unwrap();
+    assert_eq!(info.version, "9.0.0");
+    assert_eq!(info.architecture, RuntimeArch::X86);
+    assert_eq!(info.runtime_type, DotnetRuntimeType::WindowsDesktop);
+
+    let info = parse_dotnet_version("net9-arm64-runtime").unwrap();
+    assert_eq!(info.version, "9.0.0");
+    assert_eq!(info.architecture, RuntimeArch::Arm64);
+    assert_eq!(info.runtime_type, DotnetRuntimeType::Runtime);
+
+    let info = parse_dotnet_version("net10").unwrap();
+    assert_eq!(info.version, "10.0.0");
+    assert_eq!(info.architecture, RuntimeArch::X64);
+    assert_eq!(info.runtime_type, DotnetRuntimeType::WindowsDesktop);
+
+    let info = parse_dotnet_version("net10.0-x86").unwrap();
+    assert_eq!(info.version, "10.0.0");
+    assert_eq!(info.architecture, RuntimeArch::X86);
+    assert_eq!(info.runtime_type, DotnetRuntimeType::WindowsDesktop);
+
+    let info = parse_dotnet_version("net10-arm64-asp").unwrap();
+    assert_eq!(info.version, "10.0.0");
+    assert_eq!(info.architecture, RuntimeArch::Arm64);
+    assert_eq!(info.runtime_type, DotnetRuntimeType::AspNetCore);
 
     let info = parse_dotnet_version("net321.321.321").unwrap();
     assert_eq!(info.version, "321.321.321");

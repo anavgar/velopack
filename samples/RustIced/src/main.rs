@@ -1,9 +1,11 @@
+// NOTE: This sample uses unwrap() liberally for brevity. In production code,
+// you should handle errors properly (e.g. with Result, match, or unwrap_or).
 #![windows_subsystem = "windows"]
 
 mod logger;
 
 use anyhow::Result;
-use iced::widget::{button, column, container, scrollable, text, vertical_space};
+use iced::widget::{button, column, container, scrollable, space, text};
 use iced::Task;
 use velopack::*;
 
@@ -31,6 +33,8 @@ pub struct AppState {
 }
 
 impl AppState {
+    // NOTE: This sample uses unwrap() for brevity. In production code,
+    // you should handle errors properly (e.g. with Result, match, or unwrap_or).
     pub fn new() -> (Self, Task<Message>) {
         let source = sources::FileSource::new(env!("RELEASES_DIR"));
         let um = UpdateManager::new(source, None, None);
@@ -71,33 +75,44 @@ fn main() -> Result<()> {
     
     info!("Finished hooks, starting Iced application...");
 
-    iced::application("Velopack Rust Sample", update, view)
+    iced::application(AppState::new, update, view)
+        .title(title)
         .window_size(iced::Size::new(600.0, 400.0))
         .centered()
         .subscription(logger::IcedLogger::subscription)
-        .run_with(|| AppState::new())?;
+        .run()?;
     
     Ok(())
 }
 
+fn title(_state: &AppState) -> String {
+    "Velopack Rust Sample".to_string()
+}
+
+// NOTE: This sample uses unwrap() for brevity. In production code,
+// you should handle errors properly (e.g. with Result, match, or unwrap_or).
 fn update(state: &mut AppState, message: Message) -> Task<Message> {
     match message {
         Message::CheckForUpdates => {
             state.status = AppStatus::Checking;
-            Task::perform(state.update_manager.as_ref().unwrap().check_for_updates_async(), |result| match result {
-                Ok(update_info) => {
-                    match update_info {
-                        UpdateCheck::RemoteIsEmpty => Message::UpdatesFound(None),
-                        UpdateCheck::NoUpdateAvailable => Message::UpdatesFound(None),
-                        UpdateCheck::UpdateAvailable(updates) => Message::UpdatesFound(Some(updates)),
+            let um = state.update_manager.as_ref().unwrap().clone();
+            Task::perform(
+                async move {
+                    let (tx, rx) = iced::futures::channel::oneshot::channel();
+                    std::thread::spawn(move || { let _ = tx.send(um.check_for_updates()); });
+                    rx.await.unwrap()
+                },
+                |result| match result {
+                    Ok(update_info) => {
+                        match update_info {
+                            UpdateCheck::RemoteIsEmpty => Message::UpdatesFound(None),
+                            UpdateCheck::NoUpdateAvailable => Message::UpdatesFound(None),
+                            UpdateCheck::UpdateAvailable(updates) => Message::UpdatesFound(Some(updates)),
+                        }
                     }
-                }
-                Err(_) => {
-                    // Handle the error case, perhaps by logging or setting an error state
-                    // For simplicity, we're sending a None update here, but you should handle errors appropriately
-                    Message::UpdatesFound(None)
-                }
-            })
+                    Err(_) => Message::UpdatesFound(None)
+                },
+            )
         }
         Message::UpdatesFound(update) => {
             state.update_info = update;
@@ -109,8 +124,16 @@ fn update(state: &mut AppState, message: Message) -> Task<Message> {
         }
         Message::DownloadUpdates => {
             state.status = AppStatus::Downloading;
-            let update_info = state.update_info.clone().unwrap(); // Ensure you handle this safely in your actual code
-            Task::perform(state.update_manager.as_ref().unwrap().download_updates_async(&update_info, None), |_| Message::DownloadComplete)
+            let update_info = state.update_info.clone().unwrap();
+            let um = state.update_manager.as_ref().unwrap().clone();
+            Task::perform(
+                async move {
+                    let (tx, rx) = iced::futures::channel::oneshot::channel();
+                    std::thread::spawn(move || { let _ = tx.send(um.download_updates(&update_info, None)); });
+                    rx.await.unwrap()
+                },
+                |_| Message::DownloadComplete,
+            )
         }
         Message::DownloadProgress(progress) => {
             state.download_progress = progress;
@@ -121,7 +144,7 @@ fn update(state: &mut AppState, message: Message) -> Task<Message> {
             Task::none()
         }
         Message::Restart => {
-            let update_info = state.update_info.clone().unwrap(); // Ensure you handle this safely in your actual code
+            let update_info = state.update_info.clone().unwrap();
             state.update_manager.as_ref().unwrap().apply_updates_and_restart(update_info).unwrap();
             Task::none()
         }
@@ -177,7 +200,7 @@ fn view(state: &AppState) -> iced::Element<'_, Message> {
 
     column![
         content,
-        vertical_space().height(20),
+        space().height(20),
         log_container,
     ].into()
 }

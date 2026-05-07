@@ -22,12 +22,12 @@ jobs:
           - runner: ubuntu-22.04
             target: ppc64le
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - name: Setup Job Environment
         uses: ./.github/actions/job-setup
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: 3.x
       - name: Build wheels
@@ -47,7 +47,7 @@ jobs:
       #     sccache: ${{ !startsWith(github.ref, 'refs/tags/') }}
       #     manylinux: auto
       - name: Upload wheels
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: wheels-linux-${{ matrix.platform.target }}
           path: src/lib-python/dist
@@ -68,12 +68,12 @@ jobs:
           - runner: ubuntu-22.04
             target: armv7
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - name: Setup Job Environment
         uses: ./.github/actions/job-setup
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: 3.x
       - name: Build wheels
@@ -93,7 +93,7 @@ jobs:
       #     sccache: ${{ !startsWith(github.ref, 'refs/tags/') }}
       #     manylinux: musllinux_1_2
       - name: Upload wheels
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: wheels-musllinux-${{ matrix.platform.target }}
           path: src/lib-python/dist
@@ -117,12 +117,12 @@ jobs:
     steps:
       - uses: actions-rust-lang/setup-rust-toolchain@v1
         if: ${{ matrix.platform.runner == 'windows-11-arm' }}
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - name: Setup Job Environment
         uses: ./.github/actions/job-setup
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: 3.x
           architecture: ${{ matrix.platform.target }}
@@ -141,7 +141,7 @@ jobs:
       #     args: --release --out dist -i python3.13t
       #     sccache: ${{ !startsWith(github.ref, 'refs/tags/') }}
       - name: Upload wheels
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: wheels-windows-${{ matrix.platform.target }}
           path: src/lib-python/dist
@@ -153,7 +153,7 @@ jobs:
       fail-fast: false
       matrix:
         platform:
-          - runner: macos-14
+          - runner: macos-13
             target: x86_64
           - runner: macos-14
             target: aarch64
@@ -190,7 +190,7 @@ jobs:
   sdist:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - name: Setup Job Environment
@@ -202,7 +202,7 @@ jobs:
           command: sdist
           args: --out dist
       - name: Upload sdist
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: wheels-sdist
           path: src/lib-python/dist

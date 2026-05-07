@@ -4,11 +4,20 @@ use std::os::unix::fs::PermissionsExt;
 use std::{fs, path::PathBuf, process::Command};
 use velopack::{bundle, locator::VelopackLocator};
 
-pub fn apply_package_impl<'a>(locator: &VelopackLocator, pkg: &PathBuf, _runhooks: bool) -> Result<VelopackLocator> {
+pub fn apply_package_impl<'a>(locator: &VelopackLocator, pkg: &PathBuf, _hook_mode: super::HookRunMode) -> Result<VelopackLocator> {
+    let _mutex = locator.try_get_exclusive_lock()?;
     // on linux, the current "dir" is actually an AppImage file which we need to replace.
     info!("Loading bundle from {:?}", pkg);
-    let mut bundle = bundle::load_bundle_from_file(pkg)?;
-    let manifest = bundle.read_manifest()?;
+    let mut bundle = bundle::load_bundle_from_file(pkg).map_err(|e| {
+        warn!("Deleting package {:?} to prevent update loop: {}", pkg, e);
+        let _ = fs::remove_file(pkg);
+        e
+    })?;
+    let manifest = bundle.read_manifest().map_err(|e| {
+        warn!("Deleting package {:?} to prevent update loop: {}", pkg, e);
+        let _ = fs::remove_file(pkg);
+        e
+    })?;
     let temp_path = locator.get_temp_dir_rand16().to_string_lossy().to_string();
     let root_path = locator.get_root_dir().to_string_lossy().to_string();
     let script_path = format!("/var/tmp/velopack_update_{}.sh", manifest.id);
@@ -16,7 +25,13 @@ pub fn apply_package_impl<'a>(locator: &VelopackLocator, pkg: &PathBuf, _runhook
 
     let action: Result<()> = (|| {
         info!("Extracting bundle to temp file: {}", temp_path);
-        bundle.extract_zip_predicate_to_path(|z| z.ends_with(".AppImage"), &temp_path)?;
+        bundle
+            .extract_zip_predicate_to_path(|z| z.ends_with(".AppImage"), &temp_path)
+            .map_err(|e| {
+                warn!("Deleting package {:?} to prevent update loop: {}", pkg, e);
+                let _ = fs::remove_file(pkg);
+                e
+            })?;
 
         info!("Chmod as executable");
         std::fs::set_permissions(&temp_path, fs::Permissions::from_mode(0o755))?;
@@ -34,12 +49,18 @@ pub fn apply_package_impl<'a>(locator: &VelopackLocator, pkg: &PathBuf, _runhook
         }
 
         // if the operation failed, let's try again elevated with pkexec
-        error!("An error occurred ({:?}), will attempt to elevate permissions and try again...", mv_output);
+        error!(
+            "An error occurred ({:?}), will attempt to elevate permissions and try again...",
+            mv_output
+        );
         dialogs::ask_user_to_elevate(&manifest.title, &manifest.version.to_string())?;
         let script = format!("#!/bin/sh\nmv -f '{}' '{}'", temp_path, &root_path);
         info!("Writing script for elevation: \n{}", script);
         fs::write(&script_path, script)?;
-        std::fs::set_permissions(&script_path, <std::fs::Permissions as std::os::unix::fs::PermissionsExt>::from_mode(0o755))?;
+        std::fs::set_permissions(
+            &script_path,
+            <std::fs::Permissions as std::os::unix::fs::PermissionsExt>::from_mode(0o755),
+        )?;
         let args = vec![&script_path];
         info!("Attempting to elevate: pkexec {:?}", args);
         let elev_output = Command::new("pkexec").args(args).output()?;

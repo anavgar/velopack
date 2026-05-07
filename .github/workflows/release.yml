@@ -13,14 +13,16 @@ env:
 
 permissions:
   contents: write
-  pull-requests: read
+  id-token: write
 
 jobs:
-  publish:
+  release:
     runs-on: ubuntu-latest
+    outputs:
+      pkg_version: ${{ steps.version.outputs.pkg_version }}
     steps:
       - name: Download build version
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: build-version
           run-id: ${{ github.event.inputs.workflow_run_id }}
@@ -28,28 +30,30 @@ jobs:
           path: ./
 
       - name: Load version from file
+        id: version
         run: |
           version=$(cat version.txt | xargs)
           echo "PKG_VERSION=$version" >> $GITHUB_ENV
+          echo "pkg_version=$version" >> $GITHUB_OUTPUT
 
       - name: Download vpk
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: packages
           run-id: ${{ github.event.inputs.workflow_run_id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: ./packages
-          
+
       - name: Download lib-nodejs
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: lib-nodejs
           run-id: ${{ github.event.inputs.workflow_run_id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: ./lib-nodejs
-          
+
       - name: Download lib-rust
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: lib-rust
           run-id: ${{ github.event.inputs.workflow_run_id }}
@@ -57,7 +61,7 @@ jobs:
           path: ./lib-rust
 
       - name: Download lib-c
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: lib-c
           run-id: ${{ github.event.inputs.workflow_run_id }}
@@ -71,7 +75,7 @@ jobs:
           zip -r ../lib-c/velopack_libc_$PKG_VERSION.zip .
 
       - name: Download lib-python
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: lib-python
           run-id: ${{ github.event.inputs.workflow_run_id }}
@@ -84,11 +88,11 @@ jobs:
           mkdir -p ../lib-python
           zip -r ../lib-python/velopack_libpython_$PKG_VERSION.zip .
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           path: ./repo
           fetch-depth: 0
-          
+
       - name: Checkout release commit
         working-directory: ./repo
         run: |
@@ -229,3 +233,96 @@ jobs:
           gh release upload $currentTag (get-item ../lib-rust/*.crate)
           gh release upload $currentTag (get-item ../lib-c/*.zip)
           gh release upload $currentTag (get-item ../lib-python/*.zip)
+
+  publish-nuget:
+    needs: release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download NuGet packages
+        uses: actions/download-artifact@v8
+        with:
+          name: packages
+          run-id: ${{ github.event.inputs.workflow_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: ./packages
+
+      - name: NuGet login (OIDC)
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: caesay
+
+      - name: Publish NuGet Packages
+        run: |
+          for f in packages/*.nupkg; do
+            dotnet nuget push "$f" -k ${{ steps.login.outputs.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
+          done
+
+  publish-npm:
+    needs: release
+    runs-on: ubuntu-latest
+    env:
+      PKG_VERSION: ${{ needs.release.outputs.pkg_version }}
+    steps:
+      - name: Download NPM package
+        uses: actions/download-artifact@v8
+        with:
+          name: lib-nodejs
+          run-id: ${{ github.event.inputs.workflow_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: ./lib-nodejs
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Publish NPM Package
+        working-directory: ./lib-nodejs
+        run: npm publish velopack-$PKG_VERSION.tgz --access public --tag latest --provenance
+
+  publish-crate:
+    needs: release
+    runs-on: ubuntu-latest
+    env:
+      PKG_VERSION: ${{ needs.release.outputs.pkg_version }}
+    steps:
+      - name: Download Rust crate
+        uses: actions/download-artifact@v8
+        with:
+          name: lib-rust
+          run-id: ${{ github.event.inputs.workflow_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: ./lib-rust
+
+      - uses: rust-lang/crates-io-auth-action@v1
+        id: auth
+
+      - name: Publish Rust Crate
+        working-directory: ./lib-rust
+        run: |
+          tar -xzf velopack-$PKG_VERSION.crate
+          cd velopack-$PKG_VERSION
+          rm Cargo.toml.orig
+          rm .cargo_vcs_info.json
+          cargo publish --allow-dirty --no-verify
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ steps.auth.outputs.token }}
+
+  publish-pypi:
+    needs: release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Python package
+        uses: actions/download-artifact@v8
+        with:
+          name: lib-python
+          run-id: ${{ github.event.inputs.workflow_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: ./lib-python-files
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: lib-python-files/
+          verbose: true

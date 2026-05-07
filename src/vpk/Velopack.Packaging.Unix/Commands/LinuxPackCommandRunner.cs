@@ -21,9 +21,10 @@ public class LinuxPackCommandRunner : PackageBuilder<LinuxPackOptions>
         var dir = TempDir.CreateSubdirectory("PreprocessPackDir.AppDir");
         var bin = dir.CreateSubdirectory("usr").CreateSubdirectory("bin");
 
-        if (Options.PackDirectory.EndsWith(".AppDir", StringComparison.OrdinalIgnoreCase)) {
+        var normalizedPackDir = Options.PackDirectory.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+        if (Path.GetFileName(normalizedPackDir).EndsWith(".AppDir", StringComparison.OrdinalIgnoreCase)) {
             Log.Info("Pack directory ends with .AppDir, will skip building new one.");
-            CopyFiles(new DirectoryInfo(Options.PackDirectory), dir, progress, true);
+            CopyFiles(new DirectoryInfo(normalizedPackDir), dir, progress, true);
         } else {
             Log.Info("Building new AppDir from pack directory contents");
             var appRunPath = Path.Combine(dir.FullName, "AppRun");
@@ -92,7 +93,9 @@ public class LinuxPackCommandRunner : PackageBuilder<LinuxPackOptions>
 
         // velopack required files
         File.WriteAllText(Path.Combine(bin.FullName, CoreUtil.SpecVersionFileName), GenerateNuspecContent());
-        File.Copy(HelperFile.GetUpdatePath(Options.TargetRuntime, Log), Path.Combine(bin.FullName, "UpdateNix"), true);
+        var updateNixPath = Path.Combine(bin.FullName, "UpdateNix");
+        File.Copy(HelperFile.GetUpdatePath(Options.TargetRuntime, Log), updateNixPath, true);
+        Chmod.ChmodFileAsExecutable(updateNixPath);
         progress(100);
         return Task.FromResult(dir.FullName);
     }

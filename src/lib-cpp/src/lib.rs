@@ -49,6 +49,83 @@ pub extern "C" fn vpkc_new_source_http_url(psz_http_url: *const c_char) -> *mut 
     }
 }
 
+/// Create a new GithubSource update source for a GitHub repository.
+/// @param psz_repo_url The GitHub repository URL (e.g. "https://github.com/user/repo").
+/// @param psz_access_token Optional access token for private repositories (can be null).
+/// @param b_prerelease Whether to include pre-release versions.
+/// @returns A new vpkc_update_source_t instance, or null on error.
+#[no_mangle]
+#[logfn(Trace)]
+#[logfn_inputs(Trace)]
+pub extern "C" fn vpkc_new_source_github(
+    psz_repo_url: *const c_char,
+    psz_access_token: *const c_char,
+    b_prerelease: bool,
+) -> *mut vpkc_update_source_t {
+    if let Some(repo_url) = c_to_String(psz_repo_url).ok() {
+        let access_token = c_to_String(psz_access_token).ok();
+        UpdateSourceRawPtr::new(Box::new(sources::GithubSource::new(&repo_url, access_token, b_prerelease)))
+    } else {
+        log::error!("psz_repo_url is null");
+        ptr::null_mut()
+    }
+}
+
+/// Create a new GitlabSource update source for a GitLab repository.
+/// @param psz_repo_url The GitLab repository URL (e.g. "https://gitlab.com/user/repo").
+/// @param psz_access_token Optional access token for private repositories (can be null).
+/// @param b_prerelease Whether to include pre-release versions.
+/// @returns A new vpkc_update_source_t instance, or null on error.
+#[no_mangle]
+#[logfn(Trace)]
+#[logfn_inputs(Trace)]
+pub extern "C" fn vpkc_new_source_gitlab(
+    psz_repo_url: *const c_char,
+    psz_access_token: *const c_char,
+    b_prerelease: bool,
+) -> *mut vpkc_update_source_t {
+    if let Some(repo_url) = c_to_String(psz_repo_url).ok() {
+        let access_token = c_to_String(psz_access_token).ok();
+        UpdateSourceRawPtr::new(Box::new(sources::GitlabSource::new(&repo_url, access_token, b_prerelease)))
+    } else {
+        log::error!("psz_repo_url is null");
+        ptr::null_mut()
+    }
+}
+
+/// Create a new GiteaSource update source for a Gitea repository.
+/// @param psz_repo_url The Gitea repository URL (e.g. "https://gitea.example.com/user/repo").
+/// @param psz_access_token Optional access token for private repositories (can be null).
+/// @param b_prerelease Whether to include pre-release versions.
+/// @returns A new vpkc_update_source_t instance, or null on error.
+#[no_mangle]
+#[logfn(Trace)]
+#[logfn_inputs(Trace)]
+pub extern "C" fn vpkc_new_source_gitea(
+    psz_repo_url: *const c_char,
+    psz_access_token: *const c_char,
+    b_prerelease: bool,
+) -> *mut vpkc_update_source_t {
+    if let Some(repo_url) = c_to_String(psz_repo_url).ok() {
+        let access_token = c_to_String(psz_access_token).ok();
+        UpdateSourceRawPtr::new(Box::new(sources::GiteaSource::new(&repo_url, access_token, b_prerelease)))
+    } else {
+        log::error!("psz_repo_url is null");
+        ptr::null_mut()
+    }
+}
+
+/// Create a new VelopackFlowSource update source for Velopack Flow.
+/// @param psz_base_uri Optional base URI for the Velopack Flow API (can be null for default).
+/// @returns A new vpkc_update_source_t instance, or null on error.
+#[no_mangle]
+#[logfn(Trace)]
+#[logfn_inputs(Trace)]
+pub extern "C" fn vpkc_new_source_velopack_flow(psz_base_uri: *const c_char) -> *mut vpkc_update_source_t {
+    let base_uri = c_to_String(psz_base_uri).ok();
+    UpdateSourceRawPtr::new(Box::new(sources::VelopackFlowSource::new(base_uri.as_deref())))
+}
+
 /// Create a new _CUSTOM_ update source with user-provided callbacks to fetch release feeds and download assets.
 /// You can report download progress using `vpkc_source_report_progress`. Note that the callbacks must be valid
 /// for the lifetime of any UpdateManager's that use this source. You should call `vpkc_free_source` to free the source,
@@ -156,7 +233,7 @@ pub extern "C" fn vpkc_new_update_manager_with_source(
     p_manager: *mut *mut vpkc_update_manager_t,
 ) -> bool {
     wrap_error(|| {
-        let source = UpdateSourceRawPtr::get_source_clone(p_source).ok_or(anyhow!("pSource must not be null"))?;
+        let source = UpdateSourceRawPtr::get_source_boxed(p_source).ok_or(anyhow!("pSource must not be null"))?;
         let options = c_to_UpdateOptions(p_options).ok();
         let locator = c_to_VelopackLocatorConfig(p_locator).ok();
         let manager = UpdateManager::new_boxed(source, options, locator)?;
@@ -244,10 +321,7 @@ pub extern "C" fn vpkc_update_pending_restart(p_manager: *mut vpkc_update_manage
 #[no_mangle]
 #[logfn(Trace)]
 #[logfn_inputs(Trace)]
-pub extern "C" fn vpkc_check_for_updates(
-    p_manager: *mut vpkc_update_manager_t,
-    p_update: *mut *mut vpkc_update_info_t,
-) -> vpkc_update_check_t {
+pub extern "C" fn vpkc_check_for_updates(p_manager: *mut vpkc_update_manager_t, p_update: *mut *mut vpkc_update_info_t) -> vpkc_update_check_t {
     match p_manager.to_opaque_ref() {
         Some(manager) => match manager.check_for_updates() {
             Ok(UpdateCheck::UpdateAvailable(info)) => {
@@ -405,7 +479,11 @@ pub extern "C" fn vpkc_unsafe_apply_updates(
         let manager = p_manager.to_opaque_ref().ok_or(anyhow!("pManager must not be null"))?;
         let asset = c_to_VelopackAsset(p_asset)?;
         let restart_args = c_to_String_vec(p_restart_args, c_restart_args)?;
-        let wait_mode = if dw_wait_pid > 0 { ApplyWaitMode::WaitPid(dw_wait_pid) } else { ApplyWaitMode::NoWait };
+        let wait_mode = if dw_wait_pid > 0 {
+            ApplyWaitMode::WaitPid(dw_wait_pid)
+        } else {
+            ApplyWaitMode::NoWait
+        };
         manager.unsafe_apply_updates(&asset, b_silent, wait_mode, b_restart, &restart_args)?;
         Ok(())
     })

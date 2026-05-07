@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.Versioning;
-using NuGet.Versioning;
 using Velopack.Logging;
 using Velopack.NuGet;
 using Velopack.Util;
@@ -31,10 +28,8 @@ namespace Velopack.Locators
         /// <inheritdoc />
         public override SemanticVersion? CurrentlyInstalledVersion { get; }
 
-        private readonly Lazy<string?> _packagesDir;
-
         /// <inheritdoc />
-        public override string? PackagesDir => _packagesDir.Value;
+        public override string? PackagesDir { get; }
 
         /// <inheritdoc />
         public override bool IsPortable => RootAppDir != null && File.Exists(Path.Combine(RootAppDir, ".portable"));
@@ -44,6 +39,9 @@ namespace Velopack.Locators
 
         /// <inheritdoc />
         public override string? Channel { get; }
+
+        /// <inheritdoc />
+        public override string? AppUserModelId { get; }
 
         /// <inheritdoc cref="WindowsVelopackLocator" />
         public WindowsVelopackLocator(IProcessImpl? processImpl, IVelopackLogger? customLog)
@@ -69,7 +67,7 @@ namespace Velopack.Locators
             string myDirPath = Path.GetDirectoryName(ourPath)!;
             var myDirName = Path.GetFileName(myDirPath);
             var possibleUpdateExe = Path.GetFullPath(Path.Combine(myDirPath, "..", "Update.exe"));
-            var ixCurrent = ourPath.LastIndexOf("/current/", StringComparison.InvariantCultureIgnoreCase);
+            var ixCurrent = ourPath.LastIndexOf("\\current\\", StringComparison.OrdinalIgnoreCase);
 
             if (File.Exists(possibleUpdateExe)) {
                 // we're running in a directory with an Update.exe in the parent directory
@@ -84,7 +82,10 @@ namespace Velopack.Locators
                     UpdateExePath = possibleUpdateExe;
                     AppContentDir = myDirPath;
                     Channel = manifest.Channel;
-                } else if (PathUtil.PathPartStartsWith(myDirName, "app-") && NuGetVersion.TryParse(myDirName.Substring(4), out var version)) {
+                    AppUserModelId = !string.IsNullOrEmpty(manifest.ShortcutAumid)
+                        ? manifest.ShortcutAumid
+                        : CoreUtil.GetAppUserModelId(manifest.Id!);
+                } else if (PathUtil.PathPartStartsWith(myDirName, "app-") && SemanticVersion.TryParse(myDirName.Substring(4), out var version)) {
                     // this is a legacy case, where we're running in an 'root/app-*/' directory, and there is no manifest.
                     initLog.Warn(
                         "Update.exe in parent dir, Legacy app-* directory detected, sq.version not found. Using directory name for AppId and Version.");
@@ -112,43 +113,56 @@ namespace Velopack.Locators
                     CurrentlyInstalledVersion = manifest.Version;
                     AppContentDir = currentDir;
                     Channel = manifest.Channel;
+                    AppUserModelId = !string.IsNullOrEmpty(manifest.ShortcutAumid)
+                        ? manifest.ShortcutAumid
+                        : CoreUtil.GetAppUserModelId(manifest.Id!);
                 }
             }
 
-            string? writableRootDir = GetWritableDirectory();
-            _packagesDir = new(() => GetPackagesDir(writableRootDir));
+            // Determine packages directory using simple writability test
+            if (RootAppDir != null) {
+                if (PathUtil.IsDirectoryWritable(RootAppDir)) {
+                    PackagesDir = CreateSubDirIfDoesNotExist(RootAppDir, "packages");
+                    initLog.Info($"Root directory is writable, using packages directory: {PackagesDir}");
+                } else {
+                    var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                    if (!string.IsNullOrEmpty(localAppData) && !string.IsNullOrEmpty(AppId)) {
+                        var fallbackBase = Path.Combine(localAppData, AppId);
+                        Directory.CreateDirectory(fallbackBase);
+                        PackagesDir = Path.Combine(fallbackBase, "packages");
+                        Directory.CreateDirectory(PackagesDir);
+                        UpdateExePath = Path.Combine(fallbackBase, "Update.exe");
+                        initLog.Info($"Root directory is not writable, using fallback directory: {fallbackBase}");
 
-            Exception? fileLogException = null;
-            if (!string.IsNullOrEmpty(AppId) && !string.IsNullOrEmpty(writableRootDir)) {
-                try {
-                    var logFilePath = Path.Combine(writableRootDir, DefaultLoggingFileName);
-                    var fileLog = new FileVelopackLogger(logFilePath, currentProcessId);
-                    CombinedLogger.Add(fileLog);
-                    //fileLogCreated = true;
-                } catch (Exception ex) {
-                    fileLogException = ex;
+                        // If the fallback Update.exe doesn't exist yet (e.g. first launch after MSI install),
+                        // copy it from the root directory so UpdateExePath always points to an existing file.
+                        var rootUpdateExe = Path.Combine(RootAppDir, "Update.exe");
+                        if (!File.Exists(UpdateExePath) && File.Exists(rootUpdateExe)) {
+                            try {
+                                File.Copy(rootUpdateExe, UpdateExePath);
+                                initLog.Info($"Copied Update.exe from root to fallback: {UpdateExePath}");
+                            } catch (Exception ex) {
+                                initLog.Error($"Failed to copy Update.exe to fallback path: {ex.Message}");
+                            }
+                        }
+                    } else {
+                        initLog.Error("Root directory is not writable and LocalAppData is unavailable. Updates may not work correctly.");
+                    }
                 }
             }
 
-            // if the PackagesDir was unwritable, or we don't know the app id, we could try to write to the temp folder instead.
-            Exception? tempFileLogException = null;
-            if (fileLogException is not null) {
-                try {
-                    var logFileName = string.IsNullOrEmpty(AppId) ? DefaultLoggingFileName : $"velopack_{AppId}.log";
-                    var logFilePath = Path.Combine(Path.GetTempPath(), logFileName);
-                    var fileLog = new FileVelopackLogger(logFilePath, currentProcessId);
-                    CombinedLogger.Add(fileLog);
-                } catch (Exception ex) {
-                    tempFileLogException = ex;
-                }
-            }
+            var localAppDataForLog = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            var logDir = Path.Combine(localAppDataForLog, "velopack");
+            try { Directory.CreateDirectory(logDir); } catch { }
+            var logFilePath = !string.IsNullOrEmpty(AppId)
+                ? Path.Combine(logDir, $"velopack_{AppId}.log")
+                : Path.Combine(logDir, "velopack.log");
 
-            if (tempFileLogException is not null) {
-                //NB: fileLogException is not null here
-                initLog.Error("Unable to create file logger: " + new AggregateException(fileLogException!, tempFileLogException));
-            } else if (fileLogException is not null) {
-                initLog.Info("Unable to create file logger; using temp directory for log instead");
-                initLog.Trace($"File logger exception: {fileLogException}");
+            try {
+                var fileLog = new FileVelopackLogger(logFilePath, currentProcessId);
+                CombinedLogger.Add(fileLog);
+            } catch (Exception ex) {
+                initLog.Error("Unable to create file logger: " + ex);
             }
 
             if (AppId is null) {
@@ -156,61 +170,6 @@ namespace Velopack.Locators
                     $"Failed to initialize {nameof(WindowsVelopackLocator)}. This could be because the program is not installed or packaged properly.");
             } else {
                 initLog.Info($"Initialized {nameof(WindowsVelopackLocator)} for {AppId} v{CurrentlyInstalledVersion}");
-            }
-        }
-
-        private string? GetPackagesDir(string? writableRootDir)
-        {
-            const string PackagesDirName = "packages";
-
-            if (writableRootDir is not null) {
-                // If we have a writable root directory, we can create the packages directory there.
-                return CreateSubDirIfDoesNotExist(writableRootDir, PackagesDirName);
-            }
-
-            Log.Warn("Unable to create packages directory");
-            return null;
-        }
-
-        private string? GetWritableDirectory()
-        {
-            if (string.IsNullOrWhiteSpace(AppId)) {
-                Log.Warn("AppId is not set, cannot determine writable directory.");
-                return null;
-            }
-            string? writableRootDir = PossibleDirectories()
-                .FirstOrDefault(IsWritable);
-
-            if (writableRootDir is null) {
-                Log.Warn("Unable to find a writable directory for package.");
-                return null;
-            }
-
-            Log.Trace("Using writable directory: " + writableRootDir);
-
-            return writableRootDir;
-
-            static bool IsWritable(string? directoryPath)
-            {
-                if (directoryPath is null) return false;
-
-                try {
-                    if (!Directory.Exists(directoryPath)) {
-                        Directory.CreateDirectory(directoryPath);
-                    }
-
-                    return PathUtil.IsDirectoryWritable(directoryPath);
-                } catch {
-                    return false;
-                }
-            }
-
-            IEnumerable<string?> PossibleDirectories()
-            {
-                if (!string.IsNullOrWhiteSpace(AppId)) {
-                    yield return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "velopack", AppId);
-                }
-                yield return RootAppDir;
             }
         }
     }

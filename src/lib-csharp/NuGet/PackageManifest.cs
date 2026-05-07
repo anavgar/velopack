@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using NuGet.Versioning;
-
 namespace Velopack.NuGet
 {
     public class PackageManifest
@@ -27,7 +25,7 @@ namespace Velopack.NuGet
         public string? Title { get; private set; }
         public string? Summary { get; private set; }
         public string? Copyright { get; private set; }
-        public string? ShortcutAmuid { get; private set; }
+        public string? ShortcutAumid { get; private set; }
         public IEnumerable<string> ShortcutLocations { get; private set; } = Enumerable.Empty<string>();
         public IEnumerable<string> Authors { get; private set; } = Enumerable.Empty<string>();
         public IEnumerable<string> RuntimeDependencies { get; private set; } = Enumerable.Empty<string>();
@@ -94,7 +92,7 @@ namespace Velopack.NuGet
                 Id = value;
                 break;
             case "version":
-                Version = NuGetVersion.Parse(value);
+                Version = SemanticVersion.Parse(value);
                 break;
             case "authors":
                 Authors = getCommaDelimitedValue(value);
@@ -142,8 +140,9 @@ namespace Velopack.NuGet
             case "shortcutLocations":
                 ShortcutLocations = getCommaDelimitedValue(value);
                 break;
-            case "shortcutAmuid":
-                ShortcutAmuid = value;
+            case "shortcutAumid":
+            case "shortcutAmuid": // legacy typo / backwards compatibility
+                ShortcutAumid = value;
                 break;
             }
         }

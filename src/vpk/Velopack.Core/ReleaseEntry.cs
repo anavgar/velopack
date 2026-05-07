@@ -10,7 +10,6 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using NuGet.Versioning;
 using Velopack.Util;
 
 namespace Velopack.Core
@@ -79,7 +78,7 @@ namespace Velopack.Core
 
 
 
-            var semVer = NuGetVersion.Parse(version);
+            var semVer = SemanticVersion.Parse(version);
             return new ReleaseEntryName(name, semVer, delta);
         }
 
@@ -351,7 +350,7 @@ namespace Velopack.Core
             Contract.Requires(file != null && file.CanRead);
             Contract.Requires(!String.IsNullOrEmpty(filename));
 
-            var hash = IoUtil.CalculateStreamSHA1(file);
+            var hash = CalculateStreamSHA1(file);
             return new ReleaseEntry(hash, filename, file.Length, baseUrl);
         }
 
@@ -400,6 +399,13 @@ namespace Velopack.Core
             }
 
             return entries;
+        }
+
+        private static string CalculateStreamSHA1(Stream file)
+        {
+            using (var sha1 = System.Security.Cryptography.SHA1.Create()) {
+                return BitConverter.ToString(sha1.ComputeHash(file)).Replace("-", String.Empty);
+            }
         }
 
         private static string StagingPercentageAsString(float percentage)

@@ -1,4 +1,4 @@
-use anyhow::Result;
+use anyhow::{bail, Result};
 use chrono::{Datelike, Local as DateTime};
 use std::ffi::OsString;
 use velopack::locator::VelopackLocator;
@@ -60,5 +60,47 @@ pub fn remove_uninstall_entry(locator: &VelopackLocator) -> Result<()> {
     let hkcu = RegKey::predef(HKEY_CURRENT_USER);
     let (reg_uninstall, _reg_uninstall_disp) = hkcu.create_subkey(UNINSTALL_REGISTRY_KEY)?;
     reg_uninstall.delete_subkey_all(&app_id)?;
+    Ok(())
+}
+
+pub fn update_uninstall_entry(old_locator: &VelopackLocator, new_locator: &VelopackLocator) -> Result<()> {
+    if old_locator.get_is_msi_install() {
+        info!("MSI installation detected. Updating MSI registry entry.");
+        if old_locator.get_manifest_id() != new_locator.get_manifest_id() {
+            warn!("App ID changed for MSI install. Cannot update MSI registry reliably.");
+        }
+        update_msi_uninstall_entry(new_locator)
+    } else {
+        if old_locator.get_manifest_id() != new_locator.get_manifest_id() {
+            info!("The app ID has changed, removing old uninstall registry entry.");
+            if let Err(e) = remove_uninstall_entry(old_locator) {
+                warn!("Failed to remove old uninstall entry ({}).", e);
+            }
+        }
+        write_uninstall_entry(new_locator)
+    }
+}
+
+pub fn update_msi_uninstall_entry(locator: &VelopackLocator) -> Result<()> {
+    let app_id = locator.get_manifest_id();
+    let short_version = locator.get_manifest_version_short_string();
+    let reg_path = format!("{}\\MSI:{}", UNINSTALL_REGISTRY_KEY, app_id);
+
+    info!("Updating MSI uninstall entry for {} to version {}", app_id, short_version);
+
+    // Try HKCU first (per-user MSI install), then HKLM (per-machine MSI install)
+    let hkcu = RegKey::predef(HKEY_CURRENT_USER);
+    let hklm = RegKey::predef(HKEY_LOCAL_MACHINE);
+
+    if let Ok(reg_app) = hkcu.open_subkey_with_flags(&reg_path, KEY_SET_VALUE) {
+        info!("Updating DisplayVersion in HKCU to {}", short_version);
+        reg_app.set_value("DisplayVersion", &short_version)?;
+    } else if let Ok(reg_app) = hklm.open_subkey_with_flags(&reg_path, KEY_SET_VALUE) {
+        info!("Updating DisplayVersion in HKLM to {}", short_version);
+        reg_app.set_value("DisplayVersion", &short_version)?;
+    } else {
+        bail!("Could not find MSI uninstall registry key for {} in HKCU or HKLM.", app_id);
+    }
+
     Ok(())
 }

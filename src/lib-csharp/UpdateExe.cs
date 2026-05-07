@@ -80,8 +80,10 @@ namespace Velopack
 
             if (!restart) args.Add("--norestart"); // restarting is now the default Update.exe behavior
 
-            args.Add("--root");
+            args.Add("--rootDir");
             args.Add(locator.RootAppDir!);
+            args.Add("--packageDir");
+            args.Add(locator.PackagesDir!);
 
             if (restart && restartArgs != null && restartArgs.Length > 0) {
                 args.Add("--");
@@ -90,9 +92,13 @@ namespace Velopack
                 }
             }
 
-            var updatePath = locator.GetUpdateExePathForUpdate();
+            var updatePath = locator.UpdateExePath;
+            if (string.IsNullOrEmpty(updatePath) || !File.Exists(updatePath)) {
+                throw new FileNotFoundException("Cannot find Update.exe to apply updates.", updatePath);
+            }
+            
             var workingDir = Path.GetDirectoryName(updatePath)!;
-            locator.Process.StartProcess(updatePath, args, workingDir, false);
+            locator.Process.StartProcess(updatePath!, args, workingDir, false);
             locator.Log.Info("Update.exe [apply] executed successfully.");
         }
     }

@@ -2,6 +2,7 @@
 using Azure.Identity;
 using Microsoft.Security.Extensions;
 using Velopack.Packaging.Windows;
+using Velopack.TestCommon;
 using Velopack.Util;
 
 namespace Velopack.Packaging.Tests;
@@ -37,11 +38,11 @@ public class TrustedSigningTests
         }
     }
 
-    [SkippableFact]
-    public async void CanSignWithTrustedSigning()
+    [Fact]
+    public async Task CanSignWithTrustedSigning()
     {
-        Skip.IfNot(VelopackRuntimeInfo.IsWindows, "Only supported on Windows");
-        Skip.IfNot(await IsAuthenticatedForCodeSigningAsync(), "Sign in with az login first");
+        Assert.SkipUnless(VelopackRuntimeInfo.IsWindows, "Only supported on Windows");
+        Assert.SkipUnless(await IsAuthenticatedForCodeSigningAsync(), "Sign in with az login first");
 
         using var logger = _output.BuildLoggerFor<TrustedSigningTests>(LogLevel.Debug);
         using var _ = TempUtil.GetTempDirectory(out var releaseDir);

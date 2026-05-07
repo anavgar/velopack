@@ -7,7 +7,6 @@ using System.Xml;
 using HandlebarsDotNet;
 using Markdig;
 using Microsoft.Extensions.Logging;
-using NuGet.Versioning;
 using Velopack.Core;
 using Velopack.Packaging.Rtf;
 using Velopack.Packaging.Windows.Commands;
@@ -134,9 +133,11 @@ public static class MsiBuilder
             ComponentGenerationSeedGuid = GuidUtil.CreateGuidFromHash($"{options.PackId}:INSTALLFOLDER").ToString(),
             IconPath = options.Icon,
             StubFileName = (options.PackTitle ?? options.PackId) + ".exe",
+            MainExeFileName = options.EntryExecutableName,
             DesktopShortcut = shortcuts.HasFlag(ShortcutLocation.Desktop),
             StartMenuShortcut = shortcuts.HasFlag(ShortcutLocation.StartMenu),
             StartMenuRootShortcut = shortcuts.HasFlag(ShortcutLocation.StartMenuRoot),
+            StartupShortcut = shortcuts.HasFlag(ShortcutLocation.Startup),
             RustNativeModulePath = HelperFile.GetWixNativeModulePath(options.TargetRuntime),
             SideBannerImagePath = options.MsiBanner,
             TopBannerImagePath = options.MsiLogo,

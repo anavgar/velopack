@@ -94,7 +94,10 @@ pub fn install(pkg: &mut BundleZip, install_to: Option<&PathBuf>, start_args: Op
         info!("User chose to overwrite existing installation.");
 
         shared::force_stop_package(&root_path).map_err(|z| {
-            anyhow!("Failed to stop application ({}), please close the application and try running the installer again.", z)
+            anyhow!(
+                "Failed to stop application ({}), please close the application and try running the installer again.",
+                z
+            )
         })?;
 
         let renamed = root_path.with_extension(shared::random_string(16));
@@ -124,8 +127,15 @@ pub fn install(pkg: &mut BundleZip, install_to: Option<&PathBuf>, start_args: Op
         tx
     } else {
         info!("Reading splash image...");
+        let manifest = locator.get_manifest();
         let splash_bytes = pkg.get_splash_bytes();
-        windows::splash::show_splash_dialog(locator.get_manifest_title(), splash_bytes)
+        windows::splash::show_splash_dialog(
+            manifest.title,
+            splash_bytes,
+            windows::splash::SplashOptions {
+                splash_progress_color: Some(manifest.splash_progress_color),
+            },
+        )
     };
 
     let install_result = install_impl(pkg, &locator, &tx, start_args);
@@ -151,12 +161,7 @@ pub fn install(pkg: &mut BundleZip, install_to: Option<&PathBuf>, start_args: Op
     Ok(())
 }
 
-fn install_impl(
-    pkg: &mut BundleZip,
-    locator: &VelopackLocator,
-    tx: &std::sync::mpsc::Sender<i16>,
-    start_args: Option<Vec<OsString>>,
-) -> Result<()> {
+fn install_impl(pkg: &mut BundleZip, locator: &VelopackLocator, tx: &std::sync::mpsc::Sender<i16>, start_args: Option<Vec<OsString>>) -> Result<()> {
     info!("Starting installation!");
 
     // all application paths
@@ -170,6 +175,8 @@ fn install_impl(
     let _ = pkg
         .extract_zip_predicate_to_path(|name| name.ends_with("Squirrel.exe"), updater_path)
         .map_err(|_| anyhow!("This installer is missing a critical binary (Update.exe). Please contact the application author."))?;
+
+    let _ = pkg.extract_stubs_to_dir(locator.get_root_dir());
     let _ = tx.send(5);
 
     info!("Copying nupkg to packages directory...");

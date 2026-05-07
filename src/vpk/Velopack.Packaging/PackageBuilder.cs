@@ -2,7 +2,6 @@
 using System.Text.RegularExpressions;
 using Markdig;
 using Microsoft.Extensions.Logging;
-using NuGet.Versioning;
 using Velopack.Core;
 using Velopack.Core.Abstractions;
 using Velopack.NuGet;
@@ -59,7 +58,7 @@ public abstract class PackageBuilder<T> : ICommand<T>
         var channel = options.Channel?.ToLower() ?? DefaultName.GetDefaultChannel(TargetOs);
         options.Channel = channel;
 
-        var entryHelper = new ReleaseEntryHelper(releaseDir.FullName, channel, Log, TargetOs);
+        var entryHelper = await ReleaseEntryHelper.CreateAsync(releaseDir.FullName, channel, Log, TargetOs).ConfigureAwait(false);
         if (entryHelper.DoesSimilarVersionExist(SemanticVersion.Parse(options.PackVersion))) {
             if (await Console.PromptYesNo(
                     "A release in this channel with the same or greater version already exists. Do you want to continue and potentially overwrite files?") !=
@@ -101,7 +100,7 @@ public abstract class PackageBuilder<T> : ICommand<T>
         }
 
         MainExePath = mainExePath;
-        options.EntryExecutableName = Path.GetFileName(mainExePath);
+        options.EntryExecutableName = Path.GetRelativePath(packDirectory, mainExePath).Replace('\\', '/');
         Options = options;
 
         var assetCache = new BuildAssets(pkgTempDir, channel);
@@ -112,7 +111,7 @@ public abstract class PackageBuilder<T> : ICommand<T>
                 await ctx.RunTask(
                     "Pre-process steps",
                     async (progress) => {
-                        prev = entryHelper.GetPreviousFullRelease(NuGetVersion.Parse(packVersion));
+                        prev = entryHelper.GetPreviousFullRelease(SemanticVersion.Parse(packVersion));
                         packDirectory = await PreprocessPackDir(progress, packDirectory);
                     });
 
@@ -178,12 +177,11 @@ public abstract class PackageBuilder<T> : ICommand<T>
 
                 await ctx.RunTask(
                     "Post-process steps",
-                    (progress) => {
+                    async (progress) => {
                         assetCache.MoveBagTo(releaseDir.FullName);
                         assetCache.Write();
-                        ReleaseEntryHelper.UpdateReleaseFiles(releaseDir.FullName, Log);
+                        await ReleaseEntryHelper.UpdateReleaseFilesAsync(releaseDir.FullName, Log).ConfigureAwait(false);
                         progress(100);
-                        return Task.CompletedTask;
                     });
             });
     }
@@ -203,10 +201,14 @@ public abstract class PackageBuilder<T> : ICommand<T>
 
         string extraMetadata = "";
 
-        void addMetadata(string key, string value)
+        void addMetadata(string key, string value, bool cdata = false)
         {
             if (!String.IsNullOrEmpty(key) && !String.IsNullOrEmpty(value)) {
-                if (!SecurityElement.IsValidText(value)) {
+                if (cdata) {
+                    // CDATA preserves content exactly as-is (prevents double-escaping).
+                    // Only need to handle ]]> which terminates CDATA sections.
+                    // Standard approach: split ]]> into ]]]]><![CDATA[>
+                    value = value.Replace("]]>", "]]]]><![CDATA[>");
                     value = $"""<![CDATA[{"\n"}{value}{"\n"}]]>""";
                 }
 
@@ -222,8 +224,8 @@ public abstract class PackageBuilder<T> : ICommand<T>
 
         if (!String.IsNullOrEmpty(releaseNotes)) {
             var markdown = File.ReadAllText(releaseNotes);
-            addMetadata("releaseNotes", markdown);
-            addMetadata("releaseNotesHtml", Markdown.ToHtml(markdown));
+            addMetadata("releaseNotes", markdown, cdata: true);
+            addMetadata("releaseNotesHtml", Markdown.ToHtml(markdown), cdata: true);
         }
 
         if (rid?.HasVersion == true) {

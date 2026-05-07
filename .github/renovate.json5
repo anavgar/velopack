@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "enabled": false,
+  "enabled": true,
   "extends": [
     "config:recommended",
     ":semanticCommitsDisabled"
@@ -36,7 +36,12 @@
     {
       "groupName": "dotnet packages",
       "matchDatasources": "nuget",
-      "matchFileNames": ["src/**", "test/**"]
+      "matchFileNames": ["src/**"]
+    },
+    {
+      "groupName": "dotnet test packages",
+      "matchDatasources": "nuget",
+      "matchFileNames": ["test/**"]
     },
     // samples
     {
@@ -65,14 +70,33 @@
       "groupName": "frozen",
       "matchPackageNames": [
         "System.CommandLine",                         // too many breaking changes too frequently
-        "xunit.runner.visualstudio",                  // 20-12-2024: broke tests (something about sn signing maybe?)
-        "Microsoft.NET.Test.Sdk",                     // 23-05-2025: 17.13.0 was the last version which supported net6
+        "@vercel/webpack-asset-relocator-loader",
       ],
       "dependencyDashboardApproval": true
     },
     {
+      "matchPackageNames": ["jest", "ts-jest", "@types/jest"],
+      "allowedVersions": "< 30.0.0"                  // ts-jest doesn't support jest 30 yet
+    },
+    {
       "matchPackageNames": "SixLabors.ImageSharp",
       "allowedVersions": "< 3.0.0"
+    },
+    {
+      "matchPackageNames": "NuGet.Versioning",
+      "allowedVersions": "< 7.0.0"                   // 7.x drops netstandard2.0 support
+    },
+    {
+      "matchPackageNames": "@electron/fuses",
+      "allowedVersions": "< 2.0.0"                   // 2.x is ESM-only, breaks webpack/forge setup
+    },
+    {
+      "matchPackageNames": "coverlet.msbuild",
+      "allowedVersions": "< 7.0.0"                   // 8.x breaks instrumentation on net8.0 targets
+    },
+    {
+      "matchPackageNames": "typescript",
+      "allowedVersions": "< 6.0.0"                   // 6.x breaks jest
     }
   ]
 }

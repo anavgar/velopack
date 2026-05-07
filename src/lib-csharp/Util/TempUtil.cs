@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 
 namespace Velopack.Util
 {
@@ -9,17 +10,22 @@ namespace Velopack.Util
         {
             string tempDir;
 
-            if (VelopackRuntimeInfo.IsOSX || VelopackRuntimeInfo.IsLinux) {
-                tempDir = "/tmp/velopack";
+            var velopackTemp = Environment.GetEnvironmentVariable("VELOPACK_TEMP");
+            var envTempDir = new[] { "TMPDIR", "TEMP", "TMP" }
+                .Select(Environment.GetEnvironmentVariable)
+                .FirstOrDefault(x => !string.IsNullOrWhiteSpace(x));
+
+            if (!string.IsNullOrWhiteSpace(velopackTemp)) {
+                tempDir = velopackTemp!;
+            } else if (!string.IsNullOrWhiteSpace(envTempDir)) {
+                tempDir = Path.Combine(envTempDir!, "velopack");
             } else if (VelopackRuntimeInfo.IsWindows) {
-                tempDir = Path.Combine(Path.GetTempPath(), "Velopack");
+                tempDir = Path.Combine(Path.GetTempPath(), "velopack");
+            } else if (VelopackRuntimeInfo.IsOSX || VelopackRuntimeInfo.IsLinux) {
+                tempDir = "/tmp/velopack";
             } else {
                 throw new PlatformNotSupportedException();
             }
-
-            if (Environment.GetEnvironmentVariable("VELOPACK_TEMP") is var squirrlTmp
-                && !string.IsNullOrWhiteSpace(squirrlTmp))
-                tempDir = squirrlTmp;
 
             var di = new DirectoryInfo(tempDir);
             if (!di.Exists) di.Create();

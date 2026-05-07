@@ -190,18 +190,6 @@
         <CustomAction Id="UninstallHookDeferred" BinaryRef="RustDll" DllEntry="UninstallHookDeferred" Execute="deferred"
             Impersonate="yes" Return="ignore" />
 
-        <!-- Install/uninstall hooks: run app exe with lifecycle flags -->
-        <CustomAction Id="SetInstallHookData" Property="InstallHookDeferred"
-            Value="[INSTALLFOLDER]&quot;[RustMainExeFileName]&quot;[RustAppVersion]" Execute="immediate"
-            Return="check" />
-        <CustomAction Id="InstallHookDeferred" BinaryRef="RustDll" DllEntry="InstallHookDeferred" Execute="deferred"
-            Impersonate="yes" Return="ignore" />
-        <CustomAction Id="SetUninstallHookData" Property="UninstallHookDeferred"
-            Value="[INSTALLFOLDER]&quot;[RustMainExeFileName]&quot;[RustAppVersion]" Execute="immediate"
-            Return="check" />
-        <CustomAction Id="UninstallHookDeferred" BinaryRef="RustDll" DllEntry="UninstallHookDeferred" Execute="deferred"
-            Impersonate="yes" Return="ignore" />
-
         <InstallUISequence>
             <Custom Action="RustEarlyBootstrap" Before="AppSearch" Condition="NOT REMOVE AND RustRuntimeDependencies" />
         </InstallUISequence>
@@ -282,51 +270,8 @@
                 Value="{{ProgramFilesFolderName}}{{AppPublisherSanitized}}\[ApplicationFolderName]" Order="2" />
             <Publish Dialog="WelcomeDlg" Control="Next" Event="SetTargetPath" Value="INSTALLFOLDER" Order="3" />
 
-            {{#if HasLicense}}
-            <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="LicenseAgreementDlg"
-                Order="1"======={{#if InstallLocationEither}} {{#if HasLicense}} <Publish Dialog="InstallScopeDlg"
-                Control="Back" Event="NewDialog" Value="LicenseAgreementDlg" />
-            {{else}}
-            <Publish Dialog="InstallScopeDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" />
-            {{/if}}
-            <Publish Dialog="InstallScopeDlg" Control="Next" Property="WixAppFolder" Value="WixPerUserFolder" Order="1"
-                Condition="!(wix.WixUISupportPerUser) AND NOT Privileged" />
-            <Publish Dialog="InstallScopeDlg" Control="Next" Property="ALLUSERS" Value="2" Order="2"
-                Condition="WixAppFolder = &quot;WixPerUserFolder&quot;" />
-            <Publish Dialog="InstallScopeDlg" Control="Next" Property="MSIINSTALLPERUSER" Value="1" Order="2"
-                Condition="WixAppFolder = &quot;WixPerUserFolder&quot;" />
-            <Publish Dialog="InstallScopeDlg" Control="Next" Property="Privileged" Value="0" Order="2"
-                Condition="WixAppFolder = &quot;WixPerUserFolder&quot;" />
-            <Publish Dialog="InstallScopeDlg" Control="Next" Property="InstallPrivileges" Value="limited" Order="2"
-                Condition="WixAppFolder = &quot;WixPerUserFolder&quot;" />
-            <Publish Dialog="InstallScopeDlg" Control="Next" Property="ALLUSERS" Value="1" Order="3"
-                Condition="WixAppFolder = &quot;WixPerMachineFolder&quot;" />
-            <Publish Dialog="InstallScopeDlg" Control="Next" Property="MSIINSTALLPERUSER" Value="{}" Order="3"
-                Condition="WixAppFolder = &quot;WixPerMachineFolder&quot;" />
-            <Publish Dialog="InstallScopeDlg" Control="Next" Property="INSTALLFOLDER"
-                Value="[LocalAppDataFolder][ApplicationFolderName]" Order="4"
-                Condition="WixAppFolder = &quot;WixPerUserFolder&quot;" />
-            <Publish Dialog="InstallScopeDlg" Control="Next" Property="INSTALLFOLDER"
-                Value="{{ProgramFilesFolderName}}[ApplicationFolderName]" Order="5"
-                Condition="WixAppFolder = &quot;WixPerMachineFolder&quot;" />
-            <Publish Dialog="InstallScopeDlg" Control="Next" Event="SetTargetPath" Value="INSTALLFOLDER" Order="6" />
-            <Publish Dialog="InstallScopeDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg" Order="7" />
-            <Publish Dialog="InstallScopeDlg" Control="Next" Event="DoAction" Value="FindRelatedProducts" Order="8" />
-            {{/if}}
-
-            {{#if InstallLocationAllUsersOnly}}
-            <Publish Dialog="WelcomeDlg" Control="Next" Property="INSTALLFOLDER"
-                Value="{{ProgramFilesFolderName}}[ApplicationFolderName]" Order="1" />
-            <Publish Dialog="WelcomeDlg" Control="Next" Event="SetTargetPath" Value="INSTALLFOLDER" Order="2" />
-            {{/if}}
-
-            {{#if InstallLocationEither}}
-            <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="InstallScopeDlg" Order="1"
-                Condition="NOT Installed" />
-            {{else}}
             <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="1"
                 Condition="NOT Installed" />
-            {{/if}}
 
             <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="MaintenanceTypeDlg" Order="2"
                 Condition="Installed AND NOT PATCH" />

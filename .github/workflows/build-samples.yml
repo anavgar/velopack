@@ -38,14 +38,6 @@ jobs:
       - uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - name: Setup dotnet
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: |
-            6.0.x
-            8.0.x
-            9.0.x
-          architecture: ${{ matrix.os == 'macos-latest' && 'arm64' || 'x64' }}
       - name: Install wxWidgets (Windows)
         working-directory: samples/${{ matrix.sample }}
         run: |
@@ -90,19 +82,7 @@ jobs:
             9.0.x
             10.0.x
       - name: Install VPK
-        shell: bash
-        run: |
-          dotnet new tool-manifest
-          dotnet tool install vpk
-          echo "#!/bin/bash" > vpk
-          echo "dotnet tool run vpk \"\$@\"" >> vpk
-          chmod +x vpk
-          echo "@dotnet tool run vpk %*" > vpk.cmd
-          if [ "$RUNNER_OS" == "Windows" ]; then
-            echo "$(cygpath -w "$(pwd)")" >> $GITHUB_PATH
-          else
-            echo "$(pwd)" >> $GITHUB_PATH
-          fi
+        run: dotnet tool install -g vpk
       - name: Pack Sample (Windows)
         working-directory: samples/${{ matrix.sample }}
         run: .\build.bat 1.0.0
@@ -110,8 +90,6 @@ jobs:
       - name: Pack Sample (Unix)
         working-directory: samples/${{ matrix.sample }}
         run: |
-          export DOTNET_ROOT=$DOTNET_INSTALL_DIR
-          export DOTNET_ROOT_ARM64=$DOTNET_INSTALL_DIR
           chmod 755 ./build.sh
           ./build.sh 1.0.0
         if: ${{ matrix.os == 'macos' || matrix.os == 'ubuntu' }}

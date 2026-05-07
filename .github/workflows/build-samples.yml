@@ -78,9 +78,13 @@ jobs:
 
       - name: Install VPK
         run: |
-          dotnet --list-runtimes
-          dotnet --info
-          dotnet tool install -g vpk
+          dotnet new tool-manifest
+          dotnet tool install vpk
+          echo "#!/bin/bash" > vpk
+          echo "dotnet tool run vpk \"\$@\"" >> vpk
+          chmod +x vpk
+          echo "@dotnet tool run vpk %*" > vpk.cmd
+          echo "$(pwd)" >> $GITHUB_PATH
       - name: Pack Sample (Windows)
         working-directory: samples/${{ matrix.sample }}
         run: .\build.bat 1.0.0

@@ -1,4 +1,4 @@
-﻿using System.IO.Compression;
+using System.IO.Compression;
 using System.Runtime.InteropServices;
 using Velopack.Logging;
 using Velopack.Util;
@@ -281,7 +281,6 @@ public class SymbolicLinkTests
         var link = Path.Combine(tempFolder, "Link");
 
         // Should be able to create symlink to non-existent target
-        File.WriteAllText(target, "test");
         SymbolicLink.Create(link, target);
         Assert.True(SymbolicLink.Exists(link));
         Assert.Equal(target, SymbolicLink.GetTarget(link));

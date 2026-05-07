@@ -77,6 +77,7 @@ jobs:
         if: ${{ matrix.sample == 'PythonWXPython' && matrix.os == 'ubuntu-latest' }}
 
       - name: Install VPK
+        shell: bash
         run: |
           dotnet new tool-manifest
           dotnet tool install vpk
@@ -84,7 +85,11 @@ jobs:
           echo "dotnet tool run vpk \"\$@\"" >> vpk
           chmod +x vpk
           echo "@dotnet tool run vpk %*" > vpk.cmd
-          echo "$(pwd)" >> $GITHUB_PATH
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            echo "$(cygpath -w "$(pwd)")" >> $GITHUB_PATH
+          else
+            echo "$(pwd)" >> $GITHUB_PATH
+          fi
       - name: Pack Sample (Windows)
         working-directory: samples/${{ matrix.sample }}
         run: .\build.bat 1.0.0

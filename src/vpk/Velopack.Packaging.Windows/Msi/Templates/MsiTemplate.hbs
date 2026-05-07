@@ -18,7 +18,7 @@
                 DowngradeErrorMessage="A newer version of [ProductName] is already installed."
                 Schedule="afterInstallInitialize" />
         
-        <StandardDirectory Id="TARGETDIR">
+        <StandardDirectory Id="{{#if Is64Bit}}ProgramFiles64Folder{{else}}ProgramFilesFolder{{/if}}">
             <Directory Id="PublisherDir" Name="{{AppPublisherSanitized}}">
                 <Directory Id="INSTALLFOLDER" Name="{{AppId}}" ComponentGuidGenerationSeed="{{ComponentGenerationSeedGuid}}">
                     <Directory Name="current"/>
@@ -128,11 +128,6 @@
         <Property Id="WixAppFolder" Value="WixPerMachineFolder"/>
         <Property Id="ApplicationFolderName" Value="{{AppId}}"/>
 
-        {{#if InstallLocationEither}}
-            <WixVariable Id="override WixUISupportPerUser" Value="1"/>
-            <WixVariable Id="override WixUISupportPerMachine" Value="1"/>
-        {{/if}}
-
         <UI>
             <ui:WixUI Id="WixUI_Velopack" InstallDirectory="INSTALLFOLDER"/>
 
@@ -184,10 +179,7 @@
             <Publish Dialog="BrowseDlg" Control="OK" Event="DoAction" Value="WixUIValidatePath_$(WIXUIARCH)" Order="3"
                      Condition="NOT WIXUI_DONTVALIDATEPATH"/>
 
-            {{#if InstallLocationEither}}
-                <Publish Dialog="InstallScopeDlg" Control="Next" Event="DoAction" Value="WixUIValidatePath_$(WIXUIARCH)"
-                         Order="7" Condition="NOT WIXUI_DONTVALIDATEPATH"/>
-            {{/if}}
+
         </UI>
 
         <UIRef Id="WixUI_Velopack"/>
@@ -222,77 +214,28 @@
             {{#if HasLicense}}
                 <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="LicenseAgreementDlg" Condition="NOT Installed"/>
             {{else}}
-                {{#if InstallLocationEither}}
-                    <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="InstallScopeDlg" Condition="NOT Installed"/>
-                {{else}}
-                    <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg" Condition="NOT Installed"/>
-                {{/if}}
+                <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg" Condition="NOT Installed"/>
             {{/if}}
 
             <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg" Condition="Installed AND PATCH"/>
 
             {{#if HasLicense}}
                 <Publish Dialog="LicenseAgreementDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg"/>
-                {{#if InstallLocationEither}}
-                    <Publish Dialog="LicenseAgreementDlg" Control="Next" Event="NewDialog" Value="InstallScopeDlg"
-                             Condition="LicenseAccepted = &quot;1&quot;"/>
-                {{else}}
-                    <Publish Dialog="LicenseAgreementDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg"
-                             Condition="LicenseAccepted = &quot;1&quot;"/>
-                {{/if}}
+                <Publish Dialog="LicenseAgreementDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg"
+                         Condition="LicenseAccepted = &quot;1&quot;"/>
             {{/if}}
 
-            {{#if InstallLocationEither}}
-                {{#if HasLicense}}
-                    <Publish Dialog="InstallScopeDlg" Control="Back" Event="NewDialog" Value="LicenseAgreementDlg"/>
-                {{else}}
-                    <Publish Dialog="InstallScopeDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg"/>
-                {{/if}}
-                <Publish Dialog="InstallScopeDlg" Control="Next" Property="WixAppFolder" Value="WixPerUserFolder"
-                         Order="1" Condition="!(wix.WixUISupportPerUser) AND NOT Privileged"/>
-                <Publish Dialog="InstallScopeDlg" Control="Next" Property="ALLUSERS" Value="{}" Order="2"
-                         Condition="WixAppFolder = &quot;WixPerUserFolder&quot;"/>
-                <Publish Dialog="InstallScopeDlg" Control="Next" Property="ALLUSERS" Value="1" Order="3"
-                         Condition="WixAppFolder = &quot;WixPerMachineFolder&quot;"/>
-                <Publish Dialog="InstallScopeDlg" Control="Next" Property="INSTALLFOLDER"
-                         Value="[LocalAppDataFolder]{{AppPublisherSanitized}}\[ApplicationFolderName]" Order="4"
-                         Condition="WixAppFolder = &quot;WixPerUserFolder&quot;"/>
-                <Publish Dialog="InstallScopeDlg" Control="Next" Property="INSTALLFOLDER"
-                         Value="{{ProgramFilesFolderName}}{{AppPublisherSanitized}}\[ApplicationFolderName]" Order="5"
-                         Condition="WixAppFolder = &quot;WixPerMachineFolder&quot;"/>
-                <Publish Dialog="InstallScopeDlg" Control="Next" Event="SetTargetPath" Value="INSTALLFOLDER" Order="6"/>
-                <Publish Dialog="InstallScopeDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg" Order="7"/>
-                <Publish Dialog="InstallScopeDlg" Control="Next" Event="DoAction" Value="FindRelatedProducts" Order="8"/>
-            {{/if}}
-
-            {{#if InstallLocationCurrentUserOnly}}
-                <Publish Dialog="WelcomeDlg" Control="Next" Property="ALLUSERS" Value="{}" Order="1"
-                         Condition="WixAppFolder = &quot;WixPerUserFolder&quot;"/>
+            <Publish Dialog="WelcomeDlg" Control="Next" Property="ALLUSERS" Value="1" Order="1"/>
                 <Publish Dialog="WelcomeDlg" Control="Next" Property="INSTALLFOLDER"
-                         Value="[LocalAppDataFolder]{{AppPublisherSanitized}}\[ApplicationFolderName]" Order=" 2"/>
+                         Value="{{ProgramFilesFolderName}}{{AppPublisherSanitized}}\[ApplicationFolderName]" Order="2"/>
                 <Publish Dialog="WelcomeDlg" Control="Next" Event="SetTargetPath" Value="INSTALLFOLDER" Order="3"/>
-            {{/if}}
 
-            {{#if InstallLocationAllUsersOnly}}
-                <Publish Dialog="WelcomeDlg" Control="Next" Property="ALLUSERS" Value="1" Order="1"
-                         Condition="WixAppFolder = &quot;WixPerMachineFolder&quot;"/>
-                <Publish Dialog="WelcomeDlg" Control="Next" Property="INSTALLFOLDER"
-                         Value="{{ProgramFilesFolderName}}{{AppPublisherSanitized}}\[ApplicationFolderName]" Order="5"
-                         Condition="WixAppFolder = &quot;WixPerMachineFolder&quot;"/>
-                <Publish Dialog="WelcomeDlg" Control="Next" Event="SetTargetPath" Value="INSTALLFOLDER" Order="3"/>
-            {{/if}}
-
-            {{#if InstallLocationEither}}
-                <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="InstallScopeDlg" Order="1"
+            {{#if HasLicense}}
+                <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="LicenseAgreementDlg" Order="1"
                          Condition="NOT Installed"/>
             {{else}}
-                {{#if HasLicense}}
-                    <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="LicenseAgreementDlg" Order="1"
-                             Condition="NOT Installed"/>
-                {{else}}
-                    <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="1"
-                             Condition="NOT Installed"/>
-                {{/if}}
+                <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="1"
+                         Condition="NOT Installed"/>
             {{/if}}
 
             <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="MaintenanceTypeDlg" Order="2"

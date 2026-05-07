@@ -1,4 +1,4 @@
-﻿namespace Velopack.Packaging.Windows.Msi;
+namespace Velopack.Packaging.Windows.Msi;
 
 public class MsiTemplateData
 {
@@ -30,12 +30,8 @@ public class MsiTemplateData
     public string RuntimeDependencies;
     public bool HasRuntimeDependencies => !string.IsNullOrWhiteSpace(RuntimeDependencies);
 
-    
-    public bool InstallLocationEither => InstallForAllUsers && InstallForCurrentUser;
-    public bool InstallLocationAllUsersOnly => InstallForAllUsers && !InstallForCurrentUser;
-    public bool InstallLocationCurrentUserOnly => !InstallForAllUsers && InstallForCurrentUser;
-    public bool InstallForAllUsers;
-    public bool InstallForCurrentUser;
+
+
 
     public bool HasIcon => !string.IsNullOrWhiteSpace(IconPath) && File.Exists(IconPath);
     public string IconPath;

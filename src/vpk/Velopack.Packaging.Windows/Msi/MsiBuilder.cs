@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using System.Reflection;
 using System.Runtime.Versioning;
 using System.Text;
@@ -130,8 +130,6 @@ public static class MsiBuilder
             SourceDirectoryPath = portableDir.FullName,
             Is64Bit = options.TargetRuntime.Architecture is not RuntimeCpu.x86 and not RuntimeCpu.Unknown,
             IsArm64 = options.TargetRuntime.Architecture is RuntimeCpu.arm64,
-            InstallForAllUsers = options.InstLocation.HasFlag(InstallLocation.PerMachine),
-            InstallForCurrentUser = options.InstLocation.HasFlag(InstallLocation.PerUser),
             UpgradeCodeGuid = GuidUtil.CreateGuidFromHash($"{options.PackId}:UpgradeCode").ToString(),
             ComponentGenerationSeedGuid = GuidUtil.CreateGuidFromHash($"{options.PackId}:INSTALLFOLDER").ToString(),
             IconPath = options.Icon,

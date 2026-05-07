@@ -1,4 +1,4 @@
-﻿using System.Runtime.Versioning;
+using System.Runtime.Versioning;
 using System.Text;
 using Microsoft.Extensions.Logging;
 
@@ -118,10 +118,13 @@ public static class HelperFile
     {
 #if DEBUG
         AddSearchPath(AppContext.BaseDirectory, "..", "..", "..", "target", "debug");
+        AddSearchPath(AppContext.BaseDirectory, "..", "..", "..", "target", "release");
         AddSearchPath(AppContext.BaseDirectory, "..", "..", "..", "vendor");
         AddSearchPath(AppContext.BaseDirectory, "..", "..", "..", "artwork");
 #else
         AddSearchPath(AppContext.BaseDirectory, "..", "..", "..", "vendor");
+        AddSearchPath(AppContext.BaseDirectory, "..", "..", "..", "target", "release");
+        AddSearchPath(AppContext.BaseDirectory, "..", "..", "..", "target", "debug");
 #endif
     }
 

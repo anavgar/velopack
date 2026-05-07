@@ -132,7 +132,7 @@ fn update(state: &mut AppState, message: Message) -> Task<Message> {
     }
 }
 
-fn view(state: &AppState) -> iced::Element<Message> {
+fn view(state: &AppState) -> iced::Element<'_, Message> {
     let content = match state.status {
         AppStatus::NotInstalled =>
             column![text("Can't check for updates if not installed")],

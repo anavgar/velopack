@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
@@ -18,9 +18,6 @@ namespace Velopack.Util
             linkPath = Path.GetFullPath(linkPath);
             targetPath = Path.GetFullPath(targetPath);
 
-            if (!Directory.Exists(targetPath) && !File.Exists(targetPath)) {
-                throw new IOException("Target path does not exist.");
-            }
 
             if (Directory.Exists(linkPath) || File.Exists(linkPath)) {
                 if (overwrite) {
@@ -34,13 +31,14 @@ namespace Velopack.Util
                 ? PathUtil.MakePathRelativeTo(Path.GetDirectoryName(linkPath)!, targetPath)
                 : targetPath;
 
+            SymbolicLinkFlag mode = SymbolicLinkFlag.File;
             if (Directory.Exists(targetPath)) {
-                CreateSymlink(linkPath, finalTarget, SymbolicLinkFlag.Directory);
+                mode = SymbolicLinkFlag.Directory;
             } else if (File.Exists(targetPath)) {
-                CreateSymlink(linkPath, finalTarget, SymbolicLinkFlag.File);
-            } else {
-                throw new IOException("Target path does not exist.");
+                mode = SymbolicLinkFlag.File;
             }
+
+            CreateSymlink(linkPath, finalTarget, mode);
         }
 
         /// <summary>

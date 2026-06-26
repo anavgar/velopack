@@ -4,7 +4,7 @@ use crate::{
     misc, Error,
 };
 use semver::Version;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use uuid::Uuid;
 
 #[cfg(windows)]
@@ -34,7 +34,7 @@ impl ShortcutLocationFlags {
     /// Parses a string containing comma or semicolon delimited shortcut flags.
     pub fn from_string(input: &str) -> ShortcutLocationFlags {
         let mut flags = ShortcutLocationFlags::NONE;
-        for part in input.split(|c| c == ',' || c == ';') {
+        for part in input.split([',', ';']) {
             match part.trim().to_lowercase().as_str() {
                 "none" => flags |= ShortcutLocationFlags::NONE,
                 "startmenu" => flags |= ShortcutLocationFlags::START_MENU,
@@ -52,7 +52,7 @@ impl ShortcutLocationFlags {
 #[allow(non_snake_case)]
 #[derive(serde::Serialize, serde::Deserialize, Debug, Clone, Default)]
 pub struct VelopackLocatorConfig {
-    /// The root directory of the current app.
+    /// The root directory of the current app, or the path to the AppImage file on Linux.
     pub RootAppDir: PathBuf,
     /// The path to the Update.exe binary.
     pub UpdateExePath: PathBuf,
@@ -157,7 +157,7 @@ impl VelopackLocator {
             if is_writable {
                 paths.PackagesDir = root.join("packages");
                 info!("Using root packages directory: {}", paths.PackagesDir.display());
-            } else if let Some(app_data) = get_local_app_data().ok() {
+            } else if let Ok(app_data) = get_local_app_data() {
                 let fallback_base = app_data.join(&manifest.id);
                 paths.PackagesDir = fallback_base.join("packages");
                 paths.UpdateExePath = fallback_base.join("Update.exe");
@@ -213,7 +213,14 @@ impl VelopackLocator {
     }
 
     /// Returns the root directory of the current app.
+    #[cfg(not(target_os = "linux"))]
     pub fn get_root_dir(&self) -> PathBuf {
+        self.paths.RootAppDir.clone()
+    }
+
+    /// Returns the path to the AppImage file on Linux.
+    #[cfg(target_os = "linux")]
+    pub fn get_appimage_path(&self) -> PathBuf {
         self.paths.RootAppDir.clone()
     }
 
@@ -284,7 +291,7 @@ impl VelopackLocator {
         if self.manifest.shortcut_locations.is_empty() {
             return ShortcutLocationFlags::NONE;
         }
-        if self.manifest.shortcut_locations.to_ascii_lowercase() == "none" {
+        if self.manifest.shortcut_locations.eq_ignore_ascii_case("none") {
             return ShortcutLocationFlags::NONE;
         }
         ShortcutLocationFlags::from_string(&self.manifest.shortcut_locations)
@@ -349,7 +356,7 @@ impl VelopackLocator {
         if let Err(_e) = std::fs::write(&beta_id_path, new_id.to_string()) {
             warn!("Couldn't write out staging userId.");
         } else {
-            info!("Generated new staging userId: {}", new_id.to_string());
+            info!("Generated new staging userId: {}", new_id);
         }
         new_id.to_string()
     }
@@ -417,7 +424,7 @@ pub fn auto_locate_app_manifest(context: LocationContext) -> Result<VelopackLoca
             if let Some(parent_dir) = exe_path.parent() {
                 if parent_dir.join("Update.exe").exists() {
                     info!("Found Update.exe in parent directory: {}", parent_dir.to_string_lossy());
-                    let config = create_config_from_root_dir(&parent_dir);
+                    let config = create_config_from_root_dir(parent_dir);
                     let locator = VelopackLocator::new(&config)?;
                     return Ok(locator);
                 }
@@ -443,7 +450,7 @@ pub fn auto_locate_app_manifest(context: LocationContext) -> Result<VelopackLoca
         LocationContext::IAmUpdateExe => {
             let exe_path = std::env::current_exe()?;
             if let Some(parent_dir) = exe_path.parent() {
-                let config = create_config_from_root_dir(&parent_dir);
+                let config = create_config_from_root_dir(parent_dir);
                 let locator = VelopackLocator::new(&config)?;
                 return Ok(locator);
             }
@@ -457,14 +464,24 @@ pub fn auto_locate_app_manifest(context: LocationContext) -> Result<VelopackLoca
 /// Automatically locates the current app's important paths. If the app is not installed, it will return an error.
 pub fn auto_locate_app_manifest(context: LocationContext) -> Result<VelopackLocator, Error> {
     let mut search_path = std::env::current_exe()?;
+    let mut package_dir_override: Option<PathBuf> = None;
+    let mut appimage_path_override: Option<PathBuf> = None;
     match context {
-        LocationContext::FromSpecifiedRootDir(dir, _) => search_path = dir.join("usr").join("bin").join("dummy"),
+        LocationContext::FromSpecifiedRootDir(dir, pkg_dir) => {
+            if dir.is_file() {
+                // Newer libraries pass the AppImage file path directly.
+                appimage_path_override = Some(dir);
+            }
+            // If dir is a directory (older libraries pass the mounted root),
+            // ignore it — we derive paths from current_exe() and $APPIMAGE instead.
+            package_dir_override = pkg_dir;
+        }
         LocationContext::FromSpecifiedAppExecutable(exe) => search_path = exe,
         _ => {}
     }
 
     let search_string = search_path.to_string_lossy();
-    let idx = search_string.rfind("/usr/bin/");
+    let idx = search_string.find("/usr/bin/");
     if idx.is_none() {
         return Err(Error::NotInstalled(format!(
             "Could not locate '/usr/bin/' in executable path {}",
@@ -472,37 +489,60 @@ pub fn auto_locate_app_manifest(context: LocationContext) -> Result<VelopackLoca
         )));
     }
     let idx = idx.unwrap();
-    let root_app_dir = PathBuf::from(search_string[..idx].to_string());
-    let contents_dir = root_app_dir.join("usr").join("bin");
+    let mount_dir = PathBuf::from(search_string[..idx].to_string());
+    let contents_dir = mount_dir.join("usr").join("bin");
     let update_exe_path = contents_dir.join("UpdateNix");
     let metadata_path = contents_dir.join("sq.version");
 
     if !update_exe_path.exists() {
-        return Err(Error::NotInstalled("Update.exe does not exist in the expected path".to_owned()));
+        return Err(Error::NotInstalled(format!(
+            "UpdateNix does not exist at the expected path: {}",
+            update_exe_path.to_string_lossy()
+        )));
     }
 
-    let appimage_path = match std::env::var("APPIMAGE") {
-        Ok(v) => {
-            if v.is_empty() || !PathBuf::from(&v).exists() {
-                return Err(Error::NotInstalled(
-                    "The 'APPIMAGE' environment variable should point to the current AppImage path.".to_string(),
-                ));
-            } else {
-                v
-            }
+    let appimage_from_env = std::env::var("APPIMAGE")
+        .ok()
+        .filter(|v| !v.is_empty() && PathBuf::from(v).exists())
+        .map(PathBuf::from);
+
+    let appimage_path = if let Some(p) = appimage_path_override {
+        if p.exists() {
+            p
+        } else if let Some(fallback) = appimage_from_env.clone() {
+            error!(
+                "Specified AppImage path '{}' does not exist, falling back to $APPIMAGE='{}'",
+                p.to_string_lossy(),
+                fallback.to_string_lossy()
+            );
+            fallback
+        } else {
+            return Err(Error::NotInstalled(format!(
+                "The specified AppImage path does not exist: {}",
+                p.to_string_lossy()
+            )));
         }
-        Err(_) => {
-            return Err(Error::NotInstalled(
-                "The 'APPIMAGE' environment variable should point to the current AppImage path.".to_string(),
-            ));
-        }
+    } else if let Some(p) = appimage_from_env {
+        p
+    } else {
+        let env_val = std::env::var("APPIMAGE").unwrap_or_default();
+        return Err(Error::NotInstalled(if env_val.is_empty() {
+            "The $APPIMAGE environment variable is not set. Is this app running as an AppImage?".to_string()
+        } else {
+            format!("The $APPIMAGE environment variable points to a path that does not exist: {}", env_val)
+        }));
     };
+    info!("Resolved AppImage path: {}", appimage_path.to_string_lossy());
 
     let app = read_current_manifest(&metadata_path)?;
-    let packages_dir = PathBuf::from("/var/tmp/velopack").join(&app.id).join("packages");
+    let packages_dir = if let Some(pkg_dir) = package_dir_override {
+        pkg_dir
+    } else {
+        PathBuf::from("/var/tmp/velopack").join(&app.id).join("packages")
+    };
 
     let config = VelopackLocatorConfig {
-        RootAppDir: PathBuf::from(appimage_path),
+        RootAppDir: appimage_path,
         UpdateExePath: update_exe_path,
         PackagesDir: packages_dir,
         ManifestPath: metadata_path,
@@ -517,14 +557,18 @@ pub fn auto_locate_app_manifest(context: LocationContext) -> Result<VelopackLoca
 /// Automatically locates the current app's important paths. If the app is not installed, it will return an error.
 pub fn auto_locate_app_manifest(context: LocationContext) -> Result<VelopackLocator, Error> {
     let mut search_path = std::env::current_exe()?;
+    let mut package_dir_override: Option<PathBuf> = None;
     match context {
-        LocationContext::FromSpecifiedRootDir(dir, _) => search_path = dir.join("dummy"),
+        LocationContext::FromSpecifiedRootDir(dir, pkg_dir) => {
+            search_path = dir.join("dummy");
+            package_dir_override = pkg_dir;
+        }
         LocationContext::FromSpecifiedAppExecutable(exe) => search_path = exe,
         _ => {}
     }
 
     let search_string = search_path.to_string_lossy();
-    let idx = search_string.rfind(".app/");
+    let idx = search_string.find(".app/");
     if idx.is_none() {
         return Err(Error::NotInstalled(format!(
             "Could not locate '.app' in executable path {}",
@@ -538,26 +582,34 @@ pub fn auto_locate_app_manifest(context: LocationContext) -> Result<VelopackLoca
     let contents_dir = root_app_dir.join("Contents").join("MacOS");
     let update_exe_path = contents_dir.join("UpdateMac");
     let metadata_path = contents_dir.join("sq.version");
+    let resources_metadata_path = root_app_dir.join("Contents").join("Resources").join("sq.version");
 
     if !update_exe_path.exists() {
         return Err(Error::NotInstalled("UpdateMac does not exist in the expected path".to_owned()));
     }
 
-    let app = read_current_manifest(&metadata_path)?;
+    let (app, resolved_metadata_path) = read_current_manifest(&metadata_path)
+        .map(|m| (m, metadata_path))
+        .or_else(|_| read_current_manifest(&resources_metadata_path).map(|m| (m, resources_metadata_path)))?;
 
-    #[allow(deprecated)]
-    let mut packages_dir = std::env::home_dir().expect("Could not locate user home directory via $HOME or /etc/passwd");
-    packages_dir.push("Library");
-    packages_dir.push("Caches");
-    packages_dir.push("velopack");
-    packages_dir.push(&app.id);
-    packages_dir.push("packages");
+    let packages_dir = if let Some(pkg_dir) = package_dir_override {
+        pkg_dir
+    } else {
+        #[allow(deprecated)]
+        let mut dir = std::env::home_dir().expect("Could not locate user home directory via $HOME or /etc/passwd");
+        dir.push("Library");
+        dir.push("Caches");
+        dir.push("velopack");
+        dir.push(&app.id);
+        dir.push("packages");
+        dir
+    };
 
     let config = VelopackLocatorConfig {
         RootAppDir: root_app_dir,
         UpdateExePath: update_exe_path,
         PackagesDir: packages_dir,
-        ManifestPath: metadata_path,
+        ManifestPath: resolved_metadata_path,
         CurrentBinaryDir: contents_dir,
         IsPortable: true,
     };
@@ -565,7 +617,7 @@ pub fn auto_locate_app_manifest(context: LocationContext) -> Result<VelopackLoca
     Ok(VelopackLocator::new_with_manifest(config, app))
 }
 
-fn read_current_manifest(nuspec_path: &PathBuf) -> Result<Manifest, Error> {
+fn read_current_manifest(nuspec_path: &Path) -> Result<Manifest, Error> {
     if nuspec_path.exists() {
         if let Ok(nuspec) = misc::retry_io(|| std::fs::read_to_string(nuspec_path)) {
             return bundle::read_manifest_from_string(&nuspec);
@@ -578,7 +630,7 @@ fn read_current_manifest(nuspec_path: &PathBuf) -> Result<Manifest, Error> {
 }
 
 /// Returns all full packages (path + manifest) found in the given directory.
-pub fn find_local_full_packages(packages_dir: &PathBuf) -> Vec<(PathBuf, Manifest)> {
+pub fn find_local_full_packages(packages_dir: &Path) -> Vec<(PathBuf, Manifest)> {
     let packages_dir_str = packages_dir.to_string_lossy();
     info!("Searching for local packages in: {:?}", packages_dir_str);
     let mut results = Vec::new();
@@ -598,7 +650,7 @@ pub fn find_local_full_packages(packages_dir: &PathBuf) -> Vec<(PathBuf, Manifes
 }
 
 /// Returns the path and manifest of the latest full package in the given directory.
-pub fn find_latest_full_package(packages_dir: &PathBuf) -> Option<(PathBuf, Manifest)> {
+pub fn find_latest_full_package(packages_dir: &Path) -> Option<(PathBuf, Manifest)> {
     find_local_full_packages(packages_dir)
         .into_iter()
         .max_by(|(_, a), (_, b)| a.version.cmp(&b.version))

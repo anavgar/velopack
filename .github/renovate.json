@@ -1,0 +1,100 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "enabled": true,
+  "extends": [
+    "config:recommended",
+    ":configMigration",
+    ":pinDevDependencies",
+    "abandonments:recommended",
+    "security:minimumReleaseAgeNpm",
+    ":maintainLockFilesWeekly",
+    ":semanticCommitsDisabled"
+  ],
+  "labels": ["renovate"],
+  "minimumReleaseAge": "14 days",
+  "schedule": ["on friday before 11am"],
+  "timezone": "Europe/London",
+  "ignorePaths": ["**/node_modules/**", "**/bower_components/**"],
+  "dependencyDashboard": true,
+  "automergeType": "pr",
+  "automergeStrategy": "rebase",
+  "platformAutomerge": false,
+  // automatically upgrade lockfiles and automerge
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true
+  },
+  // bypass normal schedule for security vulnerability fixes
+  "vulnerabilityAlerts": {
+    "schedule": ["at any time"],
+    "labels": ["security"],
+    "prCreation": "immediate"
+  },
+  // https://docs.renovatebot.com/key-concepts/automerge
+  "packageRules": [
+    {
+      "groupName": "rust crates",
+      "matchDatasources": "crate",
+      "matchFileNames": ["Cargo.toml", "src/**"]
+    },
+    {
+      "groupName": "npm packages",
+      "matchDatasources": "npm",
+      "matchFileNames": ["src/**"]
+    },
+    {
+      "groupName": "dotnet packages",
+      "matchDatasources": "nuget",
+      "matchFileNames": ["src/**"]
+    },
+    {
+      "groupName": "dotnet test packages",
+      "matchDatasources": "nuget",
+      "matchFileNames": ["test/**"]
+    },
+    // samples
+    {
+      "groupName": "sample rust crates",
+      "matchDatasources": "crate",
+      "matchFileNames": ["samples/**"],
+      "separateMajorMinor": false,
+      "automerge": true
+    },
+    {
+      "groupName": "sample dotnet packages",
+      "matchDatasources": "nuget",
+      "matchFileNames": ["samples/**"],
+      "separateMajorMinor": false,
+      "automerge": true
+    },
+    {
+      "groupName": "sample js packages",
+      "matchDatasources": "npm",
+      "matchFileNames": ["samples/**"],
+      "separateMajorMinor": false,
+      "automerge": true
+    },
+    // troublesome/frozen packages
+    {
+      "groupName": "frozen",
+      "matchPackageNames": ["@vercel/webpack-asset-relocator-loader"],
+      "dependencyDashboardApproval": true
+    },
+    {
+      "matchPackageNames": "SixLabors.ImageSharp",
+      "allowedVersions": "< 3.0.0"
+    },
+    {
+      "matchPackageNames": "@electron/fuses",
+      "allowedVersions": "< 2.0.0" // 2.x is ESM-only, breaks webpack/forge setup
+    },
+    {
+      "matchPackageNames": "coverlet.msbuild",
+      "allowedVersions": "< 7.0.0" // 8.x breaks instrumentation on net8.0 targets
+    },
+    {
+      "matchPackageNames": "/^WixToolset\\./",
+      "allowedVersions": "< 6.0.0" // 6.0+ requires OSMF license acceptance
+    }
+  ]
+}

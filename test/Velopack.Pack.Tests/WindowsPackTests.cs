@@ -193,7 +193,7 @@ public class WindowsPackTests
             PackId = id,
             PackVersion = version,
             PackDirectory = tmpOutput,
-            TargetRuntime = RID.Parse("win"),
+            TargetRuntime = RID.Parse("win-x64"),
         };
 
         var runner = WindowsTestHelper.GetPackRunner(logger);
@@ -325,18 +325,21 @@ public class WindowsPackTests
         Assert.Null(key2);
     }
 
-    [Fact]
-    public async Task TestAppAutoUpdatesWhenLocalIsAvailable()
+    [Theory]
+    [InlineData("csharp")]
+    [InlineData("rust")]
+    public async Task TestAppAutoUpdatesWhenLocalIsAvailable(string variant)
     {
         Assert.SkipUnless(VelopackRuntimeInfo.IsWindows, "Windows only");
         using var logger = _output.BuildLoggerFor<WindowsPackTests>();
         using var _1 = TempUtil.GetTempDirectory(out var releaseDir);
         using var _2 = TempUtil.GetTempDirectory(out var installDir);
-        string id = "SquirrelAutoUpdateTest";
-        var appPath = Path.Combine(installDir, "current", "TestApp.exe");
+        string id = $"WinAutoUpdate-{variant}";
+        var exeName = variant == "rust" ? "testapp.exe" : "TestApp.exe";
+        var appPath = Path.Combine(installDir, "current", exeName);
 
         // pack v1
-        await PackTestApp(id, "1.0.0", "version 1 test", releaseDir, logger);
+        await PackTestAppVariant(variant, id, "1.0.0", "version 1 test", releaseDir, logger);
 
         // install app
         var setupPath1 = Path.Combine(releaseDir, $"{id}-win-Setup.exe");
@@ -347,7 +350,7 @@ public class WindowsPackTests
             logger);
 
         // pack v2
-        await PackTestApp(id, "2.0.0", "version 2 test", releaseDir, logger);
+        await PackTestAppVariant(variant, id, "2.0.0", "version 2 test", releaseDir, logger);
 
         // move package into local packages dir (installDir is writable, so packages dir is installDir/packages)
         var fileName = $"{id}-2.0.0-full.nupkg";
@@ -357,11 +360,11 @@ public class WindowsPackTests
         var mvTo = Path.Combine(packagesPath, fileName);
         File.Copy(mvFrom, mvTo, true);
 
-        WindowsTestHelper.RunCoveredDotnet(appPath, ["--autoupdate"], installDir, logger, exitCode: null);
+        WindowsTestHelper.RunNoCoverage(appPath, ["--autoupdate"], installDir, logger, exitCode: null);
 
         Thread.Sleep(3000); // update.exe runs in separate process
 
-        var chk1version = WindowsTestHelper.RunCoveredDotnet(appPath, ["version"], installDir, logger);
+        var chk1version = WindowsTestHelper.RunNoCoverage(appPath, ["version"], installDir, logger);
         Assert.EndsWith(Environment.NewLine + "2.0.0", chk1version);
     }
 
@@ -645,11 +648,12 @@ public class WindowsPackTests
     }
 
     [Theory]
-    [InlineData("LegacyTestApp-ClowdV2-Setup.exe", "app-1.0.0")]
-    [InlineData("LegacyTestApp-ClowdV3-Setup.exe", "current")]
-    [InlineData("LegacyTestApp-SquirrelWinV2-Setup.exe", "app-1.0.0")]
-    [InlineData("LegacyTestApp-Velopack0084-Setup.exe", "current")]
-    public async Task LegacyAppCanMigrate(string fixture, string origDirName)
+    [InlineData("LegacyTestApp-ClowdV2-Setup.exe", "app-1.0.0", "LegacyTestApp.exe")]
+    [InlineData("LegacyTestApp-ClowdV3-Setup.exe", "current", "LegacyTestApp.exe")]
+    [InlineData("LegacyTestApp-SquirrelWinV2-Setup.exe", "app-1.0.0", "LegacyTestApp.exe")]
+    [InlineData("LegacyTestApp-Velopack0084-Setup.exe", "current", "LegacyTestApp.exe")]
+    [InlineData("LegacyTestApp-Velopack1298-Setup.exe", "current", "TestApp.exe")]
+    public async Task LegacyAppCanMigrate(string fixture, string origDirName, string initialExeName)
     {
         Assert.SkipUnless(VelopackRuntimeInfo.IsWindows, "Windows only");
         using var logger = _output.BuildLoggerFor<WindowsPackTests>();
@@ -664,7 +668,7 @@ public class WindowsPackTests
         p!.WaitForExit();
 
         var currentDir = Path.Combine(rootDir, origDirName);
-        var appExe = Path.Combine(currentDir, "LegacyTestApp.exe");
+        var appExe = Path.Combine(currentDir, initialExeName);
         var updateExe = Path.Combine(rootDir, "Update.exe");
 
         var assertAppExe = appExe;
@@ -708,6 +712,43 @@ public class WindowsPackTests
 
         var chk3version = WindowsTestHelper.RunNoCoverage(appExe, ["version"], currentDir, logger);
         Assert.EndsWith(Environment.NewLine + "2.0.0", chk3version);
+    }
+
+    private async Task PackTestAppVariant(string variant, string id, string version, string testString, string releaseDir, ILogger logger)
+    {
+        if (variant == "csharp") {
+            await PackTestApp(id, version, testString, releaseDir, logger);
+        } else if (variant == "rust") {
+            await PackRustTestApp(id, version, testString, releaseDir, logger);
+        } else {
+            throw new ArgumentException($"Unknown variant: {variant}");
+        }
+    }
+
+    private static async Task PackRustTestApp(string id, string version, string testString, string releaseDir, ILogger logger)
+    {
+        using var _ = TempUtil.GetTempDirectory(out var packDir);
+
+        var rustBinary = PathHelper.GetRustAsset("testapp.exe");
+        if (!File.Exists(rustBinary))
+            throw new FileNotFoundException($"Rust testapp not found at: {rustBinary}. Run 'cargo build -p velopack_bins' first.");
+        File.Copy(rustBinary, Path.Combine(packDir, "testapp.exe"));
+
+        File.WriteAllText(Path.Combine(packDir, "test_string.txt"), testString);
+
+        logger.Info($"TEST: Packing Rust testapp v{version} with test string '{testString}'");
+
+        var options = new WindowsPackOptions {
+            EntryExecutableName = "testapp.exe",
+            ReleaseDir = new DirectoryInfo(releaseDir),
+            PackId = id,
+            PackVersion = version,
+            TargetRuntime = RID.Parse("win-x64"),
+            PackDirectory = packDir,
+        };
+
+        var runner = WindowsTestHelper.GetPackRunner(logger);
+        await runner.Run(options);
     }
 
     private static async Task PackTestApp(string id, string version, string testString, string releaseDir, ILogger logger,
@@ -784,5 +825,66 @@ public class WindowsPackTests
         } finally {
             File.WriteAllText(testStringFile, oldText);
         }
+    }
+
+    [Theory]
+    [InlineData("x86", AsmResolver.PE.File.MachineType.I386)]
+    [InlineData("x64", AsmResolver.PE.File.MachineType.Amd64)]
+    [InlineData("arm64", AsmResolver.PE.File.MachineType.Arm64)]
+    public void PackIncludesCorrectArchitectureBinaries(string architecture, AsmResolver.PE.File.MachineType expectedMachineType)
+    {
+        Assert.SkipUnless(VelopackRuntimeInfo.IsWindows, "Windows only");
+        Assert.SkipWhen(IsDebugBuild(), "Architecture-specific binary selection only applies to Release builds.");
+
+        using var logger = _output.BuildLoggerFor<WindowsPackTests>();
+        using var _1 = TempUtil.GetTempDirectory(out var tmpOutput);
+        using var _2 = TempUtil.GetTempDirectory(out var tmpReleaseDir);
+        using var _3 = TempUtil.GetTempDirectory(out var unzipDir);
+
+        var exe = "testapp.exe";
+        var id = "Test.Squirrel-App";
+        var version = "1.0.0";
+
+        PathHelper.CopyRustAssetTo(exe, tmpOutput);
+
+        var options = new WindowsPackOptions {
+            EntryExecutableName = exe,
+            ReleaseDir = new DirectoryInfo(tmpReleaseDir),
+            PackId = id,
+            PackVersion = version,
+            TargetRuntime = RID.Parse($"win-{architecture}"),
+            PackDirectory = tmpOutput,
+        };
+
+        var runner = WindowsTestHelper.GetPackRunner(logger);
+        runner.Run(options).GetAwaiterResult();
+
+        var nupkgPath = Path.Combine(tmpReleaseDir, $"{id}-{version}-full.nupkg");
+        Assert.True(File.Exists(nupkgPath));
+        EasyZip.ExtractZipToDirectory(logger.ToVelopackLogger(), nupkgPath, unzipDir);
+
+        var squirrelExePath = Path.Combine(unzipDir, "lib", "app", "Squirrel.exe");
+        Assert.True(File.Exists(squirrelExePath), "Expected Squirrel.exe (Update.exe) in the package");
+        AssertMachineType(squirrelExePath, expectedMachineType);
+
+        var setupPath = Path.Combine(tmpReleaseDir, $"{id}-win-Setup.exe");
+        Assert.True(File.Exists(setupPath), "Expected Setup.exe in the release dir");
+        AssertMachineType(setupPath, expectedMachineType);
+    }
+
+    private static bool IsDebugBuild()
+    {
+#if DEBUG
+        return true;
+#else
+        return false;
+#endif
+    }
+
+    private void AssertMachineType(string pePath, AsmResolver.PE.File.MachineType expected)
+    {
+        var actual = AsmResolver.PE.PEImage.FromFile(pePath).MachineType;
+        _output.WriteLine($"{Path.GetFileName(pePath)} machine type: {actual}, expected: {expected}");
+        Assert.Equal(expected, actual);
     }
 }

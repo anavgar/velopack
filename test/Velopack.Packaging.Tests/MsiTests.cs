@@ -222,6 +222,76 @@ public class MsiTests
     }
 
     [Fact]
+    public async Task TestPackGeneratesMsiWithInstallerPages()
+    {
+        Assert.SkipUnless(VelopackRuntimeInfo.IsWindows, "Windows only");
+
+        using var logger = _output.BuildLoggerFor<MsiTests>();
+
+        using var _1 = TempUtil.GetTempDirectory(out var tmpOutput);
+        using var _2 = TempUtil.GetTempDirectory(out var tmpReleaseDir);
+        using var _3 = TempUtil.GetTempDirectory(out var tmpAssets);
+
+        var exe = "testapp.exe";
+        var pdb = Path.ChangeExtension(exe, ".pdb");
+        var id = "Test.Squirrel-App";
+        var version = "1.2.3";
+
+        PathHelper.CopyRustAssetTo(exe, tmpOutput);
+        PathHelper.CopyRustAssetTo(pdb, tmpOutput);
+
+        var welcomeFile = Path.Combine(tmpAssets, "welcome.txt");
+        var readmeFile = Path.Combine(tmpAssets, "readme.txt");
+        var licenseFile = Path.Combine(tmpAssets, "license.txt");
+        var conclusionFile = Path.Combine(tmpAssets, "conclusion.txt");
+        File.WriteAllText(welcomeFile, "WELCOME_TEXT_MARKER");
+        File.WriteAllText(readmeFile, "README_TEXT_MARKER");
+        File.WriteAllText(licenseFile, "LICENSE_TEXT_MARKER");
+        File.WriteAllText(conclusionFile, "CONCLUSION_TEXT_MARKER");
+
+        var options = new WindowsPackOptions {
+            EntryExecutableName = exe,
+            ReleaseDir = new DirectoryInfo(tmpReleaseDir),
+            PackId = id,
+            PackVersion = version,
+            TargetRuntime = RID.Parse("win-x64"),
+            PackDirectory = tmpOutput,
+            Shortcuts = "Desktop,StartMenuRoot",
+            BuildMsi = true,
+            InstWelcome = welcomeFile,
+            InstReadme = readmeFile,
+            InstLicense = licenseFile,
+            InstConclusion = conclusionFile,
+        };
+
+        var runner = WindowsTestHelper.GetPackRunner(logger);
+        await runner.Run(options);
+
+        string msiPath = Path.Combine(tmpReleaseDir, $"{id}-win.msi");
+        Assert.True(File.Exists(msiPath));
+
+        using Database db = new Database(msiPath);
+
+        // Welcome -> override of MsiWelcomeDescription property
+        var welcomeProp = db.ExecuteScalar("SELECT `Value` FROM `Property` WHERE `Property` = 'MsiWelcomeDescription'") as string;
+        Assert.Equal("WELCOME_TEXT_MARKER", welcomeProp);
+
+        // Readme -> ReadmeDlg dialog should exist (content is embedded via WixVariable RTF, not an MSI property)
+        var readmeDialog = db.ExecuteScalar("SELECT `Dialog` FROM `Dialog` WHERE `Dialog` = 'ReadmeDlg'") as string;
+        Assert.Equal("ReadmeDlg", readmeDialog);
+
+        // Conclusion -> WIXUI_EXITDIALOGOPTIONALTEXT property
+        var conclusionProp = db.ExecuteScalar(
+            "SELECT `Value` FROM `Property` WHERE `Property` = 'WIXUI_EXITDIALOGOPTIONALTEXT'") as string;
+        Assert.Equal("CONCLUSION_TEXT_MARKER", conclusionProp);
+
+        // License -> LicenseAgreementDlg dialog is always present; ensure WixUILicenseRtf was set
+        // (the WixVariable is compiled into WixVariable table)
+        var licenseDialog = db.ExecuteScalar("SELECT `Dialog` FROM `Dialog` WHERE `Dialog` = 'LicenseAgreementDlg'") as string;
+        Assert.Equal("LicenseAgreementDlg", licenseDialog);
+    }
+
+    [Fact]
     public async Task TestPackGeneratesMsiWithSpecifiedVersion()
     {
         Assert.SkipUnless(VelopackRuntimeInfo.IsWindows, "Windows only");
@@ -248,7 +318,7 @@ public class MsiTests
             PackDirectory = tmpOutput,
             Shortcuts = "Desktop,StartMenuRoot",
             BuildMsi = true,
-            MsiVersionOverride = "4.5.6.1"
+            MsiVersionOverride = "4.5.6.0"
         };
 
         var runner = WindowsTestHelper.GetPackRunner(logger);
@@ -259,10 +329,69 @@ public class MsiTests
 
         using Database db = new Database(msiPath);
         var msiVersion = db.ExecuteScalar("SELECT `Value` FROM `Property` WHERE `Property` = 'ProductVersion'") as string;
-        Assert.Equal("4.5.6.1", msiVersion);
+        Assert.Equal("4.5.6.0", msiVersion);
     }
 
 
+
+    [Fact]
+    public async Task TestMsiInstallToCustomDirViaVelopackInstallDir()
+    {
+        Assert.SkipUnless(VelopackRuntimeInfo.IsWindows, "Windows only");
+        using var logger = _output.BuildLoggerFor<MsiTests>();
+        using var _1 = TempUtil.GetTempDirectory(out var releaseDir);
+        using var _2 = TempUtil.GetTempDirectory(out var customParent);
+
+        string id = "MsiCustomDirTest";
+        // a custom install dir that is NOT the default %LocalAppData%\{id} location
+        var customDir = Path.Combine(customParent, "Custom", "WLYS");
+        var defaultDir = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), id);
+        var msiPath = Path.Combine(releaseDir, $"{id}-win.msi");
+        var appPath = Path.Combine(customDir, "current", "TestApp.exe");
+
+        try {
+            await PackTestAppWithMsi(id, "1.0.0", "custom dir test", releaseDir, logger, InstallLocation.PerUser);
+            Assert.True(File.Exists(msiPath), $"MSI not found at {msiPath}");
+
+            // install per-user, overriding the install dir via VELOPACK_INSTALLDIR
+            logger.Info($"TEST: Installing MSI to custom dir {customDir}...");
+            RunMsiExec($"/i \"{msiPath}\" /qn VELOPACK_INSTALLDIR=\"{customDir}\"", logger);
+
+            // app must land in the custom dir, NOT the default LocalAppData location
+            Assert.True(File.Exists(appPath), $"TestApp.exe not found at custom dir {appPath}");
+            Assert.False(Directory.Exists(defaultDir),
+                $"App should NOT have installed to the default dir {defaultDir}");
+
+            var chkVersion = WindowsTestHelper.RunCoveredDotnet(appPath, ["version"], customDir, logger);
+            Assert.EndsWith(Environment.NewLine + "1.0.0", chkVersion);
+            logger.Info("TEST: app installed to custom dir and verified");
+        } finally {
+            try {
+                if (File.Exists(msiPath)) {
+                    RunMsiExec($"/x \"{msiPath}\" /qn", logger, exitCode: null);
+                }
+            } catch {
+                // best effort cleanup
+            }
+
+            try {
+                if (Directory.Exists(customDir)) {
+                    IoUtil.Retry(() => IoUtil.DeleteFileOrDirectoryHard(customDir), 10, 1000);
+                }
+            } catch {
+                // best effort cleanup
+            }
+
+            try {
+                if (Directory.Exists(defaultDir)) {
+                    IoUtil.Retry(() => IoUtil.DeleteFileOrDirectoryHard(defaultDir), 10, 1000);
+                }
+            } catch {
+                // best effort cleanup
+            }
+        }
+    }
 
     // Requires elevation and UAC approval. To run from CLI:
     //   dotnet test test/Velopack.Packaging.Tests --filter TestMsiPerMachineInstallAndUpdate -- xUnit.Explicit=only

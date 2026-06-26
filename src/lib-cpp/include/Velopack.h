@@ -1,7 +1,7 @@
 #ifndef VELOPACK_H
 #define VELOPACK_H
 
-/* Generated with cbindgen:0.29.2 */
+/* Generated with cbindgen:0.29.4 */
 
 /* THIS FILE IS AUTO-GENERATED - DO NOT EDIT */
 
@@ -14,9 +14,9 @@
  * The result of a call to check for updates. This can indicate that an update is available, or that an error occurred.
  */
 enum vpkc_update_check_t
-#ifdef __cplusplus
+#if defined(__cplusplus) || __STDC_VERSION__ >= 202311L
   : int8_t
-#endif // __cplusplus
+#endif // defined(__cplusplus) || __STDC_VERSION__ >= 202311L
  {
   UPDATE_ERROR = -1,
   UPDATE_AVAILABLE = 0,
@@ -24,7 +24,11 @@ enum vpkc_update_check_t
   REMOTE_IS_EMPTY = 2,
 };
 #ifndef __cplusplus
+#if __STDC_VERSION__ >= 202311L
+typedef enum vpkc_update_check_t vpkc_update_check_t;
+#else
 typedef int8_t vpkc_update_check_t;
+#endif // __STDC_VERSION__ >= 202311L
 #endif // __cplusplus
 
 /**
@@ -128,7 +132,7 @@ typedef struct vpkc_update_options_t {
  */
 typedef struct vpkc_locator_config_t {
   /**
-   * The root directory of the current app.
+   * The root directory of the current app, or the path to the AppImage file on Linux.
    */
   char *RootAppDir;
   /**

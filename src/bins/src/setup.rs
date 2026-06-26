@@ -4,7 +4,7 @@
 #[macro_use]
 extern crate log;
 
-use anyhow::{bail, Result};
+use anyhow::Result;
 use clap::{arg, value_parser, Command};
 use memmap2::Mmap;
 use std::ffi::OsString;
@@ -53,10 +53,43 @@ pub fn header_offset_and_length() -> (i64, i64) {
     }
 }
 
-fn main() -> Result<()> {
+fn main() {
     windows::mitigate::pre_main_sideload_mitigation();
     windows::splash::init_dpi_awareness();
-    shared::cli_host::clap_run_main("Setup", main_inner)
+    let result = dialogs::XDialogBuilder::new().run_result(real_main);
+    std::process::exit(if result.is_ok() { 0 } else { 1 });
+}
+
+fn real_main() -> Result<()> {
+    dialogs::init();
+    if let Err(e) = main_inner() {
+        // The command parser uses `ignore_errors(true)`, so clap won't print --help / --version
+        // itself; those requests arrive here as an error which we render manually. Setup is
+        // user-facing, so genuine errors are also surfaced in a dialog.
+        if let Some(clap_err) = e.downcast_ref::<clap::Error>() {
+            use clap::error::ErrorKind;
+            if matches!(
+                clap_err.kind(),
+                ErrorKind::DisplayHelp | ErrorKind::DisplayHelpOnMissingArgumentOrSubcommand | ErrorKind::DisplayVersion
+            ) {
+                println!("{clap_err}");
+                return Ok(());
+            }
+        }
+        let error_string = e.to_string();
+        error!("An error has occurred: {:?}", e);
+        if let Some(setup_err) = e.downcast_ref::<setup_errors::SetupError>() {
+            let body = setup_err.localized_body();
+            match setup_err.app_title() {
+                Some(app_title) => dialogs::show_setup_error(app_title, &body),
+                None => dialogs::show_generic_error("Setup", &body),
+            }
+        } else {
+            dialogs::show_generic_error("Setup", &error_string);
+        }
+        return Err(e);
+    }
+    Ok(())
 }
 
 fn main_inner() -> Result<()> {
@@ -82,6 +115,9 @@ fn main_inner() -> Result<()> {
 
     let silent = matches.get_flag("silent");
     dialogs::set_silent(silent);
+    if !silent {
+        dialogs::set_dialog_timeout(Some(std::time::Duration::from_secs(300)));
+    }
 
     let verbose = matches.get_flag("verbose");
     let logfile = matches.get_one::<PathBuf>("log");
@@ -115,7 +151,7 @@ fn main_inner() -> Result<()> {
     info!("OS: {osinfo}, Arch={osarch:#?}");
 
     if !windows::is_windows_7_sp1_or_greater() {
-        bail!("This installer requires Windows 7 SPA1 or later and cannot run.");
+        return Err(setup_errors::SetupError::WindowsVersionUnsupported.into());
     }
 
     // in debug mode only, allow a nupkg to be passed in as the first argument
@@ -138,10 +174,10 @@ fn main_inner() -> Result<()> {
         let file = File::open(env::current_exe()?)?;
         let mmap = unsafe { Mmap::map(&file)? };
         let zip_range: &[u8] = &mmap[offset as usize..(offset + length) as usize];
-        let mut bundle = velopack::bundle::load_bundle_from_memory(&zip_range)?;
+        let mut bundle = velopack::bundle::load_bundle_from_memory(zip_range)?;
         commands::install(&mut bundle, install_to, exe_args)?;
         return Ok(());
     }
 
-    bail!("Could not find embedded zip file. Please contact the application author.");
+    Err(setup_errors::SetupError::EmbeddedZipMissing.into())
 }

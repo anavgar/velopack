@@ -1,10 +1,10 @@
-use crate::shared::dialogs;
+use crate::dialogs;
 use anyhow::{bail, Result};
 use std::os::unix::fs::PermissionsExt;
 use std::{fs, path::PathBuf, process::Command};
 use velopack::{bundle, locator::VelopackLocator};
 
-pub fn apply_package_impl<'a>(locator: &VelopackLocator, pkg: &PathBuf, _hook_mode: super::HookRunMode) -> Result<VelopackLocator> {
+pub fn apply_package_impl(locator: &VelopackLocator, pkg: &PathBuf, _hook_mode: super::HookRunMode) -> Result<VelopackLocator> {
     let _mutex = locator.try_get_exclusive_lock()?;
     // on linux, the current "dir" is actually an AppImage file which we need to replace.
     info!("Loading bundle from {:?}", pkg);
@@ -19,14 +19,17 @@ pub fn apply_package_impl<'a>(locator: &VelopackLocator, pkg: &PathBuf, _hook_mo
         e
     })?;
     let temp_path = locator.get_temp_dir_rand16().to_string_lossy().to_string();
-    let root_path = locator.get_root_dir().to_string_lossy().to_string();
+    let appimage_path = locator.get_appimage_path().to_string_lossy().to_string();
     let script_path = format!("/var/tmp/velopack_update_{}.sh", manifest.id);
     let new_locator = locator.clone_self_with_new_manifest(&manifest);
+
+    // show progress dialog
+    let reporter = dialogs::progress::show_apply_progress(&manifest.title, &manifest.version.to_string());
 
     let action: Result<()> = (|| {
         info!("Extracting bundle to temp file: {}", temp_path);
         bundle
-            .extract_zip_predicate_to_path(|z| z.ends_with(".AppImage"), &temp_path)
+            .extract_zip_predicate_to_path_with_progress(|z| z.ends_with(".AppImage"), &temp_path, |p| reporter.set_progress(p))
             .map_err(|e| {
                 warn!("Deleting package {:?} to prevent update loop: {}", pkg, e);
                 let _ = fs::remove_file(pkg);
@@ -36,15 +39,16 @@ pub fn apply_package_impl<'a>(locator: &VelopackLocator, pkg: &PathBuf, _hook_mo
         info!("Chmod as executable");
         std::fs::set_permissions(&temp_path, fs::Permissions::from_mode(0o755))?;
 
-        info!("Moving temp file to target: {}", &root_path);
+        reporter.set_indeterminate();
+        info!("Moving temp AppImage to: {}", &appimage_path);
         // we use mv instead of fs::rename / fs::copy because rename fails cross-device
         // and copy fails if the process is running (presumably because rust opens the file for writing)
         // while mv works in both cases.
-        let mv_args = vec!["-f", &temp_path, &root_path];
+        let mv_args = vec!["-f", &temp_path, &appimage_path];
         let mv_output = Command::new("mv").args(mv_args).output()?;
 
         if mv_output.status.success() {
-            info!("AppImage moved successfully to: {}", &root_path);
+            info!("AppImage moved successfully to: {}", &appimage_path);
             return Ok(());
         }
 
@@ -54,7 +58,7 @@ pub fn apply_package_impl<'a>(locator: &VelopackLocator, pkg: &PathBuf, _hook_mo
             mv_output
         );
         dialogs::ask_user_to_elevate(&manifest.title, &manifest.version.to_string())?;
-        let script = format!("#!/bin/sh\nmv -f '{}' '{}'", temp_path, &root_path);
+        let script = format!("#!/bin/sh\nmv -f '{}' '{}'", temp_path, &appimage_path);
         info!("Writing script for elevation: \n{}", script);
         fs::write(&script_path, script)?;
         std::fs::set_permissions(
@@ -65,12 +69,14 @@ pub fn apply_package_impl<'a>(locator: &VelopackLocator, pkg: &PathBuf, _hook_mo
         info!("Attempting to elevate: pkexec {:?}", args);
         let elev_output = Command::new("pkexec").args(args).output()?;
         if elev_output.status.success() {
-            info!("AppImage moved (elevated) to {}", &root_path);
-            return Ok(());
+            info!("AppImage moved (elevated) to {}", &appimage_path);
+            Ok(())
         } else {
             bail!("pkexec failed with status: {:?}", elev_output);
         }
     })();
+
+    reporter.close();
     let _ = fs::remove_file(&script_path);
     let _ = fs::remove_file(&temp_path);
     action?;

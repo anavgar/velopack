@@ -16,13 +16,15 @@ public class WindowsPackOptions : WindowsReleasifyOptions, INugetPackCommand, IP
 
     public string ReleaseNotes { get; set; }
 
-    public string Exclude { get; set; }
+    public string Exclude { get; set; } = @".*\.pdb";
+
+    public bool NoDefaultExclude { get; set; }
 
     public bool NoPortable { get; set; }
 
     public bool NoInst { get; set; }
 
-    public string Shortcuts { get; set; }
+    public string Shortcuts { get; set; } = "Desktop,StartMenuRoot";
 
     public string InstWelcome { get; set; }
 
@@ -32,7 +34,7 @@ public class WindowsPackOptions : WindowsReleasifyOptions, INugetPackCommand, IP
 
     public string InstConclusion { get; set; }
 
-    public InstallLocation InstLocation { get; set; }
+    public InstallLocation InstLocation { get; set; } = InstallLocation.Either;
 
     public string MsiBanner { get; set; }
     public string MsiLogo { get; set; }

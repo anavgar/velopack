@@ -114,10 +114,10 @@ fn get_flag_or_false(matches: &ArgMatches, id: &str) -> bool {
 }
 
 fn get_op_wait(matches: &ArgMatches) -> shared::OperationWait {
-    let wait_for_parent = get_flag_or_false(&matches, "wait");
+    let wait_for_parent = get_flag_or_false(matches, "wait");
     let wait_pid = matches.try_get_one::<u32>("waitPid").unwrap_or(None).map(|v| v.to_owned());
-    if wait_pid.is_some() {
-        shared::OperationWait::WaitPid(wait_pid.unwrap())
+    if let Some(pid) = wait_pid {
+        shared::OperationWait::WaitPid(pid)
     } else if wait_for_parent {
         shared::OperationWait::WaitParent
     } else {
@@ -125,16 +125,40 @@ fn get_op_wait(matches: &ArgMatches) -> shared::OperationWait {
     }
 }
 
-// fn main() -> Result<()> {
-//     shared::cli_host::clap_run_main("Update", main_inner)
-// }
-
-fn main() -> Result<()> {
+fn main() {
     #[cfg(windows)]
     windows::mitigate::pre_main_sideload_mitigation();
     #[cfg(windows)]
     windows::splash::init_dpi_awareness();
 
+    let result = dialogs::XDialogBuilder::new().run_result(real_main);
+    std::process::exit(if result.is_ok() { 0 } else { 1 });
+}
+
+fn real_main() -> Result<()> {
+    dialogs::init();
+    if let Err(e) = main_inner() {
+        // The command parser uses `ignore_errors(true)` so that unknown / legacy arguments don't
+        // abort the updater. A side effect is that clap no longer prints --help / --version itself;
+        // those requests arrive here as an error which we must render manually. Unlike Setup,
+        // Update.exe runs unattended, so we never surface a dialog for genuine errors.
+        if let Some(clap_err) = e.downcast_ref::<clap::Error>() {
+            use clap::error::ErrorKind;
+            if matches!(
+                clap_err.kind(),
+                ErrorKind::DisplayHelp | ErrorKind::DisplayHelpOnMissingArgumentOrSubcommand | ErrorKind::DisplayVersion
+            ) {
+                println!("{clap_err}");
+                return Ok(());
+            }
+        }
+        error!("An error has occurred: {:?}", e);
+        return Err(e);
+    }
+    Ok(())
+}
+
+fn main_inner() -> Result<()> {
     #[cfg(windows)]
     let matches = try_parse_command_line_matches(env::args().collect())?;
     #[cfg(unix)]
@@ -142,6 +166,9 @@ fn main() -> Result<()> {
 
     let silent = get_flag_or_false(&matches, "silent");
     dialogs::set_silent(silent);
+    if !silent {
+        dialogs::set_dialog_timeout(Some(std::time::Duration::from_secs(300)));
+    }
 
     let root_dir = matches.get_one::<PathBuf>("rootDir");
     let package_dir = matches.get_one::<PathBuf>("packageDir").cloned();
@@ -188,7 +215,7 @@ fn main() -> Result<()> {
 
     if let Err(e) = result {
         error!("{}", e);
-        return Err(e.into());
+        return Err(e);
     }
 
     Ok(())
@@ -232,10 +259,10 @@ fn get_exe_args(matches: &ArgMatches) -> Option<Vec<OsString>> {
 }
 
 fn get_apply_args(matches: &ArgMatches) -> (OperationWait, bool, Option<&PathBuf>, Option<Vec<OsString>>) {
-    let restart = !get_flag_or_false(&matches, "norestart");
+    let restart = !get_flag_or_false(matches, "norestart");
     let package = matches.get_one::<PathBuf>("package");
     let exe_args = get_exe_args(matches);
-    let wait = get_op_wait(&matches);
+    let wait = get_op_wait(matches);
     (wait, restart, package, exe_args)
 }
 
@@ -259,7 +286,7 @@ fn get_start_args(matches: &ArgMatches) -> (OperationWait, Option<&OsString>, Op
     let legacy_args = matches.get_one::<OsString>("args");
     let exe_name = matches.get_one::<OsString>("EXE_NAME");
     let exe_args = get_exe_args(matches);
-    let wait = get_op_wait(&matches);
+    let wait = get_op_wait(matches);
     (wait, exe_name, legacy_args, exe_args)
 }
 

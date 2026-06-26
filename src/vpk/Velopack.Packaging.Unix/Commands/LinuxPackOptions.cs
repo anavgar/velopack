@@ -29,13 +29,15 @@ public class LinuxPackOptions : IPackOptions
 
     public string Channel { get; set; }
 
-    public string Exclude { get; set; }
+    public string Exclude { get; set; } = @".*\.pdb";
+
+    public bool NoDefaultExclude { get; set; }
 
     public bool NoPortable { get; set; }
 
     public bool NoInst { get; set; }
 
     public string Categories { get; set; }
-    
-    public string Compression { get; set; }
+
+    public string Compression { get; set; } = AppImageTool.DefaultCompressionAlgorithm;
 }

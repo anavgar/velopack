@@ -30,7 +30,7 @@ namespace Velopack.Locators
         public override SemanticVersion? CurrentlyInstalledVersion { get; }
 
         /// <inheritdoc />
-        public override string? AppContentDir => RootAppDir;
+        public override string? AppContentDir { get; }
 
         /// <inheritdoc />
         public override string? AppTempDir => CreateSubDirIfDoesNotExist(TempUtil.GetDefaultTempBaseDirectory(), AppId);
@@ -46,6 +46,9 @@ namespace Velopack.Locators
 
         /// <inheritdoc />
         public override string? Channel { get; }
+
+        /// <inheritdoc />
+        public override bool IsPortable => true;
 
         /// <summary>
         /// Creates a new <see cref="OsxVelopackLocator"/> and auto-detects the
@@ -69,7 +72,7 @@ namespace Velopack.Locators
 
             if (!string.IsNullOrEmpty(HomeDir) && Directory.Exists(HomeDir)) {
                 var userLogsFolder = Path.Combine(HomeDir!, "Library", "Logs");
-                if (!Directory.Exists(userLogsFolder)) {
+                if (Directory.Exists(userLogsFolder)) {
                     logFolder = userLogsFolder;
                 }
             }
@@ -84,11 +87,15 @@ namespace Velopack.Locators
                 var macosDir = Path.Combine(contentsDir, "MacOS");
                 var updateExe = Path.Combine(macosDir, "UpdateMac");
                 var metadataPath = Path.Combine(macosDir, CoreUtil.SpecVersionFileName);
+                var resourcesMetadataPath = Path.Combine(contentsDir, "Resources", CoreUtil.SpecVersionFileName);
 
-                if (File.Exists(updateExe) && PackageManifest.TryParseFromFile(metadataPath, out var manifest)) {
+                if (File.Exists(updateExe)
+                    && (PackageManifest.TryParseFromFile(metadataPath, out var manifest)
+                        || PackageManifest.TryParseFromFile(resourcesMetadataPath, out manifest))) {
                     initLog.Info("Located valid manifest file at: " + metadataPath);
                     AppId = manifest.Id;
                     RootAppDir = appPath;
+                    AppContentDir = macosDir;
                     UpdateExePath = updateExe;
                     CurrentlyInstalledVersion = manifest.Version;
                     Channel = manifest.Channel;

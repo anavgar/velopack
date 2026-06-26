@@ -2,8 +2,9 @@ using System.Diagnostics;
 using System.Runtime.Versioning;
 using Microsoft.Win32;
 using Velopack.Core;
-using Velopack.Packaging.Commands;
+using Velopack.Packaging.Windows.Msi;
 using Velopack.Packaging.Windows.Commands;
+using Velopack.Windows;
 using Velopack.Util;
 using Velopack.Vpk;
 using Velopack.Vpk.Logging;
@@ -133,7 +134,7 @@ public class MsiTests
     }
 
     private static async Task PackTestAppWithMsi(string id, string version, string testString,
-        string releaseDir, ILogger logger, InstallLocation instLocation)
+        string releaseDir, ILogger logger, string packAuthors = null)
     {
         var projDir = PathHelper.GetTestRootPath("TestApp");
         var testStringFile = Path.Combine(projDir, "Const.cs");
@@ -161,11 +162,12 @@ public class MsiTests
                 EntryExecutableName = "TestApp.exe",
                 ReleaseDir = new DirectoryInfo(releaseDir),
                 PackId = id,
+                PackAuthors = packAuthors,
                 PackVersion = version,
                 TargetRuntime = RID.Parse("win-x64"),
                 PackDirectory = Path.Combine(projDir, "publish"),
                 BuildMsi = true,
-                InstLocation = instLocation,
+                InstLocation = InstallLocation.PerMachine,
             };
 
             var runner = WindowsTestHelper.GetPackRunner(logger);
@@ -219,6 +221,35 @@ public class MsiTests
         using Database db = new Database(msiPath);
         var msiVersion = db.ExecuteScalar("SELECT `Value` FROM `Property` WHERE `Property` = 'ProductVersion'") as string;
         Assert.Equal("1.2.3.0", msiVersion);
+    }
+
+    [Fact]
+    public void TestMsiTemplateUsesPublisherPathAndProductVersion()
+    {
+        using var _1 = TempUtil.GetTempDirectory(out var tmpOutput);
+        var data = MsiBuilder.ConvertOptionsToTemplateData(
+            new DirectoryInfo(tmpOutput),
+            ShortcutLocation.None,
+            "",
+            new WindowsPackOptions {
+                PackId = "MyApp",
+                PackTitle = "My Application",
+                PackAuthors = "BiMMate",
+                PackVersion = "2.5.1",
+                TargetRuntime = RID.Parse("win-x64"),
+                EntryExecutableName = "MyApp.exe",
+                ReleaseDir = new DirectoryInfo(tmpOutput),
+                PackDirectory = tmpOutput,
+            });
+
+        var wxs = MsiBuilder.GenerateWixTemplate(data);
+
+        Assert.Contains("Scope=\"perMachine\"", wxs);
+        Assert.Contains("Id=\"PublisherDir\" Name=\"BiMMate\"", wxs);
+        Assert.Contains("Id=\"INSTALLFOLDER\" Name=\"MyApp\"", wxs);
+        Assert.Contains("Value=\"My Application 2.5.1.0\"", wxs);
+        Assert.Contains("ProgramFiles64Folder", wxs);
+        Assert.Contains("FileAssociations", wxs);
     }
 
     [Fact]
@@ -351,7 +382,7 @@ public class MsiTests
         var appPath = Path.Combine(customDir, "current", "TestApp.exe");
 
         try {
-            await PackTestAppWithMsi(id, "1.0.0", "custom dir test", releaseDir, logger, InstallLocation.PerUser);
+            await PackTestAppWithMsi(id, "1.0.0", "custom dir test", releaseDir, logger);
             Assert.True(File.Exists(msiPath), $"MSI not found at {msiPath}");
 
             // install per-user, overriding the install dir via VELOPACK_INSTALLDIR
@@ -403,8 +434,9 @@ public class MsiTests
         using var _1 = TempUtil.GetTempDirectory(out var releaseDir);
 
         string id = "MsiPerMachineTest";
+        const string publisher = "BiMMate";
         var installDir = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), id);
+            Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), publisher, id);
         var fallbackDir = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), id);
         var msiPath = Path.Combine(releaseDir, $"{id}-win.msi");
@@ -412,13 +444,12 @@ public class MsiTests
 
         try {
             // pack v1
-            await PackTestAppWithMsi(id, "1.0.0", "version 1 test", releaseDir, logger, InstallLocation.Either);
+            await PackTestAppWithMsi(id, "1.0.0", "version 1 test", releaseDir, logger, publisher);
             Assert.True(File.Exists(msiPath), $"MSI not found at {msiPath}");
 
-            // install via msiexec with ALLUSERS=1 (per-machine, requires admin)
-            // must pass INSTALLFOLDER for silent installs since UI events don't fire
+            // silent per-machine install: default path comes from ProgramFiles/Publisher/App layout (no INSTALLFOLDER needed)
             logger.Info("TEST: Installing MSI per-machine...");
-            RunMsiExec($"/i \"{msiPath}\" /qn ALLUSERS=1 INSTALLFOLDER=\"{installDir}\"", logger);
+            RunMsiExec($"/i \"{msiPath}\" /qn", logger);
 
             // verify install
             Assert.True(File.Exists(appPath), $"TestApp.exe not found at {appPath}");
@@ -441,7 +472,7 @@ public class MsiTests
             logger.Info("TEST: packages dir correctly fell back to " + fallbackPackagesPath);
 
             // pack v2
-            await PackTestAppWithMsi(id, "2.0.0", "version 2 test", releaseDir, logger, InstallLocation.Either);
+            await PackTestAppWithMsi(id, "2.0.0", "version 2 test", releaseDir, logger, publisher);
 
             // check for updates (de-elevated)
             var chk2check = RunCoveredDotnetDeelevated(appPath, ["check", releaseDir], installDir, logger);

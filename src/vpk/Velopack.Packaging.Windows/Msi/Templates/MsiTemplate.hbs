@@ -4,20 +4,41 @@
              Manufacturer="{{AppPublisher}}"
              Version="{{AppMsiVersion}}"
              Language="1033"
-             {{#if InstallLocationCurrentUserOnly}}
-             Scope="perUser"
-             {{else if InstallLocationAllUsersOnly}}
              Scope="perMachine"
-             {{else}}
-             Scope="perUserOrMachine"
-             {{/if}}
              UpgradeCode="{{UpgradeCodeGuid}}">
 
+        <SetProperty Id="ProductName"
+                     Value="{{AppTitle}} {{AppMsiVersion}}"
+                     Sequence="first"
+                     After="AppSearch"/>
+
         <Media Id="1" Cabinet="app.cab" EmbedCab="yes"/>
-        <StandardDirectory Id="TARGETDIR">
-            <Directory Id="INSTALLFOLDER" Name="{{AppTitleSanitized}}" ComponentGuidGenerationSeed="{{ComponentGenerationSeedGuid}}">
-                <Directory Name="current"/>
-                <Directory Id="PACKAGES_DIR" Name="packages"/>
+        <StandardDirectory Id="{{#if Is64Bit}}ProgramFiles64Folder{{else}}ProgramFilesFolder{{/if}}">
+            <Directory Id="PublisherDir" Name="{{AppPublisherSanitized}}">
+                <Directory Id="INSTALLFOLDER" Name="{{AppId}}" ComponentGuidGenerationSeed="{{ComponentGenerationSeedGuid}}">
+                    <Directory Name="current"/>
+                    <Directory Id="PACKAGES_DIR" Name="packages"/>
+
+                    <Component Id="FileAssociations" Guid="*">
+                        <RegistryValue Root="HKCR" Key="{{AppId}}.Assoc" Value="{{AppTitle}} File" Type="string"/>
+
+                        <RegistryValue Root="HKCR" Key="{{AppId}}.Assoc\shell\open\command"
+                                       Value="&quot;[INSTALLFOLDER]{{StubFileName}}&quot; &quot;%1&quot;" Type="string"/>
+
+                        <RegistryValue Root="HKCR" Key="{{AppId}}.Assoc\DefaultIcon"
+                                       Value="[INSTALLFOLDER]{{StubFileName}},0" Type="string"/>
+
+                        <RegistryValue Root="HKCR" Key=".bc3" Value="{{AppId}}.Assoc" Type="string"/>
+                        <RegistryValue Root="HKCR" Key=".mba" Value="{{AppId}}.Assoc" Type="string"/>
+                        <RegistryValue Root="HKCR" Key=".mbt" Value="{{AppId}}.Assoc" Type="string"/>
+                        <RegistryValue Root="HKCR" Key=".mbr" Value="{{AppId}}.Assoc" Type="string"/>
+                        <RegistryValue Root="HKCR" Key=".mbf" Value="{{AppId}}.Assoc" Type="string"/>
+                        <RegistryValue Root="HKCR" Key=".mbp" Value="{{AppId}}.Assoc" Type="string"/>
+
+                        <RegistryValue Root="HKCU" Key="Software\{{AppPublisherSanitized}}\{{AppId}}"
+                                       Name="FileAssociations" Value="1" Type="integer" KeyPath="yes"/>
+                    </Component>
+                </Directory>
             </Directory>
         </StandardDirectory>
 
@@ -92,7 +113,7 @@
         <DirectoryRef Id="INSTALLFOLDER">
             <Component Id="ArpRegistration">
                 <RegistryKey Root="HKMU" Key="Software&#92;Microsoft&#92;Windows&#92;CurrentVersion&#92;Uninstall&#92;MSI:{{AppId}}">
-                    <RegistryValue Name="DisplayName" Value="{{AppTitle}}" Type="string"/>
+                    <RegistryValue Name="DisplayName" Value="{{AppTitle}} {{AppVersion}}" Type="string"/>
                     <RegistryValue Name="DisplayVersion" Value="{{AppVersion}}" Type="string"/>
                     <RegistryValue Name="DisplayIcon" Value="[INSTALLFOLDER]{{StubFileName}}" Type="string"/>
                     <RegistryValue Name="Publisher" Value="{{AppPublisher}}" Type="string"/>
@@ -126,28 +147,19 @@
 
         <!-- WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT is set at runtime by RustSetLocaleStrings -->
 
-        {{#if InstallLocationCurrentUserOnly}}
-        <Property Id="WixAppFolder" Value="WixPerUserFolder"/>
-        {{else}}
         <Property Id="WixAppFolder" Value="WixPerMachineFolder"/>
-        {{/if}}
         <Property Id="ApplicationFolderName" Value="{{AppId}}"/>
         <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER"/>
 
         <!-- Optional install-dir override for sysadmins, e.g. msiexec /i app.msi VELOPACK_INSTALLDIR="D:\App".
-             When set, the forced default path (LocalAppData/ProgramFiles) is skipped in both UI and silent
-             installs. Secure so it survives the UI -> execute sequence handoff for elevated per-machine installs. -->
+             When set, the forced default path is skipped in both UI and silent installs. Secure so it survives
+             the UI -> execute sequence handoff for elevated per-machine installs. -->
         <Property Id="VELOPACK_INSTALLDIR" Secure="yes"/>
         <SetProperty Id="INSTALLFOLDER" Value="[VELOPACK_INSTALLDIR]" Before="CostFinalize" Sequence="execute"
                      Condition="VELOPACK_INSTALLDIR"/>
 
-        {{#if InstallLocationEither}}
-            <WixVariable Id="WixUISupportPerUser" Value="1"/>
-            <WixVariable Id="WixUISupportPerMachine" Value="1"/>
-        {{else}}
-            <WixVariable Id="WixUISupportPerUser" Value="0"/>
-            <WixVariable Id="WixUISupportPerMachine" Value="0"/>
-        {{/if}}
+        <WixVariable Id="WixUISupportPerUser" Value="0"/>
+        <WixVariable Id="WixUISupportPerMachine" Value="0"/>
 
         <Files Include="{{SourceDirectoryPath}}\**"/>
 
@@ -226,28 +238,29 @@
                 <DialogRef Id="ReadmeDlg"/>
             {{/if}}
 
-            <!-- ValidatePath actions for BrowseDlg and InstallScopeDlg -->
+            <!-- ValidatePath actions for BrowseDlg -->
             <Publish Dialog="BrowseDlg" Control="OK" Event="DoAction" Value="RustValidatePath" Order="3"
                      Condition="NOT WIXUI_DONTVALIDATEPATH"/>
             <Publish Dialog="BrowseDlg" Control="OK" Event="SpawnDialog" Value="InvalidDirDlg" Order="4"
                      Condition="NOT WIXUI_DONTVALIDATEPATH AND WIXUI_INSTALLDIR_VALID&lt;&gt;&quot;1&quot;"/>
 
-            {{#if InstallLocationEither}}
-                <Publish Dialog="InstallScopeDlg" Control="Next" Event="DoAction" Value="RustValidatePath"
-                         Order="7" Condition="NOT WIXUI_DONTVALIDATEPATH"/>
-            {{/if}}
-
             <Publish Dialog="ExitDialog" Control="Finish" Event="EndDialog" Value="Return" Order="999"/>
             <Publish Dialog="ExitDialog" Control="Finish" Event="DoAction" Value="RustLaunchApplication"
                      Condition="WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed"/>
 
-            {{!-- Welcome -> (Readme | License | InstallScope | VerifyReady) --}}
+            <Publish Dialog="WelcomeDlg" Control="Next" Property="ALLUSERS" Value="1" Order="1"/>
+            <Publish Dialog="WelcomeDlg" Control="Next" Property="INSTALLFOLDER"
+                     Value="{{ProgramFilesFolderName}}{{AppPublisherSanitized}}\[ApplicationFolderName]" Order="2"
+                     Condition="NOT VELOPACK_INSTALLDIR"/>
+            <Publish Dialog="WelcomeDlg" Control="Next" Property="INSTALLFOLDER"
+                     Value="[VELOPACK_INSTALLDIR]" Order="2" Condition="VELOPACK_INSTALLDIR"/>
+            <Publish Dialog="WelcomeDlg" Control="Next" Event="SetTargetPath" Value="INSTALLFOLDER" Order="3"/>
+
+            {{!-- Welcome -> (Readme | License | VerifyReady) --}}
             {{#if HasReadme}}
                 <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="ReadmeDlg" Condition="NOT Installed"/>
             {{else if HasLicense}}
                 <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="LicenseAgreementDlg" Condition="NOT Installed"/>
-            {{else if InstallLocationEither}}
-                <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="InstallScopeDlg" Condition="NOT Installed"/>
             {{else}}
                 <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg" Condition="NOT Installed"/>
             {{/if}}
@@ -258,8 +271,6 @@
                 <Publish Dialog="ReadmeDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg"/>
                 {{#if HasLicense}}
                     <Publish Dialog="ReadmeDlg" Control="Next" Event="NewDialog" Value="LicenseAgreementDlg"/>
-                {{else if InstallLocationEither}}
-                    <Publish Dialog="ReadmeDlg" Control="Next" Event="NewDialog" Value="InstallScopeDlg"/>
                 {{else}}
                     <Publish Dialog="ReadmeDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg"/>
                 {{/if}}
@@ -271,72 +282,11 @@
                 {{else}}
                     <Publish Dialog="LicenseAgreementDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg"/>
                 {{/if}}
-                {{#if InstallLocationEither}}
-                    <Publish Dialog="LicenseAgreementDlg" Control="Next" Event="NewDialog" Value="InstallScopeDlg"
-                             Condition="LicenseAccepted = &quot;1&quot;"/>
-                {{else}}
-                    <Publish Dialog="LicenseAgreementDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg"
-                             Condition="LicenseAccepted = &quot;1&quot;"/>
-                {{/if}}
+                <Publish Dialog="LicenseAgreementDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg"
+                         Condition="LicenseAccepted = &quot;1&quot;"/>
             {{/if}}
 
-            {{#if InstallLocationEither}}
-                {{#if HasLicense}}
-                    <Publish Dialog="InstallScopeDlg" Control="Back" Event="NewDialog" Value="LicenseAgreementDlg"/>
-                {{else if HasReadme}}
-                    <Publish Dialog="InstallScopeDlg" Control="Back" Event="NewDialog" Value="ReadmeDlg"/>
-                {{else}}
-                    <Publish Dialog="InstallScopeDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg"/>
-                {{/if}}
-                <Publish Dialog="InstallScopeDlg" Control="Next" Property="WixAppFolder" Value="WixPerUserFolder"
-                         Order="1" Condition="NOT Privileged"/>
-                <Publish Dialog="InstallScopeDlg" Control="Next" Property="ALLUSERS" Value="2" Order="2"
-                         Condition="WixAppFolder = &quot;WixPerUserFolder&quot;"/>
-                <Publish Dialog="InstallScopeDlg" Control="Next" Property="MSIINSTALLPERUSER" Value="1" Order="2"
-                         Condition="WixAppFolder = &quot;WixPerUserFolder&quot;"/>
-                <Publish Dialog="InstallScopeDlg" Control="Next" Property="Privileged" Value="0" Order="2"
-                         Condition="WixAppFolder = &quot;WixPerUserFolder&quot;"/>
-                <Publish Dialog="InstallScopeDlg" Control="Next" Property="InstallPrivileges" Value="limited" Order="2"
-                         Condition="WixAppFolder = &quot;WixPerUserFolder&quot;"/>
-                <Publish Dialog="InstallScopeDlg" Control="Next" Property="ALLUSERS" Value="1" Order="3"
-                         Condition="WixAppFolder = &quot;WixPerMachineFolder&quot;"/>
-                <Publish Dialog="InstallScopeDlg" Control="Next" Property="MSIINSTALLPERUSER" Value="{}" Order="3"
-                         Condition="WixAppFolder = &quot;WixPerMachineFolder&quot;"/>
-                <Publish Dialog="InstallScopeDlg" Control="Next" Property="INSTALLFOLDER"
-                         Value="[LocalAppDataFolder][ApplicationFolderName]" Order="4"
-                         Condition="WixAppFolder = &quot;WixPerUserFolder&quot; AND NOT VELOPACK_INSTALLDIR"/>
-                <Publish Dialog="InstallScopeDlg" Control="Next" Property="INSTALLFOLDER"
-                         Value="{{ProgramFilesFolderName}}[ApplicationFolderName]" Order="5"
-                         Condition="WixAppFolder = &quot;WixPerMachineFolder&quot; AND NOT VELOPACK_INSTALLDIR"/>
-                <Publish Dialog="InstallScopeDlg" Control="Next" Property="INSTALLFOLDER"
-                         Value="[VELOPACK_INSTALLDIR]" Order="5" Condition="VELOPACK_INSTALLDIR"/>
-                <Publish Dialog="InstallScopeDlg" Control="Next" Event="SetTargetPath" Value="INSTALLFOLDER" Order="6"/>
-                <Publish Dialog="InstallScopeDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg" Order="8"/>
-                <Publish Dialog="InstallScopeDlg" Control="Next" Event="DoAction" Value="FindRelatedProducts" Order="9"/>
-            {{/if}}
-
-            {{#if InstallLocationCurrentUserOnly}}
-                <Publish Dialog="WelcomeDlg" Control="Next" Property="INSTALLFOLDER"
-                         Value="[LocalAppDataFolder][ApplicationFolderName]" Order="1"
-                         Condition="NOT VELOPACK_INSTALLDIR"/>
-                <Publish Dialog="WelcomeDlg" Control="Next" Property="INSTALLFOLDER"
-                         Value="[VELOPACK_INSTALLDIR]" Order="1" Condition="VELOPACK_INSTALLDIR"/>
-                <Publish Dialog="WelcomeDlg" Control="Next" Event="SetTargetPath" Value="INSTALLFOLDER" Order="2"/>
-            {{/if}}
-
-            {{#if InstallLocationAllUsersOnly}}
-                <Publish Dialog="WelcomeDlg" Control="Next" Property="INSTALLFOLDER"
-                         Value="{{ProgramFilesFolderName}}[ApplicationFolderName]" Order="1"
-                         Condition="NOT VELOPACK_INSTALLDIR"/>
-                <Publish Dialog="WelcomeDlg" Control="Next" Property="INSTALLFOLDER"
-                         Value="[VELOPACK_INSTALLDIR]" Order="1" Condition="VELOPACK_INSTALLDIR"/>
-                <Publish Dialog="WelcomeDlg" Control="Next" Event="SetTargetPath" Value="INSTALLFOLDER" Order="2"/>
-            {{/if}}
-
-            {{#if InstallLocationEither}}
-                <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="InstallScopeDlg" Order="1"
-                         Condition="NOT Installed"/>
-            {{else if HasLicense}}
+            {{#if HasLicense}}
                 <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="LicenseAgreementDlg" Order="1"
                          Condition="NOT Installed"/>
             {{else if HasReadme}}

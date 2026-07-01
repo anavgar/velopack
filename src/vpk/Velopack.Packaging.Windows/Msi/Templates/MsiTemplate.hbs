@@ -1,16 +1,13 @@
 <!--suppress CheckEmptyScriptTag -->
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
-    <Package Name="{{AppTitle}}"
+    <Package Name="{{AppTitle}} {{AppMsiVersion}}"
              Manufacturer="{{AppPublisher}}"
              Version="{{AppMsiVersion}}"
              Language="1033"
              Scope="perMachine"
              UpgradeCode="{{UpgradeCodeGuid}}">
 
-        <SetProperty Id="ProductName"
-                     Value="{{AppTitle}} {{AppMsiVersion}}"
-                     Sequence="first"
-                     After="AppSearch"/>
+        <Property Id="ARPPRODUCTNAME" Value="{{AppTitle}}" />
 
         <Media Id="1" Cabinet="app.cab" EmbedCab="yes"/>
         <StandardDirectory Id="{{#if Is64Bit}}ProgramFiles64Folder{{else}}ProgramFilesFolder{{/if}}">
@@ -113,7 +110,7 @@
         <DirectoryRef Id="INSTALLFOLDER">
             <Component Id="ArpRegistration">
                 <RegistryKey Root="HKMU" Key="Software&#92;Microsoft&#92;Windows&#92;CurrentVersion&#92;Uninstall&#92;MSI:{{AppId}}">
-                    <RegistryValue Name="DisplayName" Value="{{AppTitle}} {{AppVersion}}" Type="string"/>
+                    <RegistryValue Name="DisplayName" Value="{{AppTitle}}" Type="string"/>
                     <RegistryValue Name="DisplayVersion" Value="{{AppVersion}}" Type="string"/>
                     <RegistryValue Name="DisplayIcon" Value="[INSTALLFOLDER]{{StubFileName}}" Type="string"/>
                     <RegistryValue Name="Publisher" Value="{{AppPublisher}}" Type="string"/>

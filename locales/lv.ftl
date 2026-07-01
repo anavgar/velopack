@@ -1,4 +1,4 @@
-﻿# Shared titles
+# Shared titles
 title-update = { $app_title } atjaunināšana
 title-setup = { $app_title } uzstādīšana
 title-uninstall = { $app_title } atinstalēšana

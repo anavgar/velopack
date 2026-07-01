@@ -1,4 +1,4 @@
-﻿# Shared titles
+# Shared titles
 title-update = { $app_title } frissítése
 title-setup = { $app_title } telepítése
 title-uninstall = { $app_title } eltávolítása

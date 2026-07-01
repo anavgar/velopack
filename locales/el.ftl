@@ -1,4 +1,4 @@
-﻿# Shared titles
+# Shared titles
 title-update = Ενημέρωση του { $app_title }
 title-setup = Εγκατάσταση του { $app_title }
 title-uninstall = Κατάργηση εγκατάστασης του { $app_title }

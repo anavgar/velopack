@@ -1,4 +1,4 @@
-﻿# Shared titles
+# Shared titles
 title-update = Përditësim i { $app_title }
 title-setup = Rregullim i { $app_title }
 title-uninstall = Çinstalim i { $app_title }

@@ -1,4 +1,4 @@
-﻿# Shared titles
+# Shared titles
 title-update = { $app_title } Opdatering
 title-setup = { $app_title } Installation
 title-uninstall = { $app_title } Afinstallation

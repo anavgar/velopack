@@ -1,4 +1,4 @@
-﻿# Shared titles
+# Shared titles
 title-update = Aktualizace { $app_title }
 title-setup = Instalace { $app_title }
 title-uninstall = Odinstalování { $app_title }

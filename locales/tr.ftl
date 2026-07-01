@@ -1,4 +1,4 @@
-﻿# Shared titles
+# Shared titles
 title-update = { $app_title } Güncelleme
 title-setup = { $app_title } Kurulumu
 title-uninstall = { $app_title } Kaldırma

@@ -1,4 +1,4 @@
-﻿# Shared titles
+# Shared titles
 title-update = { $app_title } värskendamine
 title-setup = { $app_title } installimine
 title-uninstall = { $app_title } desinstallimine

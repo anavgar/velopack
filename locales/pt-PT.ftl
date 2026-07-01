@@ -1,4 +1,4 @@
-﻿# Shared titles
+# Shared titles
 title-update = Atualização do { $app_title }
 title-setup = Instalação do { $app_title }
 title-uninstall = Desinstalação do { $app_title }

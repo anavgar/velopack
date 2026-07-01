@@ -1,4 +1,4 @@
-﻿# Shared titles
+# Shared titles
 title-update = Ažuriranje { $app_title }
 title-setup = Instalacija { $app_title }
 title-uninstall = Deinstalacija { $app_title }

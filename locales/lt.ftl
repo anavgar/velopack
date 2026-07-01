@@ -1,4 +1,4 @@
-﻿# Shared titles
+# Shared titles
 title-update = { $app_title } naujinimas
 title-setup = { $app_title } sąranka
 title-uninstall = { $app_title } šalinimas

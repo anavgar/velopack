@@ -19,10 +19,14 @@ pub extern "system" fn RustSetLocaleStrings(h_install: MSIHANDLE) -> c_uint {
     velopack_l18n::init();
 
     let app_title = msi_get_property(h_install, "RustAppTitle").unwrap_or_default();
+    let app_version = msi_get_property(h_install, "RustAppVersion").unwrap_or_default();
 
-    show_debug_message("RustSetLocaleStrings", format!("RustAppTitle={:?}", app_title));
+    show_debug_message(
+        "RustSetLocaleStrings",
+        format!("RustAppTitle={:?} RustAppVersion={:?}", app_title, app_version),
+    );
 
-    for (property_name, value) in velopack_l18n::msi_strings::locale_strings(&app_title) {
+    for (property_name, value) in velopack_l18n::msi_strings::locale_strings(&app_title, &app_version) {
         // Don't overwrite properties that the WiX template already set explicitly
         // (e.g. MsiWelcomeDescription when --instWelcome was provided at pack time).
         if msi_get_property(h_install, property_name).is_some() {

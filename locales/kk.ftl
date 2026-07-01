@@ -1,4 +1,4 @@
-# Shared titles
+﻿# Shared titles
 title-update = { $app_title } жаңартуы
 title-setup = { $app_title } орнатуы
 title-uninstall = { $app_title } жою
@@ -16,7 +16,7 @@ btn-open-install-dir = Орнату қалтасын ашу
 btn-ok = OK
 # Elevation (dialogs_common.rs)
 elevate-header = Әкімші рұқсаты қажет
-elevate-body = { $app_title } { $app_version } нұсқасын орнату үшін әкімші рұқсатын қажет етеді. Бұл жаңартуды жалғастыруға рұқсат бере ме?
+elevate-body = { $app_title } нұсқасын орнату үшін әкімші рұқсатын қажет етеді. Бұл жаңартуды жалғастыруға рұқсат бере ме?
 
 # Restart required (prerequisite.rs)
 restart-header = Қайта қотару қажет
@@ -50,7 +50,7 @@ install-hook-body = Орнату аяқталды, бірақ кейбір қа�
 
 # Splash fallback (splash.rs)
 splash-header = { $app_title } орнатылуда
-splash-body = { $app_title } { $app_version } реттелуде, күте тұрыңыз…
+splash-body = { $app_title } реттелуде, күте тұрыңыз…
 
 # Dependency download (prerequisite.rs)
 deps-download-header = Қажетті компонент жүктелуде
@@ -80,7 +80,7 @@ setup-update-exe-missing = Бұл орнатушыда маңызды екілі
 setup-main-exe-missing = Бумадан негізгі орындалатын файл табылмады. Қолданба авторына хабарласыңыз.
 
 # MSI Installer UI - Common
-msi-dlg-title = { $app_title } бағдарламасын орнату
+msi-dlg-title = { $app_title } { $app_version } бағдарламасын орнату
 msi-btn-back = &Артқа
 msi-btn-next = &Келесі
 msi-btn-cancel = Болдырмау
@@ -92,17 +92,17 @@ msi-btn-retry = &Қайталау
 msi-btn-ignore = &Елемеу
 
 # MSI Installer UI - Welcome Dialog
-msi-welcome-title = { $app_title } бағдарламасының орнату шеберіне қош келдіңіз
-msi-welcome-description = Орнату шебері компьютеріңізге { $app_title } бағдарламасын орнатады. Жалғастыру үшін «Келесі» түймешігін немесе орнату шеберінен шығу үшін «Болдырмау» түймешігін басыңыз.
-msi-welcome-update-description = Орнату шебері компьютеріңіздегі { $app_title } бағдарламасын жаңартады. Жалғастыру үшін «Келесі» түймешігін немесе орнату шеберінен шығу үшін «Болдырмау» түймешігін басыңыз.
+msi-welcome-title = { $app_title } { $app_version } бағдарламасының орнату шеберіне қош келдіңіз
+msi-welcome-description = Орнату шебері компьютеріңізге { $app_title } { $app_version } бағдарламасын орнатады. Жалғастыру үшін «Келесі» түймешігін немесе орнату шеберінен шығу үшін «Болдырмау» түймешігін басыңыз.
+msi-welcome-update-description = Орнату шебері компьютеріңіздегі { $app_title } { $app_version } бағдарламасын жаңартады. Жалғастыру үшін «Келесі» түймешігін немесе орнату шеберінен шығу үшін «Болдырмау» түймешігін басыңыз.
 
 # MSI Installer UI - Exit Dialog
-msi-exit-title = { $app_title } бағдарламасының орнату шебері жұмысын аяқтады
+msi-exit-title = { $app_title } { $app_version } бағдарламасының орнату шебері жұмысын аяқтады
 msi-exit-description = Орнату шеберінен шығу үшін «Аяқтау» түймешігін басыңыз.
-msi-exit-launch-checkbox = { $app_title } іске қосу
+msi-exit-launch-checkbox = { $app_title } { $app_version } іске қосу
 
 # MSI Installer UI - Prepare Dialog
-msi-prepare-title = { $app_title } бағдарламасының орнату шеберіне қош келдіңіз
+msi-prepare-title = { $app_title } { $app_version } бағдарламасының орнату шеберіне қош келдіңіз
 msi-prepare-description = Орнату шебері орнату барысында бағыт беруге дайын болғанша күтіңіз.
 
 # MSI Installer UI - License Agreement Dialog
@@ -120,15 +120,15 @@ msi-scope-no-per-user-description = Әкімші құқықтары қажет
 msi-scope-per-machine-description = Әкімші құқықтары қажет
 
 # MSI Installer UI - Verify Ready Dialog
-msi-ready-install-title = { $app_title } бағдарламасын орнатуға дайын
+msi-ready-install-title = { $app_title } { $app_version } бағдарламасын орнатуға дайын
 msi-ready-install-text = Орнатуды бастау үшін «Орнату» түймешігін басыңыз. Сараптау немесе кез келген орнату параметрлерін өзгерту үшін «Артқа» түймешігін басыңыз.
-msi-ready-change-title = { $app_title } бағдарламасын өзгертуге дайын
+msi-ready-change-title = { $app_title } { $app_version } бағдарламасын өзгертуге дайын
 msi-ready-change-text = Орнатуды өзгертуді бастау үшін «Өзгерту» түймешігін басыңыз. Сараптау немесе кез келген орнату параметрлерін өзгерту үшін «Артқа» түймешігін басыңыз.
-msi-ready-repair-title = { $app_title } бағдарламасын қалпына келтіруге дайын
+msi-ready-repair-title = { $app_title } { $app_version } бағдарламасын қалпына келтіруге дайын
 msi-ready-repair-text = Қалпына келтіруді бастау үшін «Қалпына келтіру» түймешігін басыңыз. Сараптау немесе кез келген орнату параметрлерін өзгерту үшін «Артқа» түймешігін басыңыз.
-msi-ready-remove-title = { $app_title } бағдарламасын жоюға дайын
-msi-ready-remove-text = { $app_title } бағдарламасын компьютеріңізден жою үшін «Жою» түймешігін басыңыз. Сараптау немесе кез келген орнату параметрлерін өзгерту үшін «Артқа» түймешігін басыңыз.
-msi-ready-update-title = { $app_title } бағдарламасын жаңартуға дайын
+msi-ready-remove-title = { $app_title } { $app_version } бағдарламасын жоюға дайын
+msi-ready-remove-text = { $app_title } { $app_version } бағдарламасын компьютеріңізден жою үшін «Жою» түймешігін басыңыз. Сараптау немесе кез келген орнату параметрлерін өзгерту үшін «Артқа» түймешігін басыңыз.
+msi-ready-update-title = { $app_title } { $app_version } бағдарламасын жаңартуға дайын
 msi-ready-update-text = Жаңартуды бастау үшін «Жаңарту» түймешігін басыңыз. Сараптау немесе кез келген орнату параметрлерін өзгерту үшін «Артқа» түймешігін басыңыз.
 msi-ready-btn-install = &Орнату
 msi-ready-btn-change = &Өзгерту
@@ -137,21 +137,21 @@ msi-ready-btn-remove = &Жою
 msi-ready-btn-update = &Жаңарту
 
 # MSI Installer UI - Progress Dialog
-msi-progress-installing-title = { $app_title } бағдарламасы орнатылуда
-msi-progress-installing-text = Орнату шебері { $app_title } бағдарламасын орнатқанға дейін күте тұрыңыз.
-msi-progress-changing-title = { $app_title } бағдарламасы өзгертілуде
-msi-progress-changing-text = Орнату шебері { $app_title } бағдарламасын өзгерткенге дейін күте тұрыңыз.
-msi-progress-repairing-title = { $app_title } бағдарламасы қалпына келтірілуде
-msi-progress-repairing-text = Орнату шебері { $app_title } бағдарламасын қалпына келтіргенге дейін күте тұрыңыз.
-msi-progress-removing-title = { $app_title } бағдарламасы жойылуда
-msi-progress-removing-text = Орнату шебері { $app_title } бағдарламасын жойғанға дейін күте тұрыңыз.
-msi-progress-updating-title = { $app_title } бағдарламасы жаңартылуда
-msi-progress-updating-text = Орнату шебері { $app_title } бағдарламасын жаңартқанға дейін күте тұрыңыз.
+msi-progress-installing-title = { $app_title } { $app_version } бағдарламасы орнатылуда
+msi-progress-installing-text = Орнату шебері { $app_title } { $app_version } бағдарламасын орнатқанға дейін күте тұрыңыз.
+msi-progress-changing-title = { $app_title } { $app_version } бағдарламасы өзгертілуде
+msi-progress-changing-text = Орнату шебері { $app_title } { $app_version } бағдарламасын өзгерткенге дейін күте тұрыңыз.
+msi-progress-repairing-title = { $app_title } { $app_version } бағдарламасы қалпына келтірілуде
+msi-progress-repairing-text = Орнату шебері { $app_title } { $app_version } бағдарламасын қалпына келтіргенге дейін күте тұрыңыз.
+msi-progress-removing-title = { $app_title } { $app_version } бағдарламасы жойылуда
+msi-progress-removing-text = Орнату шебері { $app_title } { $app_version } бағдарламасын жойғанға дейін күте тұрыңыз.
+msi-progress-updating-title = { $app_title } { $app_version } бағдарламасы жаңартылуда
+msi-progress-updating-text = Орнату шебері { $app_title } { $app_version } бағдарламасын жаңартқанға дейін күте тұрыңыз.
 msi-progress-status = Күйі:
 
 # MSI Installer UI - Maintenance Welcome Dialog
-msi-maint-welcome-title = { $app_title } бағдарламасының орнату шеберіне қош келдіңіз
-msi-maint-welcome-description = Орнату шебері { $app_title } бағдарламасын қалпына келтіруге немесе жоюға мүмкіндік береді. Жалғастыру үшін «Келесі» түймешігін немесе орнату шеберінен шығу үшін «Болдырмау» түймешігін басыңыз.
+msi-maint-welcome-title = { $app_title } { $app_version } бағдарламасының орнату шеберіне қош келдіңіз
+msi-maint-welcome-description = Орнату шебері { $app_title } { $app_version } бағдарламасын қалпына келтіруге немесе жоюға мүмкіндік береді. Жалғастыру үшін «Келесі» түймешігін немесе орнату шеберінен шығу үшін «Болдырмау» түймешігін басыңыз.
 
 # MSI Installer UI - Maintenance Type Dialog
 msi-maint-type-title = Орнатуды өзгерту, қалпына келтіру немесе жою
@@ -166,11 +166,11 @@ msi-maint-repair-text = Ең соңғы орнатудағы қателерді 
 msi-maint-repair-disabled = Қалпына келтіру қазір өшірілген.
 msi-maint-remove-button = &Жою
 msi-maint-remove-tooltip = Жою
-msi-maint-remove-text = { $app_title } бағдарламасын компьютеріңізден жояды.
+msi-maint-remove-text = { $app_title } { $app_version } бағдарламасын компьютеріңізден жояды.
 msi-maint-remove-disabled = Жою қазір өшірілген.
 
 # MSI Installer UI - Cancel Dialog
-msi-cancel-text = Шынымен { $app_title } бағдарламасын орнатудан бас тартқыңыз келе ме?
+msi-cancel-text = Шынымен { $app_title } { $app_version } бағдарламасын орнатудан бас тартқыңыз келе ме?
 
 # MSI Installer UI - Browse Dialog
 msi-browse-title = Ағымдағы тағайындау қалтасын өзгерту
@@ -189,16 +189,16 @@ msi-disk-cost-description = Таңдалған мүмкіндіктерді ор
 msi-disk-cost-text = Бөлектелген мәндерде ағымдағы таңдалған мүмкіндіктер үшін дискіде жеткілікті бос орын жоқ. Бөлектелген мәндерден кейбір файлдарды жоюға, жергілікті дискілерге азырақ мүмкіндіктер орнатуға немесе басқа тағайындау дискілерін таңдауға болады.
 
 # MSI Installer UI - Error Dialog
-msi-error-dlg-title = { $app_title } орнатушысы туралы ақпарат
+msi-error-dlg-title = { $app_title } { $app_version } орнатушысы туралы ақпарат
 
 # MSI Installer UI - Fatal Error Dialog
-msi-fatal-title = { $app_title } бағдарламасының орнату шебері жұмысын мерзімінен бұрын аяқтады
-msi-fatal-description1 = { $app_title } бағдарламасын орнату үзілді. Жүйеңіз өзгертілген жоқ. Бұл бағдарламаны кейінірек орнату үшін, орнатуды қайтадан іске қосыңыз.
+msi-fatal-title = { $app_title } { $app_version } бағдарламасының орнату шебері жұмысын мерзімінен бұрын аяқтады
+msi-fatal-description1 = { $app_title } { $app_version } бағдарламасын орнату үзілді. Жүйеңіз өзгертілген жоқ. Бұл бағдарламаны кейінірек орнату үшін, орнатуды қайтадан іске қосыңыз.
 msi-fatal-description2 = Орнату шеберінен шығу үшін «Аяқтау» түймешігін басыңыз.
 
 # MSI Installer UI - User Exit Dialog
-msi-user-exit-title = { $app_title } бағдарламасының орнату шеберінің жұмысы үзілді
-msi-user-exit-description1 = { $app_title } бағдарламасын орнату үзілді. Жүйеңіз өзгертілген жоқ. Бұл бағдарламаны кейінірек орнату үшін, орнатуды қайтадан іске қосыңыз.
+msi-user-exit-title = { $app_title } { $app_version } бағдарламасының орнату шеберінің жұмысы үзілді
+msi-user-exit-description1 = { $app_title } { $app_version } бағдарламасын орнату үзілді. Жүйеңіз өзгертілген жоқ. Бұл бағдарламаны кейінірек орнату үшін, орнатуды қайтадан іске қосыңыз.
 msi-user-exit-description2 = Орнату шеберінен шығу үшін «Аяқтау» түймешігін басыңыз.
 
 # MSI Installer UI - Files In Use Dialog
@@ -215,13 +215,13 @@ msi-rm-files-in-use-use-rm = Бағдарламаларды автоматты �
 msi-rm-files-in-use-dont-use-rm = &Бағдарламаларды жаппаңыз. (Компьютерді қайта қотару қажет болады.)
 
 # MSI Installer UI - Resume Dialog
-msi-resume-title = { $app_title } бағдарламасының орнату шебері жалғастырылуда
-msi-resume-description = Орнату шебері { $app_title } бағдарламасын компьютеріңізге орнатуды аяқтайды. Жалғастыру үшін «Орнату» түймешігін немесе орнату шеберінен шығу үшін «Болдырмау» түймешігін басыңыз.
+msi-resume-title = { $app_title } { $app_version } бағдарламасының орнату шебері жалғастырылуда
+msi-resume-description = Орнату шебері { $app_title } { $app_version } бағдарламасын компьютеріңізге орнатуды аяқтайды. Жалғастыру үшін «Орнату» түймешігін немесе орнату шеберінен шығу үшін «Болдырмау» түймешігін басыңыз.
 msi-resume-btn-install = &Орнату
 
 # MSI Installer UI - Shortcut Descriptions
-msi-desktop-shortcut-description = { $app_title } үшін жұмыс үстелі таңбашасы
-msi-start-menu-shortcut-description = { $app_title } үшін Бастау мәзірі таңбашасы
+msi-desktop-shortcut-description = { $app_title } { $app_version } үшін жұмыс үстелі таңбашасы
+msi-start-menu-shortcut-description = { $app_title } { $app_version } үшін Бастау мәзірі таңбашасы
 # MSI Installer UI - Readme Dialog
 msi-readme-title = Маңызды ақпарат
 msi-readme-description = Жалғастырмас бұрын келесі ақпаратты оқыңыз.

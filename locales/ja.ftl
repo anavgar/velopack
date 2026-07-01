@@ -1,4 +1,4 @@
-# Shared titles
+﻿# Shared titles
 title-update = { $app_title } の更新
 title-setup = { $app_title } セットアップ
 title-uninstall = { $app_title } のアンインストール
@@ -50,7 +50,7 @@ install-hook-body = インストールは完了しましたが、一部の手順
 
 # Splash fallback (splash.rs)
 splash-header = { $app_title } をインストールしています
-splash-body = { $app_title } { $app_version } をセットアップしています。しばらくお待ちください...
+splash-body = { $app_title } をセットアップしています。しばらくお待ちください...
 
 # Dependency download (prerequisite.rs)
 deps-download-header = 必要なコンポーネントをダウンロード中
@@ -80,7 +80,7 @@ setup-update-exe-missing = このインストーラーには重要なバイナ�
 setup-main-exe-missing = パッケージ内にメインの実行ファイルが見つかりませんでした。アプリケーションの作者に連絡してください。
 
 # MSI Installer UI - Common
-msi-dlg-title = { $app_title } セットアップ
+msi-dlg-title = { $app_title } { $app_version } セットアップ
 msi-btn-back = 戻る(&B)
 msi-btn-next = 次へ(&N)
 msi-btn-cancel = キャンセル
@@ -92,17 +92,17 @@ msi-btn-retry = 再試行(&R)
 msi-btn-ignore = 無視(&I)
 
 # MSI Installer UI - Welcome Dialog
-msi-welcome-title = { $app_title } セットアップ ウィザードへようこそ
-msi-welcome-description = このセットアップ ウィザードでは、{ $app_title } をコンピューターにインストールします。続行するには [次へ] を、セットアップ ウィザードを終了するには [キャンセル] をクリックしてください。
-msi-welcome-update-description = このセットアップ ウィザードでは、コンピューターの { $app_title } を更新します。続行するには [次へ] を、セットアップ ウィザードを終了するには [キャンセル] をクリックしてください。
+msi-welcome-title = { $app_title } { $app_version } セットアップ ウィザードへようこそ
+msi-welcome-description = このセットアップ ウィザードでは、{ $app_title } { $app_version } をコンピューターにインストールします。続行するには [次へ] を、セットアップ ウィザードを終了するには [キャンセル] をクリックしてください。
+msi-welcome-update-description = このセットアップ ウィザードでは、コンピューターの { $app_title } { $app_version } を更新します。続行するには [次へ] を、セットアップ ウィザードを終了するには [キャンセル] をクリックしてください。
 
 # MSI Installer UI - Exit Dialog
-msi-exit-title = { $app_title } セットアップ ウィザードが完了しました
+msi-exit-title = { $app_title } { $app_version } セットアップ ウィザードが完了しました
 msi-exit-description = セットアップ ウィザードを終了するには [完了] ボタンをクリックしてください。
-msi-exit-launch-checkbox = { $app_title } を起動
+msi-exit-launch-checkbox = { $app_title } { $app_version } を起動
 
 # MSI Installer UI - Prepare Dialog
-msi-prepare-title = { $app_title } セットアップ ウィザードへようこそ
+msi-prepare-title = { $app_title } { $app_version } セットアップ ウィザードへようこそ
 msi-prepare-description = セットアップ ウィザードがインストールの準備をしている間、しばらくお待ちください。
 
 # MSI Installer UI - License Agreement Dialog
@@ -120,15 +120,15 @@ msi-scope-no-per-user-description = 管理者権限が必要です
 msi-scope-per-machine-description = 管理者権限が必要です
 
 # MSI Installer UI - Verify Ready Dialog
-msi-ready-install-title = { $app_title } のインストール準備完了
+msi-ready-install-title = { $app_title } { $app_version } のインストール準備完了
 msi-ready-install-text = インストールを開始するには [インストール] をクリックしてください。インストール設定を確認または変更するには [戻る] をクリックしてください。
-msi-ready-change-title = { $app_title } の変更準備完了
+msi-ready-change-title = { $app_title } { $app_version } の変更準備完了
 msi-ready-change-text = インストールの変更を開始するには [変更] をクリックしてください。インストール設定を確認または変更するには [戻る] をクリックしてください。
-msi-ready-repair-title = { $app_title } の修復準備完了
+msi-ready-repair-title = { $app_title } { $app_version } の修復準備完了
 msi-ready-repair-text = 修復を開始するには [修復] をクリックしてください。インストール設定を確認または変更するには [戻る] をクリックしてください。
-msi-ready-remove-title = { $app_title } の削除準備完了
-msi-ready-remove-text = { $app_title } をコンピューターから削除するには [削除] をクリックしてください。インストール設定を確認または変更するには [戻る] をクリックしてください。
-msi-ready-update-title = { $app_title } の更新準備完了
+msi-ready-remove-title = { $app_title } { $app_version } の削除準備完了
+msi-ready-remove-text = { $app_title } { $app_version } をコンピューターから削除するには [削除] をクリックしてください。インストール設定を確認または変更するには [戻る] をクリックしてください。
+msi-ready-update-title = { $app_title } { $app_version } の更新準備完了
 msi-ready-update-text = 更新を開始するには [更新] をクリックしてください。インストール設定を確認または変更するには [戻る] をクリックしてください。
 msi-ready-btn-install = インストール(&I)
 msi-ready-btn-change = 変更(&C)
@@ -137,21 +137,21 @@ msi-ready-btn-remove = 削除(&R)
 msi-ready-btn-update = 更新(&U)
 
 # MSI Installer UI - Progress Dialog
-msi-progress-installing-title = { $app_title } をインストール中
-msi-progress-installing-text = セットアップ ウィザードが { $app_title } をインストールしている間、しばらくお待ちください。
-msi-progress-changing-title = { $app_title } を変更中
-msi-progress-changing-text = セットアップ ウィザードが { $app_title } を変更している間、しばらくお待ちください。
-msi-progress-repairing-title = { $app_title } を修復中
-msi-progress-repairing-text = セットアップ ウィザードが { $app_title } を修復している間、しばらくお待ちください。
-msi-progress-removing-title = { $app_title } を削除中
-msi-progress-removing-text = セットアップ ウィザードが { $app_title } を削除している間、しばらくお待ちください。
-msi-progress-updating-title = { $app_title } を更新中
-msi-progress-updating-text = セットアップ ウィザードが { $app_title } を更新している間、しばらくお待ちください。
+msi-progress-installing-title = { $app_title } { $app_version } をインストール中
+msi-progress-installing-text = セットアップ ウィザードが { $app_title } { $app_version } をインストールしている間、しばらくお待ちください。
+msi-progress-changing-title = { $app_title } { $app_version } を変更中
+msi-progress-changing-text = セットアップ ウィザードが { $app_title } { $app_version } を変更している間、しばらくお待ちください。
+msi-progress-repairing-title = { $app_title } { $app_version } を修復中
+msi-progress-repairing-text = セットアップ ウィザードが { $app_title } { $app_version } を修復している間、しばらくお待ちください。
+msi-progress-removing-title = { $app_title } { $app_version } を削除中
+msi-progress-removing-text = セットアップ ウィザードが { $app_title } { $app_version } を削除している間、しばらくお待ちください。
+msi-progress-updating-title = { $app_title } { $app_version } を更新中
+msi-progress-updating-text = セットアップ ウィザードが { $app_title } { $app_version } を更新している間、しばらくお待ちください。
 msi-progress-status = 状態:
 
 # MSI Installer UI - Maintenance Welcome Dialog
-msi-maint-welcome-title = { $app_title } セットアップ ウィザードへようこそ
-msi-maint-welcome-description = セットアップ ウィザードでは、{ $app_title } の修復または削除を行うことができます。続行するには [次へ] を、セットアップ ウィザードを終了するには [キャンセル] をクリックしてください。
+msi-maint-welcome-title = { $app_title } { $app_version } セットアップ ウィザードへようこそ
+msi-maint-welcome-description = セットアップ ウィザードでは、{ $app_title } { $app_version } の修復または削除を行うことができます。続行するには [次へ] を、セットアップ ウィザードを終了するには [キャンセル] をクリックしてください。
 
 # MSI Installer UI - Maintenance Type Dialog
 msi-maint-type-title = インストールの変更、修復、または削除
@@ -166,11 +166,11 @@ msi-maint-repair-text = 直近のインストールのエラーを修復しま�
 msi-maint-repair-disabled = 修復は現在無効になっています。
 msi-maint-remove-button = 削除(&M)
 msi-maint-remove-tooltip = 削除
-msi-maint-remove-text = { $app_title } をコンピューターから削除します。
+msi-maint-remove-text = { $app_title } { $app_version } をコンピューターから削除します。
 msi-maint-remove-disabled = 削除は現在無効になっています。
 
 # MSI Installer UI - Cancel Dialog
-msi-cancel-text = { $app_title } のインストールをキャンセルしてもよろしいですか?
+msi-cancel-text = { $app_title } { $app_version } のインストールをキャンセルしてもよろしいですか?
 
 # MSI Installer UI - Browse Dialog
 msi-browse-title = インストール先フォルダーの変更
@@ -189,16 +189,16 @@ msi-disk-cost-description = 選択された機能のインストールに必要�
 msi-disk-cost-text = 強調表示されたボリュームには、現在選択中の機能に利用できる十分なディスク領域がありません。強調表示されたボリュームから一部のファイルを削除するか、インストールする機能を減らすか、別のインストール先ドライブを選択することができます。
 
 # MSI Installer UI - Error Dialog
-msi-error-dlg-title = { $app_title } インストーラー情報
+msi-error-dlg-title = { $app_title } { $app_version } インストーラー情報
 
 # MSI Installer UI - Fatal Error Dialog
-msi-fatal-title = { $app_title } セットアップ ウィザードが途中で終了しました
-msi-fatal-description1 = { $app_title } のセットアップが中断されました。システムは変更されていません。このプログラムを後でインストールするには、セットアップを再度実行してください。
+msi-fatal-title = { $app_title } { $app_version } セットアップ ウィザードが途中で終了しました
+msi-fatal-description1 = { $app_title } { $app_version } のセットアップが中断されました。システムは変更されていません。このプログラムを後でインストールするには、セットアップを再度実行してください。
 msi-fatal-description2 = セットアップ ウィザードを終了するには [完了] ボタンをクリックしてください。
 
 # MSI Installer UI - User Exit Dialog
-msi-user-exit-title = { $app_title } セットアップ ウィザードが中断されました
-msi-user-exit-description1 = { $app_title } のセットアップが中断されました。システムは変更されていません。このプログラムを後でインストールするには、セットアップを再度実行してください。
+msi-user-exit-title = { $app_title } { $app_version } セットアップ ウィザードが中断されました
+msi-user-exit-description1 = { $app_title } { $app_version } のセットアップが中断されました。システムは変更されていません。このプログラムを後でインストールするには、セットアップを再度実行してください。
 msi-user-exit-description2 = セットアップ ウィザードを終了するには [完了] ボタンをクリックしてください。
 
 # MSI Installer UI - Files In Use Dialog
@@ -215,13 +215,13 @@ msi-rm-files-in-use-use-rm = アプリケーションを自動的に閉じて(&C
 msi-rm-files-in-use-dont-use-rm = アプリケーションを閉じない(&D)。(再起動が必要になります。)
 
 # MSI Installer UI - Resume Dialog
-msi-resume-title = { $app_title } セットアップ ウィザードの再開
-msi-resume-description = セットアップ ウィザードは { $app_title } のインストールをコンピューター上で完了します。続行するには [インストール] を、セットアップ ウィザードを終了するには [キャンセル] をクリックしてください。
+msi-resume-title = { $app_title } { $app_version } セットアップ ウィザードの再開
+msi-resume-description = セットアップ ウィザードは { $app_title } { $app_version } のインストールをコンピューター上で完了します。続行するには [インストール] を、セットアップ ウィザードを終了するには [キャンセル] をクリックしてください。
 msi-resume-btn-install = インストール(&I)
 
 # MSI Installer UI - Shortcut Descriptions
-msi-desktop-shortcut-description = { $app_title } のデスクトップ ショートカット
-msi-start-menu-shortcut-description = { $app_title } のスタート メニュー ショートカット
+msi-desktop-shortcut-description = { $app_title } { $app_version } のデスクトップ ショートカット
+msi-start-menu-shortcut-description = { $app_title } { $app_version } のスタート メニュー ショートカット
 # MSI Installer UI - Readme Dialog
 msi-readme-title = お読みください
 msi-readme-description = 続行する前に、以下の情報をお読みください。

@@ -1,4 +1,4 @@
-# Shared titles
+﻿# Shared titles
 title-update = Актуализация на { $app_title }
 title-setup = Инсталиране на { $app_title }
 title-uninstall = Деинсталиране на { $app_title }
@@ -50,7 +50,7 @@ install-hook-body = Инсталирането завърши, но някои �
 
 # Splash fallback (splash.rs)
 splash-header = Инсталиране на { $app_title }
-splash-body = Настройване на { $app_title } { $app_version }, моля, изчакайте...
+splash-body = Настройване на { $app_title }, моля, изчакайте...
 
 # Dependency download (prerequisite.rs)
 deps-download-header = Изтегляне на необходимия компонент
@@ -80,7 +80,7 @@ setup-update-exe-missing = На тази инсталационна програ
 setup-main-exe-missing = Основният изпълним файл не може да бъде намерен в пакета. Моля, свържете се с автора на приложението.
 
 # MSI Installer UI - Common
-msi-dlg-title = Инсталиране на { $app_title }
+msi-dlg-title = Инсталиране на { $app_title } { $app_version }
 msi-btn-back = &Назад
 msi-btn-next = Н&апред
 msi-btn-cancel = Отказ
@@ -92,17 +92,17 @@ msi-btn-retry = &Опитай пак
 msi-btn-ignore = &Игнорирай
 
 # MSI Installer UI - Welcome Dialog
-msi-welcome-title = Добре дошли в съветника за инсталиране на { $app_title }
-msi-welcome-description = Съветникът за инсталиране ще инсталира { $app_title } на компютъра. Щракнете върху "Напред", за да продължите, или върху "Отказ", за да излезете от съветника за инсталиране.
-msi-welcome-update-description = Съветникът за инсталиране ще актуализира { $app_title } на компютъра. Щракнете върху "Напред", за да продължите, или върху "Отказ", за да излезете от съветника за инсталиране.
+msi-welcome-title = Добре дошли в съветника за инсталиране на { $app_title } { $app_version }
+msi-welcome-description = Съветникът за инсталиране ще инсталира { $app_title } { $app_version } на компютъра. Щракнете върху "Напред", за да продължите, или върху "Отказ", за да излезете от съветника за инсталиране.
+msi-welcome-update-description = Съветникът за инсталиране ще актуализира { $app_title } { $app_version } на компютъра. Щракнете върху "Напред", за да продължите, или върху "Отказ", за да излезете от съветника за инсталиране.
 
 # MSI Installer UI - Exit Dialog
-msi-exit-title = Съветникът за инсталиране на { $app_title } завърши
+msi-exit-title = Съветникът за инсталиране на { $app_title } { $app_version } завърши
 msi-exit-description = Щракнете върху бутона "Готово", за да излезете от съветника за инсталиране.
-msi-exit-launch-checkbox = Стартирай { $app_title }
+msi-exit-launch-checkbox = Стартирай { $app_title } { $app_version }
 
 # MSI Installer UI - Prepare Dialog
-msi-prepare-title = Добре дошли в съветника за инсталиране на { $app_title }
+msi-prepare-title = Добре дошли в съветника за инсталиране на { $app_title } { $app_version }
 msi-prepare-description = Моля, изчакайте, докато съветникът за инсталиране се подготви да ви направлява в инсталирането.
 
 # MSI Installer UI - License Agreement Dialog
@@ -120,15 +120,15 @@ msi-scope-no-per-user-description = Изисква привилегии на а�
 msi-scope-per-machine-description = Изисква привилегии на администратор
 
 # MSI Installer UI - Verify Ready Dialog
-msi-ready-install-title = Всичко е готово за инсталиране на { $app_title }
+msi-ready-install-title = Всичко е готово за инсталиране на { $app_title } { $app_version }
 msi-ready-install-text = Щракнете върху "Инсталирай", за да започнете инсталирането. Щракнете върху "Назад", за да прегледате или промените настройките за инсталиране.
-msi-ready-change-title = Всичко е готово за промяна на { $app_title }
+msi-ready-change-title = Всичко е готово за промяна на { $app_title } { $app_version }
 msi-ready-change-text = Щракнете върху "Промени", за да започнете промяната на инсталацията. Щракнете върху "Назад", за да прегледате или промените настройките за инсталиране.
-msi-ready-repair-title = Всичко е готово за поправяне на { $app_title }
+msi-ready-repair-title = Всичко е готово за поправяне на { $app_title } { $app_version }
 msi-ready-repair-text = Щракнете върху "Поправи", за да започнете поправянето. Щракнете върху "Назад", за да прегледате или промените настройките за инсталиране.
-msi-ready-remove-title = Всичко е готово за премахване на { $app_title }
-msi-ready-remove-text = Щракнете върху "Премахни", за да премахнете { $app_title } от компютъра си. Щракнете върху "Назад", за да прегледате или промените настройките за инсталиране.
-msi-ready-update-title = Всичко е готово за актуализиране на { $app_title }
+msi-ready-remove-title = Всичко е готово за премахване на { $app_title } { $app_version }
+msi-ready-remove-text = Щракнете върху "Премахни", за да премахнете { $app_title } { $app_version } от компютъра си. Щракнете върху "Назад", за да прегледате или промените настройките за инсталиране.
+msi-ready-update-title = Всичко е готово за актуализиране на { $app_title } { $app_version }
 msi-ready-update-text = Щракнете върху "Актуализирай", за да започнете актуализирането. Щракнете върху "Назад", за да прегледате или промените настройките за инсталиране.
 msi-ready-btn-install = &Инсталирай
 msi-ready-btn-change = &Промени
@@ -137,21 +137,21 @@ msi-ready-btn-remove = &Премахни
 msi-ready-btn-update = &Актуализирай
 
 # MSI Installer UI - Progress Dialog
-msi-progress-installing-title = Инсталиране на { $app_title }
-msi-progress-installing-text = Моля, изчакайте, докато съветникът за инсталиране инсталира { $app_title }.
-msi-progress-changing-title = Промяна на { $app_title }
-msi-progress-changing-text = Моля, изчакайте, докато съветникът за инсталиране промени { $app_title }.
-msi-progress-repairing-title = Поправяне на { $app_title }
-msi-progress-repairing-text = Моля, изчакайте, докато съветникът за инсталиране поправи { $app_title }.
-msi-progress-removing-title = Премахване на { $app_title }
-msi-progress-removing-text = Моля, изчакайте, докато съветникът за инсталиране премахне { $app_title }.
-msi-progress-updating-title = Актуализиране на { $app_title }
-msi-progress-updating-text = Моля, изчакайте, докато съветникът за инсталиране актуализира { $app_title }.
+msi-progress-installing-title = Инсталиране на { $app_title } { $app_version }
+msi-progress-installing-text = Моля, изчакайте, докато съветникът за инсталиране инсталира { $app_title } { $app_version }.
+msi-progress-changing-title = Промяна на { $app_title } { $app_version }
+msi-progress-changing-text = Моля, изчакайте, докато съветникът за инсталиране промени { $app_title } { $app_version }.
+msi-progress-repairing-title = Поправяне на { $app_title } { $app_version }
+msi-progress-repairing-text = Моля, изчакайте, докато съветникът за инсталиране поправи { $app_title } { $app_version }.
+msi-progress-removing-title = Премахване на { $app_title } { $app_version }
+msi-progress-removing-text = Моля, изчакайте, докато съветникът за инсталиране премахне { $app_title } { $app_version }.
+msi-progress-updating-title = Актуализиране на { $app_title } { $app_version }
+msi-progress-updating-text = Моля, изчакайте, докато съветникът за инсталиране актуализира { $app_title } { $app_version }.
 msi-progress-status = Състояние:
 
 # MSI Installer UI - Maintenance Welcome Dialog
-msi-maint-welcome-title = Добре дошли в съветника за инсталиране на { $app_title }
-msi-maint-welcome-description = Съветникът за инсталиране ще ви позволи да поправите или премахнете { $app_title }. Щракнете върху "Напред", за да продължите, или върху "Отказ", за да излезете от съветника за инсталиране.
+msi-maint-welcome-title = Добре дошли в съветника за инсталиране на { $app_title } { $app_version }
+msi-maint-welcome-description = Съветникът за инсталиране ще ви позволи да поправите или премахнете { $app_title } { $app_version }. Щракнете върху "Напред", за да продължите, или върху "Отказ", за да излезете от съветника за инсталиране.
 
 # MSI Installer UI - Maintenance Type Dialog
 msi-maint-type-title = Промяна, поправяне или премахване на инсталация
@@ -166,11 +166,11 @@ msi-maint-repair-text = Поправя грешки в последната ин
 msi-maint-repair-disabled = Поправянето в момента е забранено.
 msi-maint-remove-button = &Премахни
 msi-maint-remove-tooltip = Премахни
-msi-maint-remove-text = Премахва { $app_title } от компютъра.
+msi-maint-remove-text = Премахва { $app_title } { $app_version } от компютъра.
 msi-maint-remove-disabled = Премахването в момента е забранено.
 
 # MSI Installer UI - Cancel Dialog
-msi-cancel-text = Наистина ли искате да отмените инсталирането на { $app_title }?
+msi-cancel-text = Наистина ли искате да отмените инсталирането на { $app_title } { $app_version }?
 
 # MSI Installer UI - Browse Dialog
 msi-browse-title = Промяна на текущата папка местоназначение
@@ -189,16 +189,16 @@ msi-disk-cost-description = Дисковото пространство, нео�
 msi-disk-cost-text = Маркираните томове нямат достатъчно свободно място на диска за текущо избраните компоненти. Можете да премахнете някои файлове от маркираните томове, да инсталирате по-малко компоненти на локалния(те) диск(ове) или да изберете друго устройство за местоназначение.
 
 # MSI Installer UI - Error Dialog
-msi-error-dlg-title = Информация на инсталиращата програма { $app_title }
+msi-error-dlg-title = Информация на инсталиращата програма { $app_title } { $app_version }
 
 # MSI Installer UI - Fatal Error Dialog
-msi-fatal-title = Съветникът за инсталиране на { $app_title } завърши преждевременно
-msi-fatal-description1 = Инсталирането на { $app_title } беше прекъснато. Системата ви не е променена. За да инсталирате тази програма по-късно, изпълнете отново инсталирането.
+msi-fatal-title = Съветникът за инсталиране на { $app_title } { $app_version } завърши преждевременно
+msi-fatal-description1 = Инсталирането на { $app_title } { $app_version } беше прекъснато. Системата ви не е променена. За да инсталирате тази програма по-късно, изпълнете отново инсталирането.
 msi-fatal-description2 = Щракнете върху бутона "Готово", за да излезете от съветника за инсталиране.
 
 # MSI Installer UI - User Exit Dialog
-msi-user-exit-title = Съветникът за инсталиране на { $app_title } беше прекъснат
-msi-user-exit-description1 = Инсталирането на { $app_title } е прекъснато. Системата ви не е променена. За да инсталирате тази програма по-късно, изпълнете отново инсталирането.
+msi-user-exit-title = Съветникът за инсталиране на { $app_title } { $app_version } беше прекъснат
+msi-user-exit-description1 = Инсталирането на { $app_title } { $app_version } е прекъснато. Системата ви не е променена. За да инсталирате тази програма по-късно, изпълнете отново инсталирането.
 msi-user-exit-description2 = Щракнете върху бутона "Готово", за да излезете от съветника за инсталиране.
 
 # MSI Installer UI - Files In Use Dialog
@@ -215,13 +215,13 @@ msi-rm-files-in-use-use-rm = Автоматично &затвори прилож
 msi-rm-files-in-use-dont-use-rm = &Не затваряй приложенията. (Ще се изисква рестартиране.)
 
 # MSI Installer UI - Resume Dialog
-msi-resume-title = Възобновяване на съветника за инсталиране на { $app_title }
-msi-resume-description = Съветникът за инсталиране ще завърши инсталирането на { $app_title } на компютъра. Щракнете върху "Инсталирай", за да продължите, или върху "Отказ", за изход от съветника за инсталиране.
+msi-resume-title = Възобновяване на съветника за инсталиране на { $app_title } { $app_version }
+msi-resume-description = Съветникът за инсталиране ще завърши инсталирането на { $app_title } { $app_version } на компютъра. Щракнете върху "Инсталирай", за да продължите, или върху "Отказ", за изход от съветника за инсталиране.
 msi-resume-btn-install = &Инсталирай
 
 # MSI Installer UI - Shortcut Descriptions
-msi-desktop-shortcut-description = Пряк път на работния плот за { $app_title }
-msi-start-menu-shortcut-description = Пряк път в менюто "Старт" за { $app_title }
+msi-desktop-shortcut-description = Пряк път на работния плот за { $app_title } { $app_version }
+msi-start-menu-shortcut-description = Пряк път в менюто "Старт" за { $app_title } { $app_version }
 # MSI Installer UI - Readme Dialog
 msi-readme-title = Информация за прочит
 msi-readme-description = Моля, прочетете следната информация, преди да продължите.

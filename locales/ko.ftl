@@ -1,4 +1,4 @@
-# Shared titles
+﻿# Shared titles
 title-update = { $app_title } 업데이트
 title-setup = { $app_title } 설치
 title-uninstall = { $app_title } 제거
@@ -50,7 +50,7 @@ install-hook-body = 설치가 완료되었지만 일부 단계가 실패했을 �
 
 # Splash fallback (splash.rs)
 splash-header = { $app_title } 설치 중
-splash-body = { $app_title } { $app_version }을(를) 설정하는 중입니다. 잠시 기다려 주십시오...
+splash-body = { $app_title }을(를) 설정하는 중입니다. 잠시 기다려 주십시오...
 
 # Dependency download (prerequisite.rs)
 deps-download-header = 필수 구성 요소 다운로드 중
@@ -80,7 +80,7 @@ setup-update-exe-missing = 이 설치 프로그램에 중요한 바이너리(Upd
 setup-main-exe-missing = 패키지에서 기본 실행 파일을 찾을 수 없습니다. 응용 프로그램 작성자에게 문의하십시오.
 
 # MSI Installer UI - Common
-msi-dlg-title = { $app_title } 설치
+msi-dlg-title = { $app_title } { $app_version } 설치
 msi-btn-back = 뒤로(&B)
 msi-btn-next = 다음(&N)
 msi-btn-cancel = 취소
@@ -92,17 +92,17 @@ msi-btn-retry = 다시 시도(&R)
 msi-btn-ignore = 무시(&I)
 
 # MSI Installer UI - Welcome Dialog
-msi-welcome-title = { $app_title } 설치 마법사 시작
-msi-welcome-description = 설치 마법사가 { $app_title }을(를) 컴퓨터에 설치합니다. 계속하려면 [다음]을 클릭하고 설치 마법사를 끝내려면 [취소]를 클릭하십시오.
-msi-welcome-update-description = 설치 마법사에서 컴퓨터의 { $app_title }을(를) 업데이트합니다. 계속하려면 [다음]을 클릭하고 설치 마법사를 끝내려면 [취소]를 클릭하십시오.
+msi-welcome-title = { $app_title } { $app_version } 설치 마법사 시작
+msi-welcome-description = 설치 마법사가 { $app_title } { $app_version }을(를) 컴퓨터에 설치합니다. 계속하려면 [다음]을 클릭하고 설치 마법사를 끝내려면 [취소]를 클릭하십시오.
+msi-welcome-update-description = 설치 마법사에서 컴퓨터의 { $app_title } { $app_version }을(를) 업데이트합니다. 계속하려면 [다음]을 클릭하고 설치 마법사를 끝내려면 [취소]를 클릭하십시오.
 
 # MSI Installer UI - Exit Dialog
-msi-exit-title = { $app_title } 설치 마법사를 완료했습니다
+msi-exit-title = { $app_title } { $app_version } 설치 마법사를 완료했습니다
 msi-exit-description = 설치 마법사를 끝내려면 [마침] 단추를 클릭하십시오.
-msi-exit-launch-checkbox = { $app_title } 실행
+msi-exit-launch-checkbox = { $app_title } { $app_version } 실행
 
 # MSI Installer UI - Prepare Dialog
-msi-prepare-title = { $app_title } 설치 마법사 시작
+msi-prepare-title = { $app_title } { $app_version } 설치 마법사 시작
 msi-prepare-description = 설치 마법사가 설치 안내를 준비하는 동안 잠시 기다려 주십시오.
 
 # MSI Installer UI - License Agreement Dialog
@@ -120,15 +120,15 @@ msi-scope-no-per-user-description = 관리자 권한이 필요합니다
 msi-scope-per-machine-description = 관리자 권한이 필요합니다
 
 # MSI Installer UI - Verify Ready Dialog
-msi-ready-install-title = { $app_title } 설치 준비 완료
+msi-ready-install-title = { $app_title } { $app_version } 설치 준비 완료
 msi-ready-install-text = 설치를 시작하려면 [설치]를 클릭하십시오. 설치 설정을 검토하거나 변경하려면 [뒤로]를 클릭하십시오.
-msi-ready-change-title = { $app_title } 변경 준비 완료
+msi-ready-change-title = { $app_title } { $app_version } 변경 준비 완료
 msi-ready-change-text = 설치 변경을 시작하려면 [변경]을 클릭하십시오. 설치 설정을 검토하거나 변경하려면 [뒤로]를 클릭하십시오.
-msi-ready-repair-title = { $app_title } 복구 준비 완료
+msi-ready-repair-title = { $app_title } { $app_version } 복구 준비 완료
 msi-ready-repair-text = 복구를 시작하려면 [복구]를 클릭하십시오. 설치 설정을 검토하거나 변경하려면 [뒤로]를 클릭하십시오.
-msi-ready-remove-title = { $app_title } 제거 준비 완료
-msi-ready-remove-text = 컴퓨터에서 { $app_title }을(를) 제거하려면 [제거]를 클릭하십시오. 설치 설정을 검토하거나 변경하려면 [뒤로]를 클릭하십시오.
-msi-ready-update-title = { $app_title } 업데이트 준비 완료
+msi-ready-remove-title = { $app_title } { $app_version } 제거 준비 완료
+msi-ready-remove-text = 컴퓨터에서 { $app_title } { $app_version }을(를) 제거하려면 [제거]를 클릭하십시오. 설치 설정을 검토하거나 변경하려면 [뒤로]를 클릭하십시오.
+msi-ready-update-title = { $app_title } { $app_version } 업데이트 준비 완료
 msi-ready-update-text = 업데이트를 시작하려면 [업데이트]를 클릭하십시오. 설치 설정을 검토하거나 변경하려면 [뒤로]를 클릭하십시오.
 msi-ready-btn-install = 설치(&I)
 msi-ready-btn-change = 변경(&C)
@@ -137,21 +137,21 @@ msi-ready-btn-remove = 제거(&R)
 msi-ready-btn-update = 업데이트(&U)
 
 # MSI Installer UI - Progress Dialog
-msi-progress-installing-title = { $app_title } 설치 중
-msi-progress-installing-text = 설치 마법사가 { $app_title }을(를) 설치하는 동안 잠시 기다려 주십시오.
-msi-progress-changing-title = { $app_title } 변경 중
-msi-progress-changing-text = 설치 마법사가 { $app_title }을(를) 변경하는 동안 잠시 기다려 주십시오.
-msi-progress-repairing-title = { $app_title } 복구 중
-msi-progress-repairing-text = 설치 마법사가 { $app_title }을(를) 복구하는 동안 잠시 기다려 주십시오.
-msi-progress-removing-title = { $app_title } 제거 중
-msi-progress-removing-text = 설치 마법사가 { $app_title }을(를) 제거하는 동안 잠시 기다려 주십시오.
-msi-progress-updating-title = { $app_title } 업데이트 중
-msi-progress-updating-text = 설치 마법사가 { $app_title }을(를) 업데이트하는 동안 잠시 기다려 주십시오.
+msi-progress-installing-title = { $app_title } { $app_version } 설치 중
+msi-progress-installing-text = 설치 마법사가 { $app_title } { $app_version }을(를) 설치하는 동안 잠시 기다려 주십시오.
+msi-progress-changing-title = { $app_title } { $app_version } 변경 중
+msi-progress-changing-text = 설치 마법사가 { $app_title } { $app_version }을(를) 변경하는 동안 잠시 기다려 주십시오.
+msi-progress-repairing-title = { $app_title } { $app_version } 복구 중
+msi-progress-repairing-text = 설치 마법사가 { $app_title } { $app_version }을(를) 복구하는 동안 잠시 기다려 주십시오.
+msi-progress-removing-title = { $app_title } { $app_version } 제거 중
+msi-progress-removing-text = 설치 마법사가 { $app_title } { $app_version }을(를) 제거하는 동안 잠시 기다려 주십시오.
+msi-progress-updating-title = { $app_title } { $app_version } 업데이트 중
+msi-progress-updating-text = 설치 마법사가 { $app_title } { $app_version }을(를) 업데이트하는 동안 잠시 기다려 주십시오.
 msi-progress-status = 상태:
 
 # MSI Installer UI - Maintenance Welcome Dialog
-msi-maint-welcome-title = { $app_title } 설치 마법사 시작
-msi-maint-welcome-description = 설치 마법사로 { $app_title }을(를) 복구하거나 제거할 수 있습니다. 계속하려면 [다음]을 클릭하고 설치 마법사를 끝내려면 [취소]를 클릭하십시오.
+msi-maint-welcome-title = { $app_title } { $app_version } 설치 마법사 시작
+msi-maint-welcome-description = 설치 마법사로 { $app_title } { $app_version }을(를) 복구하거나 제거할 수 있습니다. 계속하려면 [다음]을 클릭하고 설치 마법사를 끝내려면 [취소]를 클릭하십시오.
 
 # MSI Installer UI - Maintenance Type Dialog
 msi-maint-type-title = 설치 변경, 복구 또는 제거
@@ -166,11 +166,11 @@ msi-maint-repair-text = 가장 최근 설치의 오류를 복구합니다. 손�
 msi-maint-repair-disabled = 복구는 현재 사용할 수 없습니다.
 msi-maint-remove-button = 제거(&M)
 msi-maint-remove-tooltip = 제거
-msi-maint-remove-text = 컴퓨터에서 { $app_title }을(를) 제거합니다.
+msi-maint-remove-text = 컴퓨터에서 { $app_title } { $app_version }을(를) 제거합니다.
 msi-maint-remove-disabled = 제거는 현재 사용할 수 없습니다.
 
 # MSI Installer UI - Cancel Dialog
-msi-cancel-text = { $app_title } 설치를 취소하시겠습니까?
+msi-cancel-text = { $app_title } { $app_version } 설치를 취소하시겠습니까?
 
 # MSI Installer UI - Browse Dialog
 msi-browse-title = 현재 대상 폴더 변경
@@ -189,16 +189,16 @@ msi-disk-cost-description = 선택한 기능을 설치하는 데 필요한 디�
 msi-disk-cost-text = 선택한 볼륨의 디스크 공간이 부족하여 현재 선택한 기능을 설치할 수 없습니다. 선택한 볼륨에서 일부 파일을 제거하거나, 선택한 기능 중 일부를 취소하거나, 다른 대상 드라이브를 선택하십시오.
 
 # MSI Installer UI - Error Dialog
-msi-error-dlg-title = { $app_title } 설치 관리자 정보
+msi-error-dlg-title = { $app_title } { $app_version } 설치 관리자 정보
 
 # MSI Installer UI - Fatal Error Dialog
-msi-fatal-title = { $app_title } 설치 마법사가 중간에 중단되었습니다
-msi-fatal-description1 = { $app_title } 설치가 중단되었습니다. 시스템이 수정되지 않았습니다. 나중에 이 프로그램을 설치하려면 설치 프로그램을 다시 실행하십시오.
+msi-fatal-title = { $app_title } { $app_version } 설치 마법사가 중간에 중단되었습니다
+msi-fatal-description1 = { $app_title } { $app_version } 설치가 중단되었습니다. 시스템이 수정되지 않았습니다. 나중에 이 프로그램을 설치하려면 설치 프로그램을 다시 실행하십시오.
 msi-fatal-description2 = 설치 마법사를 끝내려면 [마침] 단추를 클릭하십시오.
 
 # MSI Installer UI - User Exit Dialog
-msi-user-exit-title = { $app_title } 설치 마법사가 중단되었습니다
-msi-user-exit-description1 = { $app_title } 설치가 중단되었습니다. 시스템이 수정되지 않았습니다. 나중에 이 프로그램을 설치하려면 설치 프로그램을 다시 실행하십시오.
+msi-user-exit-title = { $app_title } { $app_version } 설치 마법사가 중단되었습니다
+msi-user-exit-description1 = { $app_title } { $app_version } 설치가 중단되었습니다. 시스템이 수정되지 않았습니다. 나중에 이 프로그램을 설치하려면 설치 프로그램을 다시 실행하십시오.
 msi-user-exit-description2 = 설치 마법사를 끝내려면 [마침] 단추를 클릭하십시오.
 
 # MSI Installer UI - Files In Use Dialog
@@ -215,13 +215,13 @@ msi-rm-files-in-use-use-rm = 응용 프로그램을 자동으로 닫고(&C) 설�
 msi-rm-files-in-use-dont-use-rm = 응용 프로그램을 닫지 않습니다(&D). (다시 부팅해야 합니다.)
 
 # MSI Installer UI - Resume Dialog
-msi-resume-title = { $app_title } 설치 마법사를 계속하는 중
-msi-resume-description = 설치 마법사가 컴퓨터에서 { $app_title } 설치를 완료합니다. 계속하려면 [설치]를 클릭하고 설치 마법사를 끝내려면 [취소]를 클릭하십시오.
+msi-resume-title = { $app_title } { $app_version } 설치 마법사를 계속하는 중
+msi-resume-description = 설치 마법사가 컴퓨터에서 { $app_title } { $app_version } 설치를 완료합니다. 계속하려면 [설치]를 클릭하고 설치 마법사를 끝내려면 [취소]를 클릭하십시오.
 msi-resume-btn-install = 설치(&I)
 
 # MSI Installer UI - Shortcut Descriptions
-msi-desktop-shortcut-description = { $app_title } 바탕 화면 바로 가기
-msi-start-menu-shortcut-description = { $app_title } 시작 메뉴 바로 가기
+msi-desktop-shortcut-description = { $app_title } { $app_version } 바탕 화면 바로 가기
+msi-start-menu-shortcut-description = { $app_title } { $app_version } 시작 메뉴 바로 가기
 # MSI Installer UI - Readme Dialog
 msi-readme-title = 추가 정보
 msi-readme-description = 계속하기 전에 다음 정보를 읽어 주십시오.

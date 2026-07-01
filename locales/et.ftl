@@ -1,4 +1,4 @@
-# Shared titles
+﻿# Shared titles
 title-update = { $app_title } värskendamine
 title-setup = { $app_title } installimine
 title-uninstall = { $app_title } desinstallimine
@@ -50,7 +50,7 @@ install-hook-body = Installimine on lõpetatud, kuid mõned sammud võisid ebaõ
 
 # Splash fallback (splash.rs)
 splash-header = Installitakse { $app_title }
-splash-body = Toote { $app_title } { $app_version } seadistamine, palun oodake...
+splash-body = Toote { $app_title } seadistamine, palun oodake...
 
 # Dependency download (prerequisite.rs)
 deps-download-header = Vajaliku komponendi allalaadimine
@@ -80,7 +80,7 @@ setup-update-exe-missing = Sellel installeril puudub kriitiline kahendfail (Upda
 setup-main-exe-missing = Peamist käivitusfaili ei leitud paketist. Palun võtke ühendust rakenduse autoriga.
 
 # MSI Installer UI - Common
-msi-dlg-title = { $app_title } installimine
+msi-dlg-title = { $app_title } { $app_version } installimine
 msi-btn-back = &Tagasi
 msi-btn-next = &Edasi
 msi-btn-cancel = Loobu
@@ -92,17 +92,17 @@ msi-btn-retry = &Proovi uuesti
 msi-btn-ignore = &Ignoreeri
 
 # MSI Installer UI - Welcome Dialog
-msi-welcome-title = Tere tulemast toote { $app_title } installiviisardisse!
-msi-welcome-description = Installiviisard installib toote { $app_title } teie arvutisse. Jätkamiseks klõpsake käsul Edasi või installiviisardist väljumiseks käsul Loobu.
-msi-welcome-update-description = Installiviisard värskendab toodet { $app_title } teie arvutis. Jätkamiseks klõpsake käsul Edasi või installiviisardist väljumiseks käsul Loobu.
+msi-welcome-title = Tere tulemast toote { $app_title } { $app_version } installiviisardisse!
+msi-welcome-description = Installiviisard installib toote { $app_title } { $app_version } teie arvutisse. Jätkamiseks klõpsake käsul Edasi või installiviisardist väljumiseks käsul Loobu.
+msi-welcome-update-description = Installiviisard värskendab toodet { $app_title } { $app_version } teie arvutis. Jätkamiseks klõpsake käsul Edasi või installiviisardist väljumiseks käsul Loobu.
 
 # MSI Installer UI - Exit Dialog
-msi-exit-title = Toote { $app_title } installiviisard on lõpetanud
+msi-exit-title = Toote { $app_title } { $app_version } installiviisard on lõpetanud
 msi-exit-description = Klõpsake installiviisardist väljumiseks nupul Lõpeta.
-msi-exit-launch-checkbox = Käivita { $app_title }
+msi-exit-launch-checkbox = Käivita { $app_title } { $app_version }
 
 # MSI Installer UI - Prepare Dialog
-msi-prepare-title = Tere tulemast toote { $app_title } installiviisardisse!
+msi-prepare-title = Tere tulemast toote { $app_title } { $app_version } installiviisardisse!
 msi-prepare-description = Palun oodake, kuni installiviisard valmistub teid installimisel juhendama.
 
 # MSI Installer UI - License Agreement Dialog
@@ -120,15 +120,15 @@ msi-scope-no-per-user-description = Nõuab administraatori õigusi
 msi-scope-per-machine-description = Nõuab administraatori õigusi
 
 # MSI Installer UI - Verify Ready Dialog
-msi-ready-install-title = Toote { $app_title } installimiseks valmis
+msi-ready-install-title = Toote { $app_title } { $app_version } installimiseks valmis
 msi-ready-install-text = Installimise alustamiseks klõpsake käsul Installi. Installisätete läbivaatamiseks või muutmiseks klõpsake käsul Tagasi.
-msi-ready-change-title = Toote { $app_title } muutmiseks valmis
+msi-ready-change-title = Toote { $app_title } { $app_version } muutmiseks valmis
 msi-ready-change-text = Installi muutmiseks klõpsake käsul Muuda. Installisätete läbivaatamiseks või muutmiseks klõpsake käsul Tagasi.
-msi-ready-repair-title = Toote { $app_title } parandamiseks valmis
+msi-ready-repair-title = Toote { $app_title } { $app_version } parandamiseks valmis
 msi-ready-repair-text = Parandamise alustamiseks klõpsake käsul Paranda. Installisätete läbivaatamiseks või muutmiseks klõpsake käsul Tagasi.
-msi-ready-remove-title = Toote { $app_title } eemaldamiseks valmis
-msi-ready-remove-text = Toote { $app_title } arvutist eemaldamiseks klõpsake käsul Eemalda. Installisätete läbivaatamiseks või muutmiseks klõpsake käsul Tagasi.
-msi-ready-update-title = Toote { $app_title } värskendamiseks valmis
+msi-ready-remove-title = Toote { $app_title } { $app_version } eemaldamiseks valmis
+msi-ready-remove-text = Toote { $app_title } { $app_version } arvutist eemaldamiseks klõpsake käsul Eemalda. Installisätete läbivaatamiseks või muutmiseks klõpsake käsul Tagasi.
+msi-ready-update-title = Toote { $app_title } { $app_version } värskendamiseks valmis
 msi-ready-update-text = Värskendamise alustamiseks klõpsake käsul Värskenda. Installisätete läbivaatamiseks või muutmiseks klõpsake käsul Tagasi.
 msi-ready-btn-install = &Installi
 msi-ready-btn-change = &Muuda
@@ -137,21 +137,21 @@ msi-ready-btn-remove = &Eemalda
 msi-ready-btn-update = &Värskenda
 
 # MSI Installer UI - Progress Dialog
-msi-progress-installing-title = Toote { $app_title } installimine
-msi-progress-installing-text = Palun oodake, kuni installiviisard installib toodet { $app_title }.
-msi-progress-changing-title = Toote { $app_title } muutmine
-msi-progress-changing-text = Palun oodake, kuni installiviisard muudab toodet { $app_title }.
-msi-progress-repairing-title = Toote { $app_title } parandamine
-msi-progress-repairing-text = Palun oodake, kuni installiviisard parandab toodet { $app_title }.
-msi-progress-removing-title = Toote { $app_title } eemaldamine
-msi-progress-removing-text = Palun oodake, kuni installiviisard eemaldab toodet { $app_title }.
-msi-progress-updating-title = Toote { $app_title } värskendamine
-msi-progress-updating-text = Palun oodake, kuni installiviisard värskendab toodet { $app_title }.
+msi-progress-installing-title = Toote { $app_title } { $app_version } installimine
+msi-progress-installing-text = Palun oodake, kuni installiviisard installib toodet { $app_title } { $app_version }.
+msi-progress-changing-title = Toote { $app_title } { $app_version } muutmine
+msi-progress-changing-text = Palun oodake, kuni installiviisard muudab toodet { $app_title } { $app_version }.
+msi-progress-repairing-title = Toote { $app_title } { $app_version } parandamine
+msi-progress-repairing-text = Palun oodake, kuni installiviisard parandab toodet { $app_title } { $app_version }.
+msi-progress-removing-title = Toote { $app_title } { $app_version } eemaldamine
+msi-progress-removing-text = Palun oodake, kuni installiviisard eemaldab toodet { $app_title } { $app_version }.
+msi-progress-updating-title = Toote { $app_title } { $app_version } värskendamine
+msi-progress-updating-text = Palun oodake, kuni installiviisard värskendab toodet { $app_title } { $app_version }.
 msi-progress-status = Olek:
 
 # MSI Installer UI - Maintenance Welcome Dialog
-msi-maint-welcome-title = Tere tulemast toote { $app_title } installiviisardisse!
-msi-maint-welcome-description = Installiviisard võimaldab teil parandada või eemaldada toote { $app_title }. Jätkamiseks klõpsake käsul Edasi või installiviisardist väljumiseks käsul Loobu.
+msi-maint-welcome-title = Tere tulemast toote { $app_title } { $app_version } installiviisardisse!
+msi-maint-welcome-description = Installiviisard võimaldab teil parandada või eemaldada toote { $app_title } { $app_version }. Jätkamiseks klõpsake käsul Edasi või installiviisardist väljumiseks käsul Loobu.
 
 # MSI Installer UI - Maintenance Type Dialog
 msi-maint-type-title = Installi muutmine, parandamine või eemaldamine
@@ -166,11 +166,11 @@ msi-maint-repair-text = Parandab viimase installimise tõrked, lahendades proble
 msi-maint-repair-disabled = Parandamine on hetkel keelatud.
 msi-maint-remove-button = &Eemalda
 msi-maint-remove-tooltip = Eemalda install
-msi-maint-remove-text = Eemaldab toote { $app_title } teie arvutist.
+msi-maint-remove-text = Eemaldab toote { $app_title } { $app_version } teie arvutist.
 msi-maint-remove-disabled = Eemaldamine on hetkel keelatud.
 
 # MSI Installer UI - Cancel Dialog
-msi-cancel-text = Kas soovite kindlasti rakenduse { $app_title } installist loobuda?
+msi-cancel-text = Kas soovite kindlasti rakenduse { $app_title } { $app_version } installist loobuda?
 
 # MSI Installer UI - Browse Dialog
 msi-browse-title = Praeguse sihtkausta muutmine
@@ -189,16 +189,16 @@ msi-disk-cost-description = Valitud funktsioonide installimiseks vajalik kettaru
 msi-disk-cost-text = Esiletõstetud draividel pole valitud funktsioonide jaoks piisavalt vaba kettaruumi. Võite mõne faili esiletõstetud draividelt eemaldada, installida vähem funktsioone kohalikule draivile või valida mõne muu sihtdraivi.
 
 # MSI Installer UI - Error Dialog
-msi-error-dlg-title = { $app_title } installeri teave
+msi-error-dlg-title = { $app_title } { $app_version } installeri teave
 
 # MSI Installer UI - Fatal Error Dialog
-msi-fatal-title = Toote { $app_title } installiviisard peatus enneaegselt
-msi-fatal-description1 = Toote { $app_title } install katkestati. Teie süsteemi pole muudetud. Kui soovite selle programmi hiljem installida, käivitage install uuesti.
+msi-fatal-title = Toote { $app_title } { $app_version } installiviisard peatus enneaegselt
+msi-fatal-description1 = Toote { $app_title } { $app_version } install katkestati. Teie süsteemi pole muudetud. Kui soovite selle programmi hiljem installida, käivitage install uuesti.
 msi-fatal-description2 = Klõpsake installiviisardist väljumiseks nupul Lõpeta.
 
 # MSI Installer UI - User Exit Dialog
-msi-user-exit-title = Toote { $app_title } installiviisardi töö on katkestatud
-msi-user-exit-description1 = Toote { $app_title } installimine katkestati. Teie süsteemi pole muudetud. Kui soovite selle programmi hiljem installida, käivitage install uuesti.
+msi-user-exit-title = Toote { $app_title } { $app_version } installiviisardi töö on katkestatud
+msi-user-exit-description1 = Toote { $app_title } { $app_version } installimine katkestati. Teie süsteemi pole muudetud. Kui soovite selle programmi hiljem installida, käivitage install uuesti.
 msi-user-exit-description2 = Klõpsake installiviisardist väljumiseks nupul Lõpeta.
 
 # MSI Installer UI - Files In Use Dialog
@@ -215,13 +215,13 @@ msi-rm-files-in-use-use-rm = &Sulgege rakendused automaatselt ja proovige need p
 msi-rm-files-in-use-dont-use-rm = &Ärge sulgege rakendusi. (Arvuti tuleb taaskäivitada.)
 
 # MSI Installer UI - Resume Dialog
-msi-resume-title = Toote { $app_title } installiviisardi jätkamine
-msi-resume-description = Installiviisard viib toote { $app_title } teie arvutisse installimise lõpule. Jätkamiseks klõpsake käsul Installi, installiviisardist väljumiseks käsul Loobu.
+msi-resume-title = Toote { $app_title } { $app_version } installiviisardi jätkamine
+msi-resume-description = Installiviisard viib toote { $app_title } { $app_version } teie arvutisse installimise lõpule. Jätkamiseks klõpsake käsul Installi, installiviisardist väljumiseks käsul Loobu.
 msi-resume-btn-install = &Installi
 
 # MSI Installer UI - Shortcut Descriptions
-msi-desktop-shortcut-description = Toote { $app_title } töölaua otsetee
-msi-start-menu-shortcut-description = Toote { $app_title } menüü Start otsetee
+msi-desktop-shortcut-description = Toote { $app_title } { $app_version } töölaua otsetee
+msi-start-menu-shortcut-description = Toote { $app_title } { $app_version } menüü Start otsetee
 # MSI Installer UI - Readme Dialog
 msi-readme-title = Oluline teave
 msi-readme-description = Palun lugege enne jätkamist järgmist teavet.

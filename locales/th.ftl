@@ -1,4 +1,4 @@
-# Shared titles
+﻿# Shared titles
 title-update = อัปเดต { $app_title }
 title-setup = การติดตั้ง { $app_title }
 title-uninstall = ถอนการติดตั้ง { $app_title }
@@ -50,7 +50,7 @@ install-hook-body = การติดตั้งเสร็จสมบูร
 
 # Splash fallback (splash.rs)
 splash-header = กำลังติดตั้ง { $app_title }
-splash-body = กำลังตั้งค่า { $app_title } { $app_version } โปรดรอสักครู่...
+splash-body = กำลังตั้งค่า { $app_title } โปรดรอสักครู่...
 
 # Dependency download (prerequisite.rs)
 deps-download-header = กำลังดาวน์โหลดคอมโพเนนต์ที่จำเป็น
@@ -80,7 +80,7 @@ setup-update-exe-missing = ตัวติดตั้งนี้ขาดไ�
 setup-main-exe-missing = ไม่พบไฟล์ปฏิบัติการหลักในแพ็กเกจ โปรดติดต่อผู้สร้างแอปพลิเคชัน
 
 # MSI Installer UI - Common
-msi-dlg-title = การติดตั้ง { $app_title }
+msi-dlg-title = การติดตั้ง { $app_title } { $app_version }
 msi-btn-back = ย้อน&กลับ
 msi-btn-next = ถัด&ไป
 msi-btn-cancel = ยกเลิก
@@ -92,17 +92,17 @@ msi-btn-retry = &ลองใหม่
 msi-btn-ignore = &ละเว้น
 
 # MSI Installer UI - Welcome Dialog
-msi-welcome-title = ยินดีต้อนรับสู่ตัวช่วยสร้างการติดตั้ง { $app_title }
-msi-welcome-description = ตัวช่วยสร้างการติดตั้งจะติดตั้ง { $app_title } บนเครื่องคอมพิวเตอร์ของคุณ คลิก ถัดไป เพื่อดำเนินการต่อ หรือ ยกเลิก เพื่อออกจากตัวช่วยสร้างการติดตั้ง
-msi-welcome-update-description = ตัวช่วยสร้างการติดตั้งจะอัปเดต { $app_title } บนคอมพิวเตอร์ของคุณ คลิก ถัดไป เพื่อดำเนินการต่อ หรือ ยกเลิก เพื่อออกจากตัวช่วยสร้างการติดตั้ง
+msi-welcome-title = ยินดีต้อนรับสู่ตัวช่วยสร้างการติดตั้ง { $app_title } { $app_version }
+msi-welcome-description = ตัวช่วยสร้างการติดตั้งจะติดตั้ง { $app_title } { $app_version } บนเครื่องคอมพิวเตอร์ของคุณ คลิก ถัดไป เพื่อดำเนินการต่อ หรือ ยกเลิก เพื่อออกจากตัวช่วยสร้างการติดตั้ง
+msi-welcome-update-description = ตัวช่วยสร้างการติดตั้งจะอัปเดต { $app_title } { $app_version } บนคอมพิวเตอร์ของคุณ คลิก ถัดไป เพื่อดำเนินการต่อ หรือ ยกเลิก เพื่อออกจากตัวช่วยสร้างการติดตั้ง
 
 # MSI Installer UI - Exit Dialog
-msi-exit-title = ตัวช่วยสร้างการติดตั้ง { $app_title } ดำเนินการเสร็จสมบูรณ์
+msi-exit-title = ตัวช่วยสร้างการติดตั้ง { $app_title } { $app_version } ดำเนินการเสร็จสมบูรณ์
 msi-exit-description = คลิกปุ่ม เสร็จสิ้น เพื่อออกจากตัวช่วยสร้างการติดตั้ง
-msi-exit-launch-checkbox = เรียกใช้ { $app_title }
+msi-exit-launch-checkbox = เรียกใช้ { $app_title } { $app_version }
 
 # MSI Installer UI - Prepare Dialog
-msi-prepare-title = ยินดีต้อนรับสู่ตัวช่วยสร้างการติดตั้ง { $app_title }
+msi-prepare-title = ยินดีต้อนรับสู่ตัวช่วยสร้างการติดตั้ง { $app_title } { $app_version }
 msi-prepare-description = โปรดรอสักครู่ขณะที่ตัวช่วยสร้างการติดตั้งเตรียมการที่จะแนะนำคุณตลอดขั้นตอนการติดตั้ง
 
 # MSI Installer UI - License Agreement Dialog
@@ -120,15 +120,15 @@ msi-scope-no-per-user-description = ต้องการสิทธิ์ผ�
 msi-scope-per-machine-description = ต้องการสิทธิ์ผู้ดูแลระบบ
 
 # MSI Installer UI - Verify Ready Dialog
-msi-ready-install-title = พร้อมทำการติดตั้ง { $app_title }
+msi-ready-install-title = พร้อมทำการติดตั้ง { $app_title } { $app_version }
 msi-ready-install-text = คลิก ติดตั้ง เพื่อเริ่มการติดตั้ง คลิก ย้อนกลับ เพื่อตรวจทานหรือเปลี่ยนแปลงการตั้งค่าการติดตั้งของคุณ
-msi-ready-change-title = พร้อมทำการเปลี่ยนแปลง { $app_title }
+msi-ready-change-title = พร้อมทำการเปลี่ยนแปลง { $app_title } { $app_version }
 msi-ready-change-text = คลิก เปลี่ยน เพื่อเริ่มการเปลี่ยนแปลงการติดตั้ง คลิก ย้อนกลับ เพื่อตรวจทานหรือเปลี่ยนแปลงการตั้งค่าการติดตั้งของคุณ
-msi-ready-repair-title = พร้อมทำการซ่อมแซม { $app_title }
+msi-ready-repair-title = พร้อมทำการซ่อมแซม { $app_title } { $app_version }
 msi-ready-repair-text = คลิก ซ่อมแซม เพื่อเริ่มการซ่อมแซม คลิก ย้อนกลับ เพื่อตรวจทานหรือเปลี่ยนแปลงการตั้งค่าการติดตั้งของคุณ
-msi-ready-remove-title = พร้อมทำการเอา { $app_title } ออก
-msi-ready-remove-text = คลิก เอาออก เพื่อเอา { $app_title } ออกจากคอมพิวเตอร์ของคุณ คลิก ย้อนกลับ เพื่อตรวจทานหรือเปลี่ยนแปลงการตั้งค่าการติดตั้งของคุณ
-msi-ready-update-title = พร้อมทำการอัปเดต { $app_title }
+msi-ready-remove-title = พร้อมทำการเอา { $app_title } { $app_version } ออก
+msi-ready-remove-text = คลิก เอาออก เพื่อเอา { $app_title } { $app_version } ออกจากคอมพิวเตอร์ของคุณ คลิก ย้อนกลับ เพื่อตรวจทานหรือเปลี่ยนแปลงการตั้งค่าการติดตั้งของคุณ
+msi-ready-update-title = พร้อมทำการอัปเดต { $app_title } { $app_version }
 msi-ready-update-text = คลิก อัปเดต เพื่อเริ่มการอัปเดต คลิก ย้อนกลับ เพื่อตรวจทานหรือเปลี่ยนแปลงการตั้งค่าการติดตั้งของคุณ
 msi-ready-btn-install = &ติดตั้ง
 msi-ready-btn-change = เ&ปลี่ยน
@@ -137,21 +137,21 @@ msi-ready-btn-remove = เอ&าออก
 msi-ready-btn-update = &อัปเดต
 
 # MSI Installer UI - Progress Dialog
-msi-progress-installing-title = กำลังติดตั้ง { $app_title }
-msi-progress-installing-text = โปรดรอสักครู่ขณะที่ตัวช่วยสร้างการติดตั้งทำการติดตั้ง { $app_title }
-msi-progress-changing-title = กำลังเปลี่ยนแปลง { $app_title }
-msi-progress-changing-text = โปรดรอสักครู่ขณะที่ตัวช่วยสร้างการติดตั้งทำการเปลี่ยนแปลง { $app_title }
-msi-progress-repairing-title = กำลังซ่อมแซม { $app_title }
-msi-progress-repairing-text = โปรดรอสักครู่ขณะที่ตัวช่วยสร้างการติดตั้งทำการซ่อมแซม { $app_title }
-msi-progress-removing-title = กำลังเอา { $app_title } ออก
-msi-progress-removing-text = โปรดรอสักครู่ขณะที่ตัวช่วยสร้างการติดตั้งทำการเอา { $app_title } ออก
-msi-progress-updating-title = กำลังอัปเดต { $app_title }
-msi-progress-updating-text = โปรดรอสักครู่ขณะที่ตัวช่วยสร้างการติดตั้งอัปเดต { $app_title }
+msi-progress-installing-title = กำลังติดตั้ง { $app_title } { $app_version }
+msi-progress-installing-text = โปรดรอสักครู่ขณะที่ตัวช่วยสร้างการติดตั้งทำการติดตั้ง { $app_title } { $app_version }
+msi-progress-changing-title = กำลังเปลี่ยนแปลง { $app_title } { $app_version }
+msi-progress-changing-text = โปรดรอสักครู่ขณะที่ตัวช่วยสร้างการติดตั้งทำการเปลี่ยนแปลง { $app_title } { $app_version }
+msi-progress-repairing-title = กำลังซ่อมแซม { $app_title } { $app_version }
+msi-progress-repairing-text = โปรดรอสักครู่ขณะที่ตัวช่วยสร้างการติดตั้งทำการซ่อมแซม { $app_title } { $app_version }
+msi-progress-removing-title = กำลังเอา { $app_title } { $app_version } ออก
+msi-progress-removing-text = โปรดรอสักครู่ขณะที่ตัวช่วยสร้างการติดตั้งทำการเอา { $app_title } { $app_version } ออก
+msi-progress-updating-title = กำลังอัปเดต { $app_title } { $app_version }
+msi-progress-updating-text = โปรดรอสักครู่ขณะที่ตัวช่วยสร้างการติดตั้งอัปเดต { $app_title } { $app_version }
 msi-progress-status = สถานะ:
 
 # MSI Installer UI - Maintenance Welcome Dialog
-msi-maint-welcome-title = ยินดีต้อนรับสู่ตัวช่วยสร้างการติดตั้ง { $app_title }
-msi-maint-welcome-description = ตัวช่วยสร้างการติดตั้งจะอนุญาตให้คุณซ่อมแซมหรือเอา { $app_title } ออก คลิก ถัดไป เพื่อดำเนินการต่อ หรือ ยกเลิก เพื่อออกจากตัวช่วยสร้างการติดตั้ง
+msi-maint-welcome-title = ยินดีต้อนรับสู่ตัวช่วยสร้างการติดตั้ง { $app_title } { $app_version }
+msi-maint-welcome-description = ตัวช่วยสร้างการติดตั้งจะอนุญาตให้คุณซ่อมแซมหรือเอา { $app_title } { $app_version } ออก คลิก ถัดไป เพื่อดำเนินการต่อ หรือ ยกเลิก เพื่อออกจากตัวช่วยสร้างการติดตั้ง
 
 # MSI Installer UI - Maintenance Type Dialog
 msi-maint-type-title = เปลี่ยนแปลง ซ่อมแซม หรือเอาการติดตั้งออก
@@ -166,11 +166,11 @@ msi-maint-repair-text = ซ่อมแซมข้อผิดพลาดใ�
 msi-maint-repair-disabled = ขณะนี้ปิดใช้งานการซ่อมแซม
 msi-maint-remove-button = เ&อาออก
 msi-maint-remove-tooltip = เอาออก
-msi-maint-remove-text = เอา { $app_title } ออกจากคอมพิวเตอร์ของคุณ
+msi-maint-remove-text = เอา { $app_title } { $app_version } ออกจากคอมพิวเตอร์ของคุณ
 msi-maint-remove-disabled = ขณะนี้ปิดใช้งานการเอาออก
 
 # MSI Installer UI - Cancel Dialog
-msi-cancel-text = คุณแน่ใจหรือไม่ว่าคุณต้องการยกเลิกการติดตั้ง { $app_title }?
+msi-cancel-text = คุณแน่ใจหรือไม่ว่าคุณต้องการยกเลิกการติดตั้ง { $app_title } { $app_version }?
 
 # MSI Installer UI - Browse Dialog
 msi-browse-title = เปลี่ยนโฟลเดอร์ปลายทางปัจจุบัน
@@ -189,16 +189,16 @@ msi-disk-cost-description = เนื้อที่ดิสก์ที่ต�
 msi-disk-cost-text = ไดรฟ์ข้อมูลที่เลือกมีเนื้อที่ดิสก์ไม่เพียงพอสำหรับคุณลักษณะที่เลือกอยู่ในขณะนี้ คุณสามารถเอาบางแฟ้มออกจากไดรฟ์ข้อมูลที่เลือก ติดตั้งคุณลักษณะน้อยลง หรือเลือกไดรฟ์ปลายทางอื่น
 
 # MSI Installer UI - Error Dialog
-msi-error-dlg-title = ข้อมูลตัวติดตั้ง { $app_title }
+msi-error-dlg-title = ข้อมูลตัวติดตั้ง { $app_title } { $app_version }
 
 # MSI Installer UI - Fatal Error Dialog
-msi-fatal-title = ตัวช่วยสร้างการติดตั้ง { $app_title } สิ้นสุดลงก่อนเสร็จสมบูรณ์
-msi-fatal-description1 = การติดตั้ง { $app_title } ถูกขัดจังหวะ ระบบของคุณยังไม่ถูกปรับเปลี่ยน เมื่อต้องการติดตั้งโปรแกรมนี้ในภายหลัง โปรดเรียกใช้การติดตั้งอีกครั้ง
+msi-fatal-title = ตัวช่วยสร้างการติดตั้ง { $app_title } { $app_version } สิ้นสุดลงก่อนเสร็จสมบูรณ์
+msi-fatal-description1 = การติดตั้ง { $app_title } { $app_version } ถูกขัดจังหวะ ระบบของคุณยังไม่ถูกปรับเปลี่ยน เมื่อต้องการติดตั้งโปรแกรมนี้ในภายหลัง โปรดเรียกใช้การติดตั้งอีกครั้ง
 msi-fatal-description2 = คลิกปุ่ม เสร็จสิ้น เพื่อออกจากตัวช่วยสร้างการติดตั้ง
 
 # MSI Installer UI - User Exit Dialog
-msi-user-exit-title = ตัวช่วยสร้างการติดตั้ง { $app_title } ถูกขัดจังหวะ
-msi-user-exit-description1 = การติดตั้ง { $app_title } ถูกขัดจังหวะ ระบบของคุณยังไม่ถูกปรับเปลี่ยน เมื่อต้องการติดตั้งโปรแกรมนี้ในภายหลัง โปรดเรียกใช้การติดตั้งอีกครั้ง
+msi-user-exit-title = ตัวช่วยสร้างการติดตั้ง { $app_title } { $app_version } ถูกขัดจังหวะ
+msi-user-exit-description1 = การติดตั้ง { $app_title } { $app_version } ถูกขัดจังหวะ ระบบของคุณยังไม่ถูกปรับเปลี่ยน เมื่อต้องการติดตั้งโปรแกรมนี้ในภายหลัง โปรดเรียกใช้การติดตั้งอีกครั้ง
 msi-user-exit-description2 = คลิกปุ่ม เสร็จสิ้น เพื่อออกจากตัวช่วยสร้างการติดตั้ง
 
 # MSI Installer UI - Files In Use Dialog
@@ -215,13 +215,13 @@ msi-rm-files-in-use-use-rm = ปิ&ดโปรแกรมประยุก�
 msi-rm-files-in-use-dont-use-rm = &อย่าปิดโปรแกรมประยุกต์ (จำเป็นต้องเริ่มระบบใหม่)
 
 # MSI Installer UI - Resume Dialog
-msi-resume-title = กำลังดำเนินการตัวช่วยสร้างการติดตั้ง { $app_title } ต่อ
-msi-resume-description = ตัวช่วยสร้างการติดตั้งจะดำเนินการติดตั้ง { $app_title } บนคอมพิวเตอร์ของคุณให้เสร็จสมบูรณ์ ให้คลิก ติดตั้ง เพื่อดำเนินการต่อหรือคลิก ยกเลิก เพื่อออกจากตัวช่วยสร้างการติดตั้ง
+msi-resume-title = กำลังดำเนินการตัวช่วยสร้างการติดตั้ง { $app_title } { $app_version } ต่อ
+msi-resume-description = ตัวช่วยสร้างการติดตั้งจะดำเนินการติดตั้ง { $app_title } { $app_version } บนคอมพิวเตอร์ของคุณให้เสร็จสมบูรณ์ ให้คลิก ติดตั้ง เพื่อดำเนินการต่อหรือคลิก ยกเลิก เพื่อออกจากตัวช่วยสร้างการติดตั้ง
 msi-resume-btn-install = &ติดตั้ง
 
 # MSI Installer UI - Shortcut Descriptions
-msi-desktop-shortcut-description = ทางลัดเดสก์ท็อปสำหรับ { $app_title }
-msi-start-menu-shortcut-description = ทางลัดเมนูเริ่มสำหรับ { $app_title }
+msi-desktop-shortcut-description = ทางลัดเดสก์ท็อปสำหรับ { $app_title } { $app_version }
+msi-start-menu-shortcut-description = ทางลัดเมนูเริ่มสำหรับ { $app_title } { $app_version }
 # MSI Installer UI - Readme Dialog
 msi-readme-title = ข้อมูลสำคัญ
 msi-readme-description = โปรดอ่านข้อมูลต่อไปนี้ก่อนดำเนินการต่อ

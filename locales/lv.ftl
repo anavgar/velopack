@@ -1,4 +1,4 @@
-# Shared titles
+﻿# Shared titles
 title-update = { $app_title } atjaunināšana
 title-setup = { $app_title } uzstādīšana
 title-uninstall = { $app_title } atinstalēšana
@@ -50,7 +50,7 @@ install-hook-body = Instalēšana ir pabeigta, taču dažas darbības, iespējam
 
 # Splash fallback (splash.rs)
 splash-header = Notiek { $app_title } instalēšana
-splash-body = Notiek { $app_title } { $app_version } iestatīšana, lūdzu, uzgaidiet...
+splash-body = Notiek { $app_title } iestatīšana, lūdzu, uzgaidiet...
 
 # Dependency download (prerequisite.rs)
 deps-download-header = Notiek nepieciešamā komponenta lejupielāde
@@ -80,7 +80,7 @@ setup-update-exe-missing = Šim instalētājam trūkst kritiski svarīga bināra
 setup-main-exe-missing = Pakotnē neizdevās atrast galveno izpildāmo failu. Lūdzu, sazinieties ar lietojumprogrammas izstrādātāju.
 
 # MSI Installer UI - Common
-msi-dlg-title = { $app_title } uzstādīšana
+msi-dlg-title = { $app_title } { $app_version } uzstādīšana
 msi-btn-back = &Atpakaļ
 msi-btn-next = &Tālāk
 msi-btn-cancel = Atcelt
@@ -92,17 +92,17 @@ msi-btn-retry = &Mēģināt vēlreiz
 msi-btn-ignore = &Ignorēt
 
 # MSI Installer UI - Welcome Dialog
-msi-welcome-title = Esiet sveicināts { $app_title } uzstādīšanas vednī!
-msi-welcome-description = Izmantojot uzstādīšanas vedni, datorā tiks instalēts { $app_title }. Noklikšķiniet uz Tālāk, lai turpinātu, vai uz Atcelt, lai izietu no uzstādīšanas vedņa.
-msi-welcome-update-description = Izmantojot uzstādīšanas vedni, datorā tiks atjaunināts { $app_title }. Noklikšķiniet uz Tālāk, lai turpinātu, vai uz Atcelt, lai izietu no uzstādīšanas vedņa.
+msi-welcome-title = Esiet sveicināts { $app_title } { $app_version } uzstādīšanas vednī!
+msi-welcome-description = Izmantojot uzstādīšanas vedni, datorā tiks instalēts { $app_title } { $app_version }. Noklikšķiniet uz Tālāk, lai turpinātu, vai uz Atcelt, lai izietu no uzstādīšanas vedņa.
+msi-welcome-update-description = Izmantojot uzstādīšanas vedni, datorā tiks atjaunināts { $app_title } { $app_version }. Noklikšķiniet uz Tālāk, lai turpinātu, vai uz Atcelt, lai izietu no uzstādīšanas vedņa.
 
 # MSI Installer UI - Exit Dialog
-msi-exit-title = { $app_title } uzstādīšanas vednis ir pabeigts
+msi-exit-title = { $app_title } { $app_version } uzstādīšanas vednis ir pabeigts
 msi-exit-description = Noklikšķiniet uz pogas Pabeigt, lai izietu no Uzstādīšanas vedņa.
-msi-exit-launch-checkbox = Palaist { $app_title }
+msi-exit-launch-checkbox = Palaist { $app_title } { $app_version }
 
 # MSI Installer UI - Prepare Dialog
-msi-prepare-title = Esiet sveicināts { $app_title } uzstādīšanas vednī!
+msi-prepare-title = Esiet sveicināts { $app_title } { $app_version } uzstādīšanas vednī!
 msi-prepare-description = Uzgaidiet, līdz Uzstādīšanas vednī tiek sagatavoti instalēšanas norādījumi.
 
 # MSI Installer UI - License Agreement Dialog
@@ -120,15 +120,15 @@ msi-scope-no-per-user-description = Nepieciešamas administratora atļaujas
 msi-scope-per-machine-description = Nepieciešamas administratora atļaujas
 
 # MSI Installer UI - Verify Ready Dialog
-msi-ready-install-title = Gatavs { $app_title } instalēšanai
+msi-ready-install-title = Gatavs { $app_title } { $app_version } instalēšanai
 msi-ready-install-text = Noklikšķiniet uz Instalēt, lai sāktu instalēšanu. Noklikšķiniet uz Atpakaļ, lai pārskatītu vai mainītu jebkuru instalēšanas iestatījumu.
-msi-ready-change-title = Gatavs { $app_title } mainīšanai
+msi-ready-change-title = Gatavs { $app_title } { $app_version } mainīšanai
 msi-ready-change-text = Noklikšķiniet uz Mainīt, lai sāktu mainīt instalāciju. Noklikšķiniet uz Atpakaļ, lai pārskatītu vai mainītu jebkuru instalēšanas iestatījumu.
-msi-ready-repair-title = Gatavs { $app_title } labošanai
+msi-ready-repair-title = Gatavs { $app_title } { $app_version } labošanai
 msi-ready-repair-text = Noklikšķiniet uz Labot, lai sāktu labošanu. Noklikšķiniet uz Atpakaļ, lai pārskatītu vai mainītu jebkuru instalēšanas iestatījumu.
-msi-ready-remove-title = Gatavs { $app_title } noņemšanai
-msi-ready-remove-text = Noklikšķiniet uz Noņemt, lai noņemtu { $app_title } no datora. Noklikšķiniet uz Atpakaļ, lai pārskatītu vai mainītu jebkuru instalēšanas iestatījumu.
-msi-ready-update-title = Gatavs { $app_title } atjaunināšanai
+msi-ready-remove-title = Gatavs { $app_title } { $app_version } noņemšanai
+msi-ready-remove-text = Noklikšķiniet uz Noņemt, lai noņemtu { $app_title } { $app_version } no datora. Noklikšķiniet uz Atpakaļ, lai pārskatītu vai mainītu jebkuru instalēšanas iestatījumu.
+msi-ready-update-title = Gatavs { $app_title } { $app_version } atjaunināšanai
 msi-ready-update-text = Noklikšķiniet uz Atjaunināt, lai sāktu atjaunināšanu. Noklikšķiniet uz Atpakaļ, lai pārskatītu vai mainītu jebkuru instalēšanas iestatījumu.
 msi-ready-btn-install = &Instalēt
 msi-ready-btn-change = &Mainīt
@@ -137,21 +137,21 @@ msi-ready-btn-remove = &Noņemt
 msi-ready-btn-update = Atja&unināt
 
 # MSI Installer UI - Progress Dialog
-msi-progress-installing-title = Notiek { $app_title } instalēšana
-msi-progress-installing-text = Lūdzu, uzgaidiet, kamēr uzstādīšanas vednis instalē { $app_title }.
-msi-progress-changing-title = Notiek { $app_title } maiņa
-msi-progress-changing-text = Lūdzu, uzgaidiet, kamēr uzstādīšanas vednis maina { $app_title }.
-msi-progress-repairing-title = Notiek { $app_title } labošana
-msi-progress-repairing-text = Lūdzu, uzgaidiet, kamēr uzstādīšanas vednis labo { $app_title }.
-msi-progress-removing-title = Notiek { $app_title } noņemšana
-msi-progress-removing-text = Lūdzu, uzgaidiet, kamēr uzstādīšanas vednis noņem { $app_title }.
-msi-progress-updating-title = Notiek { $app_title } atjaunināšana
-msi-progress-updating-text = Lūdzu, uzgaidiet, kamēr uzstādīšanas vednis atjaunina { $app_title }.
+msi-progress-installing-title = Notiek { $app_title } { $app_version } instalēšana
+msi-progress-installing-text = Lūdzu, uzgaidiet, kamēr uzstādīšanas vednis instalē { $app_title } { $app_version }.
+msi-progress-changing-title = Notiek { $app_title } { $app_version } maiņa
+msi-progress-changing-text = Lūdzu, uzgaidiet, kamēr uzstādīšanas vednis maina { $app_title } { $app_version }.
+msi-progress-repairing-title = Notiek { $app_title } { $app_version } labošana
+msi-progress-repairing-text = Lūdzu, uzgaidiet, kamēr uzstādīšanas vednis labo { $app_title } { $app_version }.
+msi-progress-removing-title = Notiek { $app_title } { $app_version } noņemšana
+msi-progress-removing-text = Lūdzu, uzgaidiet, kamēr uzstādīšanas vednis noņem { $app_title } { $app_version }.
+msi-progress-updating-title = Notiek { $app_title } { $app_version } atjaunināšana
+msi-progress-updating-text = Lūdzu, uzgaidiet, kamēr uzstādīšanas vednis atjaunina { $app_title } { $app_version }.
 msi-progress-status = Statuss:
 
 # MSI Installer UI - Maintenance Welcome Dialog
-msi-maint-welcome-title = Esiet sveicināts { $app_title } uzstādīšanas vednī!
-msi-maint-welcome-description = Uzstādīšanas vednis ļaus jums labot vai noņemt { $app_title }. Noklikšķiniet uz Tālāk, lai turpinātu, vai uz Atcelt, lai izietu no uzstādīšanas vedņa.
+msi-maint-welcome-title = Esiet sveicināts { $app_title } { $app_version } uzstādīšanas vednī!
+msi-maint-welcome-description = Uzstādīšanas vednis ļaus jums labot vai noņemt { $app_title } { $app_version }. Noklikšķiniet uz Tālāk, lai turpinātu, vai uz Atcelt, lai izietu no uzstādīšanas vedņa.
 
 # MSI Installer UI - Maintenance Type Dialog
 msi-maint-type-title = Instalācijas maiņa, labošana vai noņemšana
@@ -166,11 +166,11 @@ msi-maint-repair-text = Jaunākajā instalācijā labo kļūdas, labojot trūkst
 msi-maint-repair-disabled = Labošana pašlaik ir atspējota.
 msi-maint-remove-button = &Noņemt
 msi-maint-remove-tooltip = Noņemt instalāciju
-msi-maint-remove-text = Noņem { $app_title } no datora.
+msi-maint-remove-text = Noņem { $app_title } { $app_version } no datora.
 msi-maint-remove-disabled = Noņemšana pašlaik ir atspējota.
 
 # MSI Installer UI - Cancel Dialog
-msi-cancel-text = Vai tiešām vēlaties atcelt { $app_title } instalēšanu?
+msi-cancel-text = Vai tiešām vēlaties atcelt { $app_title } { $app_version } instalēšanu?
 
 # MSI Installer UI - Browse Dialog
 msi-browse-title = Pašreizējās mērķa mapes maiņa
@@ -189,16 +189,16 @@ msi-disk-cost-description = Atlasīto līdzekļu instalēšanai nepieciešamā v
 msi-disk-cost-text = Iezīmētajiem sējumiem nepietiek vietas diskā, lai instalētu atlasītos līdzekļus. Varat noņemt dažus failus no iezīmētajiem sējumiem, instalēt mazāk līdzekļu vietējos diskos vai atlasīt citus mērķa diskdziņus.
 
 # MSI Installer UI - Error Dialog
-msi-error-dlg-title = { $app_title } instalētāja informācija
+msi-error-dlg-title = { $app_title } { $app_version } instalētāja informācija
 
 # MSI Installer UI - Fatal Error Dialog
-msi-fatal-title = { $app_title } uzstādīšanas vednis darbību beidza priekšlaikus
-msi-fatal-description1 = { $app_title } uzstādīšana tika pārtraukta. Jūsu sistēma nav modificēta. Lai instalētu šo programmu vēlāk, lūdzu, palaidiet uzstādīšanu vēlreiz.
+msi-fatal-title = { $app_title } { $app_version } uzstādīšanas vednis darbību beidza priekšlaikus
+msi-fatal-description1 = { $app_title } { $app_version } uzstādīšana tika pārtraukta. Jūsu sistēma nav modificēta. Lai instalētu šo programmu vēlāk, lūdzu, palaidiet uzstādīšanu vēlreiz.
 msi-fatal-description2 = Noklikšķiniet uz pogas Pabeigt, lai izietu no Uzstādīšanas vedņa.
 
 # MSI Installer UI - User Exit Dialog
-msi-user-exit-title = { $app_title } uzstādīšanas vedņa darbība tika pārtraukta
-msi-user-exit-description1 = { $app_title } uzstādīšana tika pārtraukta. Jūsu sistēma nav modificēta. Lai instalētu šo programmu vēlāk, lūdzu, palaidiet uzstādīšanu vēlreiz.
+msi-user-exit-title = { $app_title } { $app_version } uzstādīšanas vedņa darbība tika pārtraukta
+msi-user-exit-description1 = { $app_title } { $app_version } uzstādīšana tika pārtraukta. Jūsu sistēma nav modificēta. Lai instalētu šo programmu vēlāk, lūdzu, palaidiet uzstādīšanu vēlreiz.
 msi-user-exit-description2 = Noklikšķiniet uz pogas Pabeigt, lai izietu no Uzstādīšanas vedņa.
 
 # MSI Installer UI - Files In Use Dialog
@@ -215,13 +215,13 @@ msi-rm-files-in-use-use-rm = &Automātiski aizvērt lietojumprogrammas un mēģi
 msi-rm-files-in-use-dont-use-rm = &Neaizveriet lietojumprogrammas. (Būs jāveic atkārtota sāknēšana.)
 
 # MSI Installer UI - Resume Dialog
-msi-resume-title = Notiek { $app_title } uzstādīšanas vedņa atsākšana
-msi-resume-description = Izmantojot uzstādīšanas vedni, datorā tiks pabeigta { $app_title } instalēšana. Noklikšķiniet uz Instalēt, lai turpinātu, vai uz Atcelt, lai izietu no uzstādīšanas vedņa.
+msi-resume-title = Notiek { $app_title } { $app_version } uzstādīšanas vedņa atsākšana
+msi-resume-description = Izmantojot uzstādīšanas vedni, datorā tiks pabeigta { $app_title } { $app_version } instalēšana. Noklikšķiniet uz Instalēt, lai turpinātu, vai uz Atcelt, lai izietu no uzstādīšanas vedņa.
 msi-resume-btn-install = &Instalēt
 
 # MSI Installer UI - Shortcut Descriptions
-msi-desktop-shortcut-description = { $app_title } darbvirsmas saīsne
-msi-start-menu-shortcut-description = { $app_title } izvēlnes Sākt saīsne
+msi-desktop-shortcut-description = { $app_title } { $app_version } darbvirsmas saīsne
+msi-start-menu-shortcut-description = { $app_title } { $app_version } izvēlnes Sākt saīsne
 # MSI Installer UI - Readme Dialog
 msi-readme-title = Svarīga informācija
 msi-readme-description = Lūdzu, izlasiet šo informāciju pirms turpināšanas.

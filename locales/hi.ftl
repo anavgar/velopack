@@ -1,4 +1,4 @@
-# Shared titles
+﻿# Shared titles
 title-update = { $app_title } अद्यतन
 title-setup = { $app_title } सेटअप
 title-uninstall = { $app_title } अनइंस्टॉल
@@ -50,7 +50,7 @@ install-hook-body = स्थापना पूर्ण हो गई है, 
 
 # Splash fallback (splash.rs)
 splash-header = { $app_title } स्थापित कर रहा है
-splash-body = { $app_title } { $app_version } सेट कर रहा है, कृपया प्रतीक्षा करें...
+splash-body = { $app_title } सेट कर रहा है, कृपया प्रतीक्षा करें...
 
 # Dependency download (prerequisite.rs)
 deps-download-header = आवश्यक घटक डाउनलोड कर रहा है
@@ -80,7 +80,7 @@ setup-update-exe-missing = इस इंस्टॉलर में एक म�
 setup-main-exe-missing = पैकेज में मुख्य निष्पादन योग्य फ़ाइल नहीं मिली. कृपया अनुप्रयोग लेखक से संपर्क करें.
 
 # MSI Installer UI - Common
-msi-dlg-title = { $app_title } सेटअप
+msi-dlg-title = { $app_title } { $app_version } सेटअप
 msi-btn-back = &पीछे
 msi-btn-next = &अगला
 msi-btn-cancel = रद्द करें
@@ -92,17 +92,17 @@ msi-btn-retry = &पुनर्प्रयास करें
 msi-btn-ignore = &ध्यान न दें
 
 # MSI Installer UI - Welcome Dialog
-msi-welcome-title = { $app_title } सेटअप विज़ार्ड में स्वागत है
-msi-welcome-description = सेटअप विज़ार्ड { $app_title } को आपके कंप्यूटर पर स्थापित करेगा. जारी रखने के लिए अगला क्लिक करें या सेटअप विज़ार्ड से बाहर निकलने के लिए रद्द करें क्लिक करें.
-msi-welcome-update-description = सेटअप विज़ार्ड { $app_title } को आपके कंप्यूटर पर अद्यतन करेगा. जारी रखने के लिए अगला क्लिक करें या सेटअप विज़ार्ड से बाहर निकलने के लिए रद्द करें क्लिक करें.
+msi-welcome-title = { $app_title } { $app_version } सेटअप विज़ार्ड में स्वागत है
+msi-welcome-description = सेटअप विज़ार्ड { $app_title } { $app_version } को आपके कंप्यूटर पर स्थापित करेगा. जारी रखने के लिए अगला क्लिक करें या सेटअप विज़ार्ड से बाहर निकलने के लिए रद्द करें क्लिक करें.
+msi-welcome-update-description = सेटअप विज़ार्ड { $app_title } { $app_version } को आपके कंप्यूटर पर अद्यतन करेगा. जारी रखने के लिए अगला क्लिक करें या सेटअप विज़ार्ड से बाहर निकलने के लिए रद्द करें क्लिक करें.
 
 # MSI Installer UI - Exit Dialog
-msi-exit-title = { $app_title } सेटअप विज़ार्ड पूरा हुआ
+msi-exit-title = { $app_title } { $app_version } सेटअप विज़ार्ड पूरा हुआ
 msi-exit-description = सेटअप विज़ार्ड से बाहर निकलने के लिए समाप्ति बटन क्लिक करें.
-msi-exit-launch-checkbox = { $app_title } प्रारंभ करें
+msi-exit-launch-checkbox = { $app_title } { $app_version } प्रारंभ करें
 
 # MSI Installer UI - Prepare Dialog
-msi-prepare-title = { $app_title } सेटअप विज़ार्ड में स्वागत है
+msi-prepare-title = { $app_title } { $app_version } सेटअप विज़ार्ड में स्वागत है
 msi-prepare-description = सेटअप विज़ार्ड आपको स्थापना में सहायता करे, तब तक कृपया प्रतीक्षा करें.
 
 # MSI Installer UI - License Agreement Dialog
@@ -120,15 +120,15 @@ msi-scope-no-per-user-description = व्यवस्थापक विशे�
 msi-scope-per-machine-description = व्यवस्थापक विशेषाधिकार आवश्यक हैं
 
 # MSI Installer UI - Verify Ready Dialog
-msi-ready-install-title = { $app_title } स्थापित करने के लिए तैयार
+msi-ready-install-title = { $app_title } { $app_version } स्थापित करने के लिए तैयार
 msi-ready-install-text = स्थापना प्रारंभ करने के लिए स्थापित करें क्लिक करें. अपनी स्थापना सेटिंग देखने या बदलने के लिए वापस क्लिक करें.
-msi-ready-change-title = { $app_title } बदलने के लिए तैयार
+msi-ready-change-title = { $app_title } { $app_version } बदलने के लिए तैयार
 msi-ready-change-text = स्थापना बदलना प्रारंभ करने के लिए बदलें क्लिक करें. अपनी स्थापना सेटिंग देखने या बदलने के लिए वापस क्लिक करें.
-msi-ready-repair-title = { $app_title } सुधारने के लिए तैयार
+msi-ready-repair-title = { $app_title } { $app_version } सुधारने के लिए तैयार
 msi-ready-repair-text = सुधार प्रारंभ करने के लिए सुधारें क्लिक करें. अपनी स्थापना सेटिंग देखने या बदलने के लिए वापस क्लिक करें.
-msi-ready-remove-title = { $app_title } निकालने के लिए तैयार
-msi-ready-remove-text = अपने कंप्यूटर से { $app_title } निकालने के लिए निकालें क्लिक करें. अपनी स्थापना सेटिंग देखने या बदलने के लिए वापस क्लिक करें.
-msi-ready-update-title = { $app_title } अद्यतन करने के लिए तैयार
+msi-ready-remove-title = { $app_title } { $app_version } निकालने के लिए तैयार
+msi-ready-remove-text = अपने कंप्यूटर से { $app_title } { $app_version } निकालने के लिए निकालें क्लिक करें. अपनी स्थापना सेटिंग देखने या बदलने के लिए वापस क्लिक करें.
+msi-ready-update-title = { $app_title } { $app_version } अद्यतन करने के लिए तैयार
 msi-ready-update-text = अद्यतन प्रारंभ करने के लिए अद्यतन क्लिक करें. अपनी स्थापना सेटिंग देखने या बदलने के लिए वापस क्लिक करें.
 msi-ready-btn-install = &स्थापित करें
 msi-ready-btn-change = &बदलें
@@ -137,21 +137,21 @@ msi-ready-btn-remove = &निकालें
 msi-ready-btn-update = &अद्यतन
 
 # MSI Installer UI - Progress Dialog
-msi-progress-installing-title = { $app_title } स्थापित कर रहा है
-msi-progress-installing-text = कृपया प्रतीक्षा करें जबकि सेटअप विज़ार्ड { $app_title } स्थापित कर रहा है.
-msi-progress-changing-title = { $app_title } बदल रहा है
-msi-progress-changing-text = कृपया प्रतीक्षा करें जबकि सेटअप विज़ार्ड { $app_title } बदल रहा है.
-msi-progress-repairing-title = { $app_title } सुधार रहा है
-msi-progress-repairing-text = कृपया प्रतीक्षा करें जबकि सेटअप विज़ार्ड { $app_title } सुधार रहा है.
-msi-progress-removing-title = { $app_title } निकाल रहा है
-msi-progress-removing-text = कृपया प्रतीक्षा करें जबकि सेटअप विज़ार्ड { $app_title } निकाल रहा है.
-msi-progress-updating-title = { $app_title } को अद्यतन कर रहा है
-msi-progress-updating-text = कृपया प्रतीक्षा करें जबकि सेटअप विज़ार्ड { $app_title } अद्यतन कर रहा है.
+msi-progress-installing-title = { $app_title } { $app_version } स्थापित कर रहा है
+msi-progress-installing-text = कृपया प्रतीक्षा करें जबकि सेटअप विज़ार्ड { $app_title } { $app_version } स्थापित कर रहा है.
+msi-progress-changing-title = { $app_title } { $app_version } बदल रहा है
+msi-progress-changing-text = कृपया प्रतीक्षा करें जबकि सेटअप विज़ार्ड { $app_title } { $app_version } बदल रहा है.
+msi-progress-repairing-title = { $app_title } { $app_version } सुधार रहा है
+msi-progress-repairing-text = कृपया प्रतीक्षा करें जबकि सेटअप विज़ार्ड { $app_title } { $app_version } सुधार रहा है.
+msi-progress-removing-title = { $app_title } { $app_version } निकाल रहा है
+msi-progress-removing-text = कृपया प्रतीक्षा करें जबकि सेटअप विज़ार्ड { $app_title } { $app_version } निकाल रहा है.
+msi-progress-updating-title = { $app_title } { $app_version } को अद्यतन कर रहा है
+msi-progress-updating-text = कृपया प्रतीक्षा करें जबकि सेटअप विज़ार्ड { $app_title } { $app_version } अद्यतन कर रहा है.
 msi-progress-status = स्थिति:
 
 # MSI Installer UI - Maintenance Welcome Dialog
-msi-maint-welcome-title = { $app_title } सेटअप विज़ार्ड में स्वागत है
-msi-maint-welcome-description = सेटअप विज़ार्ड आपको { $app_title } को सुधारने या निकालने की अनुमति देगा. जारी रखने के लिए अगला क्लिक करें या सेटअप विज़ार्ड से बाहर निकलने के लिए रद्द करें क्लिक करें.
+msi-maint-welcome-title = { $app_title } { $app_version } सेटअप विज़ार्ड में स्वागत है
+msi-maint-welcome-description = सेटअप विज़ार्ड आपको { $app_title } { $app_version } को सुधारने या निकालने की अनुमति देगा. जारी रखने के लिए अगला क्लिक करें या सेटअप विज़ार्ड से बाहर निकलने के लिए रद्द करें क्लिक करें.
 
 # MSI Installer UI - Maintenance Type Dialog
 msi-maint-type-title = स्थापना बदलें, सुधारें या निकालें
@@ -166,11 +166,11 @@ msi-maint-repair-text = सबसे हाल की स्थापना म�
 msi-maint-repair-disabled = सुधार वर्तमान में अक्षम है.
 msi-maint-remove-button = नि&कालें
 msi-maint-remove-tooltip = निकालें
-msi-maint-remove-text = आपके कंप्यूटर से { $app_title } को निकालता है.
+msi-maint-remove-text = आपके कंप्यूटर से { $app_title } { $app_version } को निकालता है.
 msi-maint-remove-disabled = निकालना वर्तमान में अक्षम है.
 
 # MSI Installer UI - Cancel Dialog
-msi-cancel-text = क्या आप वाकई { $app_title } की स्थापना रद्द करना चाहते हैं?
+msi-cancel-text = क्या आप वाकई { $app_title } { $app_version } की स्थापना रद्द करना चाहते हैं?
 
 # MSI Installer UI - Browse Dialog
 msi-browse-title = वर्तमान गंतव्य फ़ोल्डर बदलें
@@ -189,16 +189,16 @@ msi-disk-cost-description = चयनित सुविधाओं की स�
 msi-disk-cost-text = हाइलाइट किए गए वॉल्यूम में वर्तमान में चयनित सुविधाओं के लिए पर्याप्त डिस्क स्थान उपलब्ध नहीं है. आप हाइलाइट किए गए वॉल्यूम से कुछ फ़ाइलें निकाल सकते हैं, कम सुविधाएँ स्थापित कर सकते हैं, या भिन्न गंतव्य ड्राइव चुन सकते हैं.
 
 # MSI Installer UI - Error Dialog
-msi-error-dlg-title = { $app_title } इंस्टॉलर जानकारी
+msi-error-dlg-title = { $app_title } { $app_version } इंस्टॉलर जानकारी
 
 # MSI Installer UI - Fatal Error Dialog
-msi-fatal-title = { $app_title } सेटअप विज़ार्ड समय के पहले ही रुक गया
-msi-fatal-description1 = { $app_title } सेटअप बाधित हो गया था. आपका सिस्टम संशोधित नहीं किया गया है. यह प्रोग्राम बाद में स्थापित करने के लिए, कृपया सेटअप फिर से चलाएँ.
+msi-fatal-title = { $app_title } { $app_version } सेटअप विज़ार्ड समय के पहले ही रुक गया
+msi-fatal-description1 = { $app_title } { $app_version } सेटअप बाधित हो गया था. आपका सिस्टम संशोधित नहीं किया गया है. यह प्रोग्राम बाद में स्थापित करने के लिए, कृपया सेटअप फिर से चलाएँ.
 msi-fatal-description2 = सेटअप विज़ार्ड से बाहर निकलने के लिए समाप्ति बटन क्लिक करें.
 
 # MSI Installer UI - User Exit Dialog
-msi-user-exit-title = { $app_title } सेटअप विज़ार्ड बाधित हुआ था
-msi-user-exit-description1 = { $app_title } सेटअप बाधित हो गया था. आपका सिस्टम संशोधित नहीं किया गया है. यह प्रोग्राम बाद में स्थापित करने के लिए कृपया सेटअप फिर से चलाएँ.
+msi-user-exit-title = { $app_title } { $app_version } सेटअप विज़ार्ड बाधित हुआ था
+msi-user-exit-description1 = { $app_title } { $app_version } सेटअप बाधित हो गया था. आपका सिस्टम संशोधित नहीं किया गया है. यह प्रोग्राम बाद में स्थापित करने के लिए कृपया सेटअप फिर से चलाएँ.
 msi-user-exit-description2 = सेटअप विज़ार्ड से बाहर निकलने के लिए समाप्ति बटन क्लिक करें.
 
 # MSI Installer UI - Files In Use Dialog
@@ -215,13 +215,13 @@ msi-rm-files-in-use-use-rm = स्वतः अनुप्रयोग &बं
 msi-rm-files-in-use-dont-use-rm = अनुप्रयोग बंद &न करें. (एक रीबूट की आवश्यकता होगी.)
 
 # MSI Installer UI - Resume Dialog
-msi-resume-title = { $app_title } सेटअप विज़ार्ड फिर से शुरू कर रहा है
-msi-resume-description = सेटअप विज़ार्ड आपके कंप्यूटर पर { $app_title } की स्थापना पूरी करेगा. जारी रखने के लिए स्थापित करें क्लिक करें या सेटअप विज़ार्ड से बाहर निकलने के लिए रद्द करें क्लिक करें.
+msi-resume-title = { $app_title } { $app_version } सेटअप विज़ार्ड फिर से शुरू कर रहा है
+msi-resume-description = सेटअप विज़ार्ड आपके कंप्यूटर पर { $app_title } { $app_version } की स्थापना पूरी करेगा. जारी रखने के लिए स्थापित करें क्लिक करें या सेटअप विज़ार्ड से बाहर निकलने के लिए रद्द करें क्लिक करें.
 msi-resume-btn-install = &स्थापित करें
 
 # MSI Installer UI - Shortcut Descriptions
-msi-desktop-shortcut-description = { $app_title } के लिए डेस्कटॉप शॉर्टकट
-msi-start-menu-shortcut-description = { $app_title } के लिए प्रारंभ मेनू शॉर्टकट
+msi-desktop-shortcut-description = { $app_title } { $app_version } के लिए डेस्कटॉप शॉर्टकट
+msi-start-menu-shortcut-description = { $app_title } { $app_version } के लिए प्रारंभ मेनू शॉर्टकट
 # MSI Installer UI - Readme Dialog
 msi-readme-title = महत्वपूर्ण जानकारी
 msi-readme-description = कृपया आगे बढ़ने से पहले निम्नलिखित जानकारी पढ़ें।

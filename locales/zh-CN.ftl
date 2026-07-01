@@ -1,4 +1,4 @@
-# Shared titles
+﻿# Shared titles
 title-update = { $app_title } 更新
 title-setup = { $app_title } 安装
 title-uninstall = { $app_title } 卸载
@@ -50,7 +50,7 @@ install-hook-body = 安装已完成，但某些步骤可能已失败。如果应
 
 # Splash fallback (splash.rs)
 splash-header = 正在安装 { $app_title }
-splash-body = 正在设置 { $app_title } { $app_version }，请稍候...
+splash-body = 正在设置 { $app_title }，请稍候...
 
 # Dependency download (prerequisite.rs)
 deps-download-header = 正在下载所需组件
@@ -80,7 +80,7 @@ setup-update-exe-missing = 此安装程序缺少关键的二进制文件 (Update
 setup-main-exe-missing = 在程序包中找不到主可执行文件。请联系应用程序作者。
 
 # MSI Installer UI - Common
-msi-dlg-title = { $app_title } 安装程序
+msi-dlg-title = { $app_title } { $app_version } 安装程序
 msi-btn-back = 上一步(&B)
 msi-btn-next = 下一步(&N)
 msi-btn-cancel = 取消
@@ -92,17 +92,17 @@ msi-btn-retry = 重试(&R)
 msi-btn-ignore = 忽略(&I)
 
 # MSI Installer UI - Welcome Dialog
-msi-welcome-title = 欢迎使用 { $app_title } 安装向导
-msi-welcome-description = 安装向导将在您的计算机上安装 { $app_title }。单击“下一步”继续，或单击“取消”退出安装向导。
-msi-welcome-update-description = 安装向导将更新您计算机上的 { $app_title }。单击“下一步”继续，或单击“取消”退出安装向导。
+msi-welcome-title = 欢迎使用 { $app_title } { $app_version } 安装向导
+msi-welcome-description = 安装向导将在您的计算机上安装 { $app_title } { $app_version }。单击“下一步”继续，或单击“取消”退出安装向导。
+msi-welcome-update-description = 安装向导将更新您计算机上的 { $app_title } { $app_version }。单击“下一步”继续，或单击“取消”退出安装向导。
 
 # MSI Installer UI - Exit Dialog
-msi-exit-title = { $app_title } 安装向导已完成
+msi-exit-title = { $app_title } { $app_version } 安装向导已完成
 msi-exit-description = 单击“完成”按钮退出安装向导。
-msi-exit-launch-checkbox = 启动 { $app_title }
+msi-exit-launch-checkbox = 启动 { $app_title } { $app_version }
 
 # MSI Installer UI - Prepare Dialog
-msi-prepare-title = 欢迎使用 { $app_title } 安装向导
+msi-prepare-title = 欢迎使用 { $app_title } { $app_version } 安装向导
 msi-prepare-description = 安装向导正准备指导您完成安装过程，请稍候。
 
 # MSI Installer UI - License Agreement Dialog
@@ -120,15 +120,15 @@ msi-scope-no-per-user-description = 需要管理员权限
 msi-scope-per-machine-description = 需要管理员权限
 
 # MSI Installer UI - Verify Ready Dialog
-msi-ready-install-title = 已准备好安装 { $app_title }
+msi-ready-install-title = 已准备好安装 { $app_title } { $app_version }
 msi-ready-install-text = 单击“安装”开始安装。单击“上一步”查看或更改任何安装设置。
-msi-ready-change-title = 已准备好更改 { $app_title }
+msi-ready-change-title = 已准备好更改 { $app_title } { $app_version }
 msi-ready-change-text = 单击“更改”开始更改安装。单击“上一步”查看或更改任何安装设置。
-msi-ready-repair-title = 已准备好修复 { $app_title }
+msi-ready-repair-title = 已准备好修复 { $app_title } { $app_version }
 msi-ready-repair-text = 单击“修复”开始修复。单击“上一步”查看或更改任何安装设置。
-msi-ready-remove-title = 已准备好删除 { $app_title }
-msi-ready-remove-text = 单击“删除”可从计算机上删除 { $app_title }。单击“上一步”查看或更改任何安装设置。
-msi-ready-update-title = 已准备好更新 { $app_title }
+msi-ready-remove-title = 已准备好删除 { $app_title } { $app_version }
+msi-ready-remove-text = 单击“删除”可从计算机上删除 { $app_title } { $app_version }。单击“上一步”查看或更改任何安装设置。
+msi-ready-update-title = 已准备好更新 { $app_title } { $app_version }
 msi-ready-update-text = 单击“更新”开始更新。单击“上一步”查看或更改任何安装设置。
 msi-ready-btn-install = 安装(&I)
 msi-ready-btn-change = 更改(&C)
@@ -137,21 +137,21 @@ msi-ready-btn-remove = 删除(&R)
 msi-ready-btn-update = 更新(&U)
 
 # MSI Installer UI - Progress Dialog
-msi-progress-installing-title = 正在安装 { $app_title }
-msi-progress-installing-text = 安装向导正在安装 { $app_title }，请稍候。
-msi-progress-changing-title = 正在更改 { $app_title }
-msi-progress-changing-text = 安装向导正在更改 { $app_title }，请稍候。
-msi-progress-repairing-title = 正在修复 { $app_title }
-msi-progress-repairing-text = 安装向导正在修复 { $app_title }，请稍候。
-msi-progress-removing-title = 正在删除 { $app_title }
-msi-progress-removing-text = 安装向导正在删除 { $app_title }，请稍候。
-msi-progress-updating-title = 正在更新 { $app_title }
-msi-progress-updating-text = 安装向导正在更新 { $app_title }，请稍候。
+msi-progress-installing-title = 正在安装 { $app_title } { $app_version }
+msi-progress-installing-text = 安装向导正在安装 { $app_title } { $app_version }，请稍候。
+msi-progress-changing-title = 正在更改 { $app_title } { $app_version }
+msi-progress-changing-text = 安装向导正在更改 { $app_title } { $app_version }，请稍候。
+msi-progress-repairing-title = 正在修复 { $app_title } { $app_version }
+msi-progress-repairing-text = 安装向导正在修复 { $app_title } { $app_version }，请稍候。
+msi-progress-removing-title = 正在删除 { $app_title } { $app_version }
+msi-progress-removing-text = 安装向导正在删除 { $app_title } { $app_version }，请稍候。
+msi-progress-updating-title = 正在更新 { $app_title } { $app_version }
+msi-progress-updating-text = 安装向导正在更新 { $app_title } { $app_version }，请稍候。
 msi-progress-status = 状态:
 
 # MSI Installer UI - Maintenance Welcome Dialog
-msi-maint-welcome-title = 欢迎使用 { $app_title } 安装向导
-msi-maint-welcome-description = 安装向导允许您修复或删除 { $app_title }。单击“下一步”继续，或单击“取消”退出安装向导。
+msi-maint-welcome-title = 欢迎使用 { $app_title } { $app_version } 安装向导
+msi-maint-welcome-description = 安装向导允许您修复或删除 { $app_title } { $app_version }。单击“下一步”继续，或单击“取消”退出安装向导。
 
 # MSI Installer UI - Maintenance Type Dialog
 msi-maint-type-title = 更改、修复或删除安装
@@ -166,11 +166,11 @@ msi-maint-repair-text = 修复最近安装中的错误 - 修复丢失或损坏�
 msi-maint-repair-disabled = 修复当前已禁用。
 msi-maint-remove-button = 删除(&M)
 msi-maint-remove-tooltip = 删除
-msi-maint-remove-text = 从您的计算机中删除 { $app_title }。
+msi-maint-remove-text = 从您的计算机中删除 { $app_title } { $app_version }。
 msi-maint-remove-disabled = 删除当前已禁用。
 
 # MSI Installer UI - Cancel Dialog
-msi-cancel-text = 是否确实要取消安装 { $app_title }?
+msi-cancel-text = 是否确实要取消安装 { $app_title } { $app_version }?
 
 # MSI Installer UI - Browse Dialog
 msi-browse-title = 更改当前目标文件夹
@@ -189,16 +189,16 @@ msi-disk-cost-description = 安装所选功能所需的磁盘空间。
 msi-disk-cost-text = 突出显示的卷没有足够的磁盘空间用于当前所选功能。您可以从突出显示的卷中删除一些文件，安装较少的功能，或者选择其他目标驱动器。
 
 # MSI Installer UI - Error Dialog
-msi-error-dlg-title = { $app_title } 安装程序信息
+msi-error-dlg-title = { $app_title } { $app_version } 安装程序信息
 
 # MSI Installer UI - Fatal Error Dialog
-msi-fatal-title = { $app_title } 安装向导提前结束
-msi-fatal-description1 = { $app_title } 安装程序已中断。您的系统尚未修改。若要稍后安装该程序，请再次运行安装程序。
+msi-fatal-title = { $app_title } { $app_version } 安装向导提前结束
+msi-fatal-description1 = { $app_title } { $app_version } 安装程序已中断。您的系统尚未修改。若要稍后安装该程序，请再次运行安装程序。
 msi-fatal-description2 = 单击“完成”按钮退出安装向导。
 
 # MSI Installer UI - User Exit Dialog
-msi-user-exit-title = { $app_title } 安装向导已中断
-msi-user-exit-description1 = { $app_title } 安装程序已中断。您的系统尚未修改。若要稍后安装该程序，请再次运行安装程序。
+msi-user-exit-title = { $app_title } { $app_version } 安装向导已中断
+msi-user-exit-description1 = { $app_title } { $app_version } 安装程序已中断。您的系统尚未修改。若要稍后安装该程序，请再次运行安装程序。
 msi-user-exit-description2 = 单击“完成”按钮退出安装向导。
 
 # MSI Installer UI - Files In Use Dialog
@@ -215,13 +215,13 @@ msi-rm-files-in-use-use-rm = 自动关闭应用程序(&C)，并在安装完成�
 msi-rm-files-in-use-dont-use-rm = 不关闭应用程序(&D)。(需要重新启动。)
 
 # MSI Installer UI - Resume Dialog
-msi-resume-title = 正在继续 { $app_title } 安装向导
-msi-resume-description = 安装向导将在您的计算机上完成 { $app_title } 的安装。请单击“安装”继续，或单击“取消”退出安装向导。
+msi-resume-title = 正在继续 { $app_title } { $app_version } 安装向导
+msi-resume-description = 安装向导将在您的计算机上完成 { $app_title } { $app_version } 的安装。请单击“安装”继续，或单击“取消”退出安装向导。
 msi-resume-btn-install = 安装(&I)
 
 # MSI Installer UI - Shortcut Descriptions
-msi-desktop-shortcut-description = { $app_title } 桌面快捷方式
-msi-start-menu-shortcut-description = { $app_title } 开始菜单快捷方式
+msi-desktop-shortcut-description = { $app_title } { $app_version } 桌面快捷方式
+msi-start-menu-shortcut-description = { $app_title } { $app_version } 开始菜单快捷方式
 # MSI Installer UI - Readme Dialog
 msi-readme-title = 自述信息
 msi-readme-description = 请在继续之前阅读以下信息。

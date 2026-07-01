@@ -1,4 +1,4 @@
-# Shared titles
+﻿# Shared titles
 title-update = עדכון { $app_title }
 title-setup = התקנת { $app_title }
 title-uninstall = הסרת { $app_title }
@@ -50,7 +50,7 @@ install-hook-body = ההתקנה הושלמה, אך ייתכן שחלק מהשל
 
 # Splash fallback (splash.rs)
 splash-header = מתקין את { $app_title }
-splash-body = מגדיר את { $app_title } { $app_version }, נא להמתין...
+splash-body = מגדיר את { $app_title }, נא להמתין...
 
 # Dependency download (prerequisite.rs)
 deps-download-header = הורדת רכיב נדרש
@@ -80,7 +80,7 @@ setup-update-exe-missing = בתוכנית התקנה זו חסר קובץ בינ
 setup-main-exe-missing = קובץ ההפעלה הראשי לא נמצא בחבילה. נא ליצור קשר עם מחבר היישום.
 
 # MSI Installer UI - Common
-msi-dlg-title = תוכנית ההתקנה של { $app_title }
+msi-dlg-title = תוכנית ההתקנה של { $app_title } { $app_version }
 msi-btn-back = ה&קודם
 msi-btn-next = ה&בא
 msi-btn-cancel = ביטול
@@ -92,17 +92,17 @@ msi-btn-retry = &נסה שוב
 msi-btn-ignore = ה&תעלם
 
 # MSI Installer UI - Welcome Dialog
-msi-welcome-title = ברוך הבא אל אשף ההתקנה של { $app_title }
-msi-welcome-description = אשף ההתקנה יתקין את { $app_title } במחשב שלך. לחץ על 'הבא' כדי להמשיך או על 'ביטול' כדי לצאת מאשף ההתקנה.
-msi-welcome-update-description = אשף ההתקנה יעדכן את { $app_title } במחשב. לחץ על 'הבא' כדי להמשיך או על 'ביטול' כדי לצאת מאשף ההתקנה.
+msi-welcome-title = ברוך הבא אל אשף ההתקנה של { $app_title } { $app_version }
+msi-welcome-description = אשף ההתקנה יתקין את { $app_title } { $app_version } במחשב שלך. לחץ על 'הבא' כדי להמשיך או על 'ביטול' כדי לצאת מאשף ההתקנה.
+msi-welcome-update-description = אשף ההתקנה יעדכן את { $app_title } { $app_version } במחשב. לחץ על 'הבא' כדי להמשיך או על 'ביטול' כדי לצאת מאשף ההתקנה.
 
 # MSI Installer UI - Exit Dialog
-msi-exit-title = פעולתו של אשף ההתקנה של { $app_title } הושלמה
+msi-exit-title = פעולתו של אשף ההתקנה של { $app_title } { $app_version } הושלמה
 msi-exit-description = לחץ על לחצן 'סיום' כדי לצאת מאשף ההתקנה.
-msi-exit-launch-checkbox = הפעל את { $app_title }
+msi-exit-launch-checkbox = הפעל את { $app_title } { $app_version }
 
 # MSI Installer UI - Prepare Dialog
-msi-prepare-title = ברוך הבא אל אשף ההתקנה של { $app_title }
+msi-prepare-title = ברוך הבא אל אשף ההתקנה של { $app_title } { $app_version }
 msi-prepare-description = נא המתן בעת שאשף ההתקנה מתכונן להנחות אותך בתהליך ההתקנה.
 
 # MSI Installer UI - License Agreement Dialog
@@ -120,15 +120,15 @@ msi-scope-no-per-user-description = נדרשות הרשאות מנהל מערכ�
 msi-scope-per-machine-description = נדרשות הרשאות מנהל מערכת
 
 # MSI Installer UI - Verify Ready Dialog
-msi-ready-install-title = מוכן להתקנת { $app_title }
+msi-ready-install-title = מוכן להתקנת { $app_title } { $app_version }
 msi-ready-install-text = לחץ על 'התקן' כדי להתחיל בהתקנה. לחץ על 'הקודם' כדי לסקור או לשנות הגדרה כלשהי מהגדרות ההתקנה.
-msi-ready-change-title = מוכן לשינוי { $app_title }
+msi-ready-change-title = מוכן לשינוי { $app_title } { $app_version }
 msi-ready-change-text = לחץ על 'שנה' כדי להתחיל בשינוי ההתקנה. לחץ על 'הקודם' כדי לסקור או לשנות הגדרה כלשהי מהגדרות ההתקנה.
-msi-ready-repair-title = מוכן לתיקון { $app_title }
+msi-ready-repair-title = מוכן לתיקון { $app_title } { $app_version }
 msi-ready-repair-text = לחץ על 'תקן' כדי להתחיל בתיקון. לחץ על 'הקודם' כדי לסקור או לשנות הגדרה כלשהי מהגדרות ההתקנה.
-msi-ready-remove-title = מוכן להסרת { $app_title }
-msi-ready-remove-text = לחץ על 'הסר' כדי להסיר את { $app_title } מהמחשב. לחץ על 'הקודם' כדי לסקור או לשנות הגדרה כלשהי מהגדרות ההתקנה.
-msi-ready-update-title = מוכן לעדכון { $app_title }
+msi-ready-remove-title = מוכן להסרת { $app_title } { $app_version }
+msi-ready-remove-text = לחץ על 'הסר' כדי להסיר את { $app_title } { $app_version } מהמחשב. לחץ על 'הקודם' כדי לסקור או לשנות הגדרה כלשהי מהגדרות ההתקנה.
+msi-ready-update-title = מוכן לעדכון { $app_title } { $app_version }
 msi-ready-update-text = לחץ על 'עדכן' כדי להתחיל בעדכון. לחץ על 'הקודם' כדי לסקור או לשנות הגדרה כלשהי מהגדרות ההתקנה.
 msi-ready-btn-install = ה&תקן
 msi-ready-btn-change = &שנה
@@ -137,21 +137,21 @@ msi-ready-btn-remove = ה&סר
 msi-ready-btn-update = &עדכן
 
 # MSI Installer UI - Progress Dialog
-msi-progress-installing-title = התקנת { $app_title }
-msi-progress-installing-text = נא המתן בזמן שאשף ההתקנה מתקין את { $app_title }.
-msi-progress-changing-title = שינוי { $app_title }
-msi-progress-changing-text = נא המתן בזמן שאשף ההתקנה משנה את { $app_title }.
-msi-progress-repairing-title = תיקון { $app_title }
-msi-progress-repairing-text = נא המתן בזמן שאשף ההתקנה מתקן את { $app_title }.
-msi-progress-removing-title = הסרת { $app_title }
-msi-progress-removing-text = נא המתן בזמן שאשף ההתקנה מסיר את { $app_title }.
-msi-progress-updating-title = עדכון { $app_title }
-msi-progress-updating-text = נא המתן בזמן שאשף ההתקנה מעדכן את { $app_title }.
+msi-progress-installing-title = התקנת { $app_title } { $app_version }
+msi-progress-installing-text = נא המתן בזמן שאשף ההתקנה מתקין את { $app_title } { $app_version }.
+msi-progress-changing-title = שינוי { $app_title } { $app_version }
+msi-progress-changing-text = נא המתן בזמן שאשף ההתקנה משנה את { $app_title } { $app_version }.
+msi-progress-repairing-title = תיקון { $app_title } { $app_version }
+msi-progress-repairing-text = נא המתן בזמן שאשף ההתקנה מתקן את { $app_title } { $app_version }.
+msi-progress-removing-title = הסרת { $app_title } { $app_version }
+msi-progress-removing-text = נא המתן בזמן שאשף ההתקנה מסיר את { $app_title } { $app_version }.
+msi-progress-updating-title = עדכון { $app_title } { $app_version }
+msi-progress-updating-text = נא המתן בזמן שאשף ההתקנה מעדכן את { $app_title } { $app_version }.
 msi-progress-status = מצב:
 
 # MSI Installer UI - Maintenance Welcome Dialog
-msi-maint-welcome-title = ברוך הבא אל אשף ההתקנה של { $app_title }
-msi-maint-welcome-description = אשף ההתקנה יאפשר לך לתקן או להסיר את { $app_title }. לחץ על 'הבא' כדי להמשיך או על 'ביטול' כדי לצאת מאשף ההתקנה.
+msi-maint-welcome-title = ברוך הבא אל אשף ההתקנה של { $app_title } { $app_version }
+msi-maint-welcome-description = אשף ההתקנה יאפשר לך לתקן או להסיר את { $app_title } { $app_version }. לחץ על 'הבא' כדי להמשיך או על 'ביטול' כדי לצאת מאשף ההתקנה.
 
 # MSI Installer UI - Maintenance Type Dialog
 msi-maint-type-title = שינוי, תיקון או הסרה של ההתקנה
@@ -166,11 +166,11 @@ msi-maint-repair-text = תיקון שגיאות בהתקנה האחרונה - ת
 msi-maint-repair-disabled = תיקון כעת לא זמין.
 msi-maint-remove-button = ה&סר
 msi-maint-remove-tooltip = הסר
-msi-maint-remove-text = הסרת { $app_title } מהמחשב.
+msi-maint-remove-text = הסרת { $app_title } { $app_version } מהמחשב.
 msi-maint-remove-disabled = הסרה כעת לא זמינה.
 
 # MSI Installer UI - Cancel Dialog
-msi-cancel-text = האם אתה בטוח שברצונך לבטל את ההתקנה של { $app_title }?
+msi-cancel-text = האם אתה בטוח שברצונך לבטל את ההתקנה של { $app_title } { $app_version }?
 
 # MSI Installer UI - Browse Dialog
 msi-browse-title = שינוי תיקיית היעד הנוכחית
@@ -189,16 +189,16 @@ msi-disk-cost-description = שטח הדיסק הנדרש להתקנת התכונ
 msi-disk-cost-text = באמצעי האחסון המסומנים אין די שטח דיסק זמין עבור התכונות הנוכחיות שנבחרו. באפשרותך להסיר קבצים מסוימים מאמצעי האחסון המסומנים, להתקין פחות תכונות או לבחור כונן יעד אחר.
 
 # MSI Installer UI - Error Dialog
-msi-error-dlg-title = מידע על תוכנית ההתקנה של { $app_title }
+msi-error-dlg-title = מידע על תוכנית ההתקנה של { $app_title } { $app_version }
 
 # MSI Installer UI - Fatal Error Dialog
-msi-fatal-title = פעולתו של אשף ההתקנה של { $app_title } הסתיימה מוקדם מהצפוי
-msi-fatal-description1 = התקנת { $app_title } הופסקה. המערכת שלך לא השתנתה. כדי להתקין תוכנית זו במועד מאוחר יותר, נא להפעיל שוב את ההתקנה.
+msi-fatal-title = פעולתו של אשף ההתקנה של { $app_title } { $app_version } הסתיימה מוקדם מהצפוי
+msi-fatal-description1 = התקנת { $app_title } { $app_version } הופסקה. המערכת שלך לא השתנתה. כדי להתקין תוכנית זו במועד מאוחר יותר, נא להפעיל שוב את ההתקנה.
 msi-fatal-description2 = לחץ על לחצן 'סיום' כדי לצאת מאשף ההתקנה.
 
 # MSI Installer UI - User Exit Dialog
-msi-user-exit-title = פעולתו של אשף ההתקנה של { $app_title } הופסקה
-msi-user-exit-description1 = התקנת { $app_title } הופסקה. המערכת שלך לא השתנתה. כדי להתקין תוכנית זו במועד מאוחר יותר, נא להפעיל שוב את ההתקנה.
+msi-user-exit-title = פעולתו של אשף ההתקנה של { $app_title } { $app_version } הופסקה
+msi-user-exit-description1 = התקנת { $app_title } { $app_version } הופסקה. המערכת שלך לא השתנתה. כדי להתקין תוכנית זו במועד מאוחר יותר, נא להפעיל שוב את ההתקנה.
 msi-user-exit-description2 = לחץ על לחצן 'סיום' כדי לצאת מאשף ההתקנה.
 
 # MSI Installer UI - Files In Use Dialog
@@ -215,13 +215,13 @@ msi-rm-files-in-use-use-rm = &סגור באופן אוטומטי את היישו
 msi-rm-files-in-use-dont-use-rm = &אל תסגור את היישומים. (יידרש אתחול מחדש.)
 
 # MSI Installer UI - Resume Dialog
-msi-resume-title = חידוש פעולתו של אשף ההתקנה של { $app_title }
-msi-resume-description = אשף ההתקנה ישלים את התקנת { $app_title } במחשב שלך. לחץ על 'התקן' כדי להמשיך, או על 'ביטול' כדי לצאת מאשף ההתקנה.
+msi-resume-title = חידוש פעולתו של אשף ההתקנה של { $app_title } { $app_version }
+msi-resume-description = אשף ההתקנה ישלים את התקנת { $app_title } { $app_version } במחשב שלך. לחץ על 'התקן' כדי להמשיך, או על 'ביטול' כדי לצאת מאשף ההתקנה.
 msi-resume-btn-install = ה&תקן
 
 # MSI Installer UI - Shortcut Descriptions
-msi-desktop-shortcut-description = קיצור דרך לשולחן העבודה עבור { $app_title }
-msi-start-menu-shortcut-description = קיצור דרך לתפריט התחלה עבור { $app_title }
+msi-desktop-shortcut-description = קיצור דרך לשולחן העבודה עבור { $app_title } { $app_version }
+msi-start-menu-shortcut-description = קיצור דרך לתפריט התחלה עבור { $app_title } { $app_version }
 # MSI Installer UI - Readme Dialog
 msi-readme-title = מידע חשוב
 msi-readme-description = אנא קראו את המידע הבא לפני שתמשיכו.

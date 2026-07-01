@@ -1,4 +1,4 @@
-# Shared titles
+﻿# Shared titles
 title-update = { $app_title } -päivitys
 title-setup = { $app_title } -asennus
 title-uninstall = { $app_title } -poisto
@@ -50,7 +50,7 @@ install-hook-body = Asennus on valmis, mutta jotkin vaiheet saattoivat epäonnis
 
 # Splash fallback (splash.rs)
 splash-header = Asennetaan { $app_title }
-splash-body = Määritetään { $app_title } { $app_version }, odota...
+splash-body = Määritetään { $app_title }, odota...
 
 # Dependency download (prerequisite.rs)
 deps-download-header = Ladataan tarvittavaa komponenttia
@@ -80,7 +80,7 @@ setup-update-exe-missing = Tästä asennusohjelmasta puuttuu kriittinen binäär
 setup-main-exe-missing = Pääsuoritustiedostoa ei löytynyt paketista. Ota yhteyttä sovelluksen tekijään.
 
 # MSI Installer UI - Common
-msi-dlg-title = { $app_title } -asennus
+msi-dlg-title = { $app_title } { $app_version } -asennus
 msi-btn-back = &Edellinen
 msi-btn-next = &Seuraava
 msi-btn-cancel = Peruuta
@@ -92,17 +92,17 @@ msi-btn-retry = &Yritä uudelleen
 msi-btn-ignore = &Ohita
 
 # MSI Installer UI - Welcome Dialog
-msi-welcome-title = Tervetuloa tuotteen { $app_title } ohjattuun asennukseen
-msi-welcome-description = Ohjattu asennus asentaa tuotteen { $app_title } tietokoneeseen. Voit jatkaa valitsemalla Seuraava tai lopettaa ohjatun asennuksen valitsemalla Peruuta.
-msi-welcome-update-description = Ohjattu asennus päivittää tuotteen { $app_title } tietokoneeseen. Voit jatkaa valitsemalla Seuraava tai lopettaa ohjatun asennuksen valitsemalla Peruuta.
+msi-welcome-title = Tervetuloa tuotteen { $app_title } { $app_version } ohjattuun asennukseen
+msi-welcome-description = Ohjattu asennus asentaa tuotteen { $app_title } { $app_version } tietokoneeseen. Voit jatkaa valitsemalla Seuraava tai lopettaa ohjatun asennuksen valitsemalla Peruuta.
+msi-welcome-update-description = Ohjattu asennus päivittää tuotteen { $app_title } { $app_version } tietokoneeseen. Voit jatkaa valitsemalla Seuraava tai lopettaa ohjatun asennuksen valitsemalla Peruuta.
 
 # MSI Installer UI - Exit Dialog
-msi-exit-title = Tuotteen { $app_title } ohjattu asennus on suoritettu
+msi-exit-title = Tuotteen { $app_title } { $app_version } ohjattu asennus on suoritettu
 msi-exit-description = Lopeta ohjattu asennus valitsemalla Valmis.
-msi-exit-launch-checkbox = Käynnistä { $app_title }
+msi-exit-launch-checkbox = Käynnistä { $app_title } { $app_version }
 
 # MSI Installer UI - Prepare Dialog
-msi-prepare-title = Tervetuloa tuotteen { $app_title } ohjattuun asennukseen
+msi-prepare-title = Tervetuloa tuotteen { $app_title } { $app_version } ohjattuun asennukseen
 msi-prepare-description = Odota. Ohjattu asennus valmistautuu asennukseen.
 
 # MSI Installer UI - License Agreement Dialog
@@ -120,15 +120,15 @@ msi-scope-no-per-user-description = Vaatii järjestelmänvalvojan oikeudet
 msi-scope-per-machine-description = Vaatii järjestelmänvalvojan oikeudet
 
 # MSI Installer UI - Verify Ready Dialog
-msi-ready-install-title = Valmiina asentamaan tuotteen { $app_title }
+msi-ready-install-title = Valmiina asentamaan tuotteen { $app_title } { $app_version }
 msi-ready-install-text = Voit aloittaa asennuksen valitsemalla Asenna. Voit tarkastella tai muuttaa asennuksen asetuksia valitsemalla Edellinen.
-msi-ready-change-title = Valmiina muuttamaan tuotetta { $app_title }
+msi-ready-change-title = Valmiina muuttamaan tuotetta { $app_title } { $app_version }
 msi-ready-change-text = Voit aloittaa asennuksen muuttamisen valitsemalla Muuta. Voit tarkastella tai muuttaa asennuksen asetuksia valitsemalla Edellinen.
-msi-ready-repair-title = Valmiina korjaamaan tuotteen { $app_title }
+msi-ready-repair-title = Valmiina korjaamaan tuotteen { $app_title } { $app_version }
 msi-ready-repair-text = Voit aloittaa korjauksen valitsemalla Korjaa. Voit tarkastella tai muuttaa asennuksen asetuksia valitsemalla Edellinen.
-msi-ready-remove-title = Valmiina poistamaan tuotteen { $app_title }
-msi-ready-remove-text = Voit poistaa tuotteen { $app_title } tietokoneestasi valitsemalla Poista. Voit tarkastella tai muuttaa asennuksen asetuksia valitsemalla Edellinen.
-msi-ready-update-title = Valmiina päivittämään tuotteen { $app_title }
+msi-ready-remove-title = Valmiina poistamaan tuotteen { $app_title } { $app_version }
+msi-ready-remove-text = Voit poistaa tuotteen { $app_title } { $app_version } tietokoneestasi valitsemalla Poista. Voit tarkastella tai muuttaa asennuksen asetuksia valitsemalla Edellinen.
+msi-ready-update-title = Valmiina päivittämään tuotteen { $app_title } { $app_version }
 msi-ready-update-text = Voit aloittaa päivityksen valitsemalla Päivitä. Voit tarkastella tai muuttaa asennuksen asetuksia valitsemalla Edellinen.
 msi-ready-btn-install = &Asenna
 msi-ready-btn-change = &Muuta
@@ -137,21 +137,21 @@ msi-ready-btn-remove = &Poista
 msi-ready-btn-update = &Päivitä
 
 # MSI Installer UI - Progress Dialog
-msi-progress-installing-title = Asennetaan tuotetta { $app_title }
-msi-progress-installing-text = Odota. Ohjattu asennus asentaa tuotteen { $app_title }.
-msi-progress-changing-title = Muutetaan tuotetta { $app_title }
-msi-progress-changing-text = Odota. Ohjattu asennus muuttaa tuotteen { $app_title } asennusta.
-msi-progress-repairing-title = Korjataan tuotetta { $app_title }
-msi-progress-repairing-text = Odota. Ohjattu asennus korjaa tuotteen { $app_title }.
-msi-progress-removing-title = Poistetaan tuotetta { $app_title }
-msi-progress-removing-text = Odota. Ohjattu asennus poistaa tuotteen { $app_title }.
-msi-progress-updating-title = Päivitetään tuotetta { $app_title }
-msi-progress-updating-text = Odota. Ohjattu asennus päivittää tuotteen { $app_title }.
+msi-progress-installing-title = Asennetaan tuotetta { $app_title } { $app_version }
+msi-progress-installing-text = Odota. Ohjattu asennus asentaa tuotteen { $app_title } { $app_version }.
+msi-progress-changing-title = Muutetaan tuotetta { $app_title } { $app_version }
+msi-progress-changing-text = Odota. Ohjattu asennus muuttaa tuotteen { $app_title } { $app_version } asennusta.
+msi-progress-repairing-title = Korjataan tuotetta { $app_title } { $app_version }
+msi-progress-repairing-text = Odota. Ohjattu asennus korjaa tuotteen { $app_title } { $app_version }.
+msi-progress-removing-title = Poistetaan tuotetta { $app_title } { $app_version }
+msi-progress-removing-text = Odota. Ohjattu asennus poistaa tuotteen { $app_title } { $app_version }.
+msi-progress-updating-title = Päivitetään tuotetta { $app_title } { $app_version }
+msi-progress-updating-text = Odota. Ohjattu asennus päivittää tuotteen { $app_title } { $app_version }.
 msi-progress-status = Tila:
 
 # MSI Installer UI - Maintenance Welcome Dialog
-msi-maint-welcome-title = Tervetuloa tuotteen { $app_title } ohjattuun asennukseen
-msi-maint-welcome-description = Ohjattu asennus mahdollistaa tuotteen { $app_title } korjaamisen tai poistamisen. Voit jatkaa valitsemalla Seuraava tai lopettaa ohjatun asennuksen valitsemalla Peruuta.
+msi-maint-welcome-title = Tervetuloa tuotteen { $app_title } { $app_version } ohjattuun asennukseen
+msi-maint-welcome-description = Ohjattu asennus mahdollistaa tuotteen { $app_title } { $app_version } korjaamisen tai poistamisen. Voit jatkaa valitsemalla Seuraava tai lopettaa ohjatun asennuksen valitsemalla Peruuta.
 
 # MSI Installer UI - Maintenance Type Dialog
 msi-maint-type-title = Korjaa tai poista asennus tai muuta sitä
@@ -166,11 +166,11 @@ msi-maint-repair-text = Korjaa uusimman asennuksen virheitä korjaamalla puuttuv
 msi-maint-repair-disabled = Korjaa ei ole tällä hetkellä käytettävissä.
 msi-maint-remove-button = &Poista
 msi-maint-remove-tooltip = Poista asennus
-msi-maint-remove-text = Poistaa tuotteen { $app_title } tietokoneesta.
+msi-maint-remove-text = Poistaa tuotteen { $app_title } { $app_version } tietokoneesta.
 msi-maint-remove-disabled = Poista ei ole tällä hetkellä käytettävissä.
 
 # MSI Installer UI - Cancel Dialog
-msi-cancel-text = Haluatko varmasti peruuttaa tuotteen { $app_title } asennuksen?
+msi-cancel-text = Haluatko varmasti peruuttaa tuotteen { $app_title } { $app_version } asennuksen?
 
 # MSI Installer UI - Browse Dialog
 msi-browse-title = Vaihda nykyistä kohdekansiota
@@ -189,16 +189,16 @@ msi-disk-cost-description = Valittujen ominaisuuksien asentamiseen vaadittava le
 msi-disk-cost-text = Korostetuissa asemissa ei ole tarpeeksi vapaata levytilaa valituille ominaisuuksille. Voit poistaa tiedostoja korostetuista asemista, asentaa vähemmän ominaisuuksia paikallisille asemille tai valita eri kohdeasemat.
 
 # MSI Installer UI - Error Dialog
-msi-error-dlg-title = { $app_title } -asennusohjelman tiedot
+msi-error-dlg-title = { $app_title } { $app_version } -asennusohjelman tiedot
 
 # MSI Installer UI - Fatal Error Dialog
-msi-fatal-title = Tuotteen { $app_title } ohjattu asennus päättyi ennenaikaisesti
-msi-fatal-description1 = Tuotteen { $app_title } asennus keskeytettiin. Järjestelmääsi ei ole muutettu. Voit asentaa tämän ohjelman myöhemmin suorittamalla asennuksen uudelleen.
+msi-fatal-title = Tuotteen { $app_title } { $app_version } ohjattu asennus päättyi ennenaikaisesti
+msi-fatal-description1 = Tuotteen { $app_title } { $app_version } asennus keskeytettiin. Järjestelmääsi ei ole muutettu. Voit asentaa tämän ohjelman myöhemmin suorittamalla asennuksen uudelleen.
 msi-fatal-description2 = Lopeta ohjattu asennus valitsemalla Valmis.
 
 # MSI Installer UI - User Exit Dialog
-msi-user-exit-title = Tuotteen { $app_title } ohjattu asennus keskeytyi
-msi-user-exit-description1 = Tuotteen { $app_title } asennus keskeytettiin. Järjestelmääsi ei ole muutettu. Voit asentaa tämän ohjelman myöhemmin suorittamalla asennuksen uudelleen.
+msi-user-exit-title = Tuotteen { $app_title } { $app_version } ohjattu asennus keskeytyi
+msi-user-exit-description1 = Tuotteen { $app_title } { $app_version } asennus keskeytettiin. Järjestelmääsi ei ole muutettu. Voit asentaa tämän ohjelman myöhemmin suorittamalla asennuksen uudelleen.
 msi-user-exit-description2 = Lopeta ohjattu asennus valitsemalla Valmis.
 
 # MSI Installer UI - Files In Use Dialog
@@ -215,13 +215,13 @@ msi-rm-files-in-use-use-rm = &Sulje sovellukset automaattisesti ja yritä käynn
 msi-rm-files-in-use-dont-use-rm = &Älä sulje sovelluksia. (Uudelleenkäynnistys vaaditaan.)
 
 # MSI Installer UI - Resume Dialog
-msi-resume-title = Jatketaan tuotteen { $app_title } ohjattua asennusta
-msi-resume-description = Ohjattu asennus viimeistelee tuotteen { $app_title } asennuksen tietokoneeseesi. Voit jatkaa valitsemalla Asenna tai lopettaa ohjatun asennuksen valitsemalla Peruuta.
+msi-resume-title = Jatketaan tuotteen { $app_title } { $app_version } ohjattua asennusta
+msi-resume-description = Ohjattu asennus viimeistelee tuotteen { $app_title } { $app_version } asennuksen tietokoneeseesi. Voit jatkaa valitsemalla Asenna tai lopettaa ohjatun asennuksen valitsemalla Peruuta.
 msi-resume-btn-install = &Asenna
 
 # MSI Installer UI - Shortcut Descriptions
-msi-desktop-shortcut-description = Tuotteen { $app_title } työpöytäpikakuvake
-msi-start-menu-shortcut-description = Tuotteen { $app_title } Käynnistä-valikon pikakuvake
+msi-desktop-shortcut-description = Tuotteen { $app_title } { $app_version } työpöytäpikakuvake
+msi-start-menu-shortcut-description = Tuotteen { $app_title } { $app_version } Käynnistä-valikon pikakuvake
 # MSI Installer UI - Readme Dialog
 msi-readme-title = Tärkeitä tietoja
 msi-readme-description = Lue seuraavat tiedot ennen jatkamista.

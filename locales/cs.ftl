@@ -1,4 +1,4 @@
-# Shared titles
+﻿# Shared titles
 title-update = Aktualizace { $app_title }
 title-setup = Instalace { $app_title }
 title-uninstall = Odinstalování { $app_title }
@@ -50,7 +50,7 @@ install-hook-body = Instalace byla dokončena, ale některé kroky se nemusely z
 
 # Splash fallback (splash.rs)
 splash-header = Instalace { $app_title }
-splash-body = Probíhá nastavování { $app_title } { $app_version }, počkejte prosím...
+splash-body = Probíhá nastavování { $app_title }, počkejte prosím...
 
 # Dependency download (prerequisite.rs)
 deps-download-header = Stahování požadované součásti
@@ -80,7 +80,7 @@ setup-update-exe-missing = V tomto instalačním programu chybí důležitý bin
 setup-main-exe-missing = Hlavní spustitelný soubor se v balíčku nepodařilo najít. Kontaktujte prosím autora aplikace.
 
 # MSI Installer UI - Common
-msi-dlg-title = Instalace produktu { $app_title }
+msi-dlg-title = Instalace produktu { $app_title } { $app_version }
 msi-btn-back = &Zpět
 msi-btn-next = &Další
 msi-btn-cancel = Storno
@@ -92,17 +92,17 @@ msi-btn-retry = &Opakovat
 msi-btn-ignore = &Ignorovat
 
 # MSI Installer UI - Welcome Dialog
-msi-welcome-title = Vítá vás Průvodce instalací produktu { $app_title }
-msi-welcome-description = Průvodce instalací nainstaluje do počítače produkt { $app_title }. Pokračujte kliknutím na tlačítko Další, nebo kliknutím na tlačítko Storno Průvodce instalací ukončete.
-msi-welcome-update-description = Průvodce instalací aktualizuje v počítači produkt { $app_title }. Pokračujte kliknutím na tlačítko Další, nebo kliknutím na tlačítko Storno Průvodce instalací ukončete.
+msi-welcome-title = Vítá vás Průvodce instalací produktu { $app_title } { $app_version }
+msi-welcome-description = Průvodce instalací nainstaluje do počítače produkt { $app_title } { $app_version }. Pokračujte kliknutím na tlačítko Další, nebo kliknutím na tlačítko Storno Průvodce instalací ukončete.
+msi-welcome-update-description = Průvodce instalací aktualizuje v počítači produkt { $app_title } { $app_version }. Pokračujte kliknutím na tlačítko Další, nebo kliknutím na tlačítko Storno Průvodce instalací ukončete.
 
 # MSI Installer UI - Exit Dialog
-msi-exit-title = Průvodce instalací produktu { $app_title } byl dokončen
+msi-exit-title = Průvodce instalací produktu { $app_title } { $app_version } byl dokončen
 msi-exit-description = Kliknutím na tlačítko Dokončit Průvodce instalací ukončete.
-msi-exit-launch-checkbox = Spustit { $app_title }
+msi-exit-launch-checkbox = Spustit { $app_title } { $app_version }
 
 # MSI Installer UI - Prepare Dialog
-msi-prepare-title = Vítá vás Průvodce instalací produktu { $app_title }
+msi-prepare-title = Vítá vás Průvodce instalací produktu { $app_title } { $app_version }
 msi-prepare-description = Počkejte prosím, než se Průvodce instalací připraví na požadované kroky instalace.
 
 # MSI Installer UI - License Agreement Dialog
@@ -120,15 +120,15 @@ msi-scope-no-per-user-description = Vyžaduje oprávnění správce
 msi-scope-per-machine-description = Vyžaduje oprávnění správce
 
 # MSI Installer UI - Verify Ready Dialog
-msi-ready-install-title = Instalace produktu { $app_title } je připravena
+msi-ready-install-title = Instalace produktu { $app_title } { $app_version } je připravena
 msi-ready-install-text = Chcete-li zahájit instalaci, klikněte na tlačítko Nainstalovat. Jestliže chcete zkontrolovat nebo změnit nastavení instalace, klikněte na tlačítko Zpět.
-msi-ready-change-title = Změna produktu { $app_title } je připravena
+msi-ready-change-title = Změna produktu { $app_title } { $app_version } je připravena
 msi-ready-change-text = Chcete-li zahájit změnu instalace, klikněte na tlačítko Změnit. Jestliže chcete zkontrolovat nebo změnit nastavení instalace, klikněte na tlačítko Zpět.
-msi-ready-repair-title = Oprava produktu { $app_title } je připravena
+msi-ready-repair-title = Oprava produktu { $app_title } { $app_version } je připravena
 msi-ready-repair-text = Chcete-li zahájit opravu, klikněte na tlačítko Opravit. Jestliže chcete zkontrolovat nebo změnit nastavení instalace, klikněte na tlačítko Zpět.
-msi-ready-remove-title = Odebrání produktu { $app_title } je připraveno
-msi-ready-remove-text = Chcete-li odebrat produkt { $app_title } z počítače, klikněte na tlačítko Odebrat. Jestliže chcete zkontrolovat nebo změnit nastavení instalace, klikněte na tlačítko Zpět.
-msi-ready-update-title = Připraveno k aktualizaci produktu { $app_title }
+msi-ready-remove-title = Odebrání produktu { $app_title } { $app_version } je připraveno
+msi-ready-remove-text = Chcete-li odebrat produkt { $app_title } { $app_version } z počítače, klikněte na tlačítko Odebrat. Jestliže chcete zkontrolovat nebo změnit nastavení instalace, klikněte na tlačítko Zpět.
+msi-ready-update-title = Připraveno k aktualizaci produktu { $app_title } { $app_version }
 msi-ready-update-text = Chcete-li zahájit aktualizaci, klikněte na tlačítko Aktualizovat. Jestliže chcete zkontrolovat nebo změnit nastavení instalace, klikněte na tlačítko Zpět.
 msi-ready-btn-install = &Nainstalovat
 msi-ready-btn-change = &Změnit
@@ -137,21 +137,21 @@ msi-ready-btn-remove = &Odebrat
 msi-ready-btn-update = &Aktualizovat
 
 # MSI Installer UI - Progress Dialog
-msi-progress-installing-title = Instalace produktu { $app_title }
-msi-progress-installing-text = Počkejte prosím, než Průvodce instalací nainstaluje produkt { $app_title }.
-msi-progress-changing-title = Změna produktu { $app_title }
-msi-progress-changing-text = Počkejte prosím, než Průvodce instalací změní produkt { $app_title }.
-msi-progress-repairing-title = Oprava produktu { $app_title }
-msi-progress-repairing-text = Počkejte prosím, než Průvodce instalací opraví produkt { $app_title }.
-msi-progress-removing-title = Odebírání produktu { $app_title }
-msi-progress-removing-text = Počkejte prosím, než Průvodce instalací odebere produkt { $app_title }.
-msi-progress-updating-title = Aktualizace produktu { $app_title }
-msi-progress-updating-text = Počkejte prosím, než Průvodce instalací aktualizuje produkt { $app_title }.
+msi-progress-installing-title = Instalace produktu { $app_title } { $app_version }
+msi-progress-installing-text = Počkejte prosím, než Průvodce instalací nainstaluje produkt { $app_title } { $app_version }.
+msi-progress-changing-title = Změna produktu { $app_title } { $app_version }
+msi-progress-changing-text = Počkejte prosím, než Průvodce instalací změní produkt { $app_title } { $app_version }.
+msi-progress-repairing-title = Oprava produktu { $app_title } { $app_version }
+msi-progress-repairing-text = Počkejte prosím, než Průvodce instalací opraví produkt { $app_title } { $app_version }.
+msi-progress-removing-title = Odebírání produktu { $app_title } { $app_version }
+msi-progress-removing-text = Počkejte prosím, než Průvodce instalací odebere produkt { $app_title } { $app_version }.
+msi-progress-updating-title = Aktualizace produktu { $app_title } { $app_version }
+msi-progress-updating-text = Počkejte prosím, než Průvodce instalací aktualizuje produkt { $app_title } { $app_version }.
 msi-progress-status = Stav:
 
 # MSI Installer UI - Maintenance Welcome Dialog
-msi-maint-welcome-title = Vítá vás Průvodce instalací produktu { $app_title }
-msi-maint-welcome-description = Pomocí Průvodce instalací můžete opravit nebo odebrat produkt { $app_title }. Pokračujte kliknutím na tlačítko Další, nebo kliknutím na tlačítko Storno Průvodce instalací ukončete.
+msi-maint-welcome-title = Vítá vás Průvodce instalací produktu { $app_title } { $app_version }
+msi-maint-welcome-description = Pomocí Průvodce instalací můžete opravit nebo odebrat produkt { $app_title } { $app_version }. Pokračujte kliknutím na tlačítko Další, nebo kliknutím na tlačítko Storno Průvodce instalací ukončete.
 
 # MSI Installer UI - Maintenance Type Dialog
 msi-maint-type-title = Změna, oprava nebo odebrání instalace
@@ -166,11 +166,11 @@ msi-maint-repair-text = Opraví chyby v nejnovější instalaci opravou chyběj�
 msi-maint-repair-disabled = Oprava je v současné době zakázána.
 msi-maint-remove-button = &Odebrat
 msi-maint-remove-tooltip = Odebrat
-msi-maint-remove-text = Odebere z počítače produkt { $app_title }.
+msi-maint-remove-text = Odebere z počítače produkt { $app_title } { $app_version }.
 msi-maint-remove-disabled = Odebrání je v současné době zakázáno.
 
 # MSI Installer UI - Cancel Dialog
-msi-cancel-text = Opravdu chcete zrušit instalaci produktu { $app_title }?
+msi-cancel-text = Opravdu chcete zrušit instalaci produktu { $app_title } { $app_version }?
 
 # MSI Installer UI - Browse Dialog
 msi-browse-title = Změnit aktuální cílovou složku
@@ -189,16 +189,16 @@ msi-disk-cost-description = Místo na disku potřebné k instalaci vybraných so
 msi-disk-cost-text = Na zvýrazněných svazcích není dostatek místa pro aktuálně vybrané součásti. Můžete odebrat některé soubory ze zvýrazněných svazků, nainstalovat méně součástí na místní disk(y) nebo vybrat jiné cílové jednotky.
 
 # MSI Installer UI - Error Dialog
-msi-error-dlg-title = Instalátor produktu { $app_title } – informace
+msi-error-dlg-title = Instalátor produktu { $app_title } { $app_version } – informace
 
 # MSI Installer UI - Fatal Error Dialog
-msi-fatal-title = Průvodce instalací produktu { $app_title } byl předčasně ukončen
-msi-fatal-description1 = Instalace produktu { $app_title } byla přerušena. Systém nebyl změněn. Chcete-li tento program nainstalovat později, spusťte znovu instalaci.
+msi-fatal-title = Průvodce instalací produktu { $app_title } { $app_version } byl předčasně ukončen
+msi-fatal-description1 = Instalace produktu { $app_title } { $app_version } byla přerušena. Systém nebyl změněn. Chcete-li tento program nainstalovat později, spusťte znovu instalaci.
 msi-fatal-description2 = Kliknutím na tlačítko Dokončit Průvodce instalací ukončete.
 
 # MSI Installer UI - User Exit Dialog
-msi-user-exit-title = Průvodce instalací produktu { $app_title } byl přerušen
-msi-user-exit-description1 = Instalace produktu { $app_title } byla přerušena. Systém nebyl změněn. Chcete-li tento program nainstalovat později, spusťte znovu instalaci.
+msi-user-exit-title = Průvodce instalací produktu { $app_title } { $app_version } byl přerušen
+msi-user-exit-description1 = Instalace produktu { $app_title } { $app_version } byla přerušena. Systém nebyl změněn. Chcete-li tento program nainstalovat později, spusťte znovu instalaci.
 msi-user-exit-description2 = Kliknutím na tlačítko Dokončit Průvodce instalací ukončete.
 
 # MSI Installer UI - Files In Use Dialog
@@ -215,13 +215,13 @@ msi-rm-files-in-use-use-rm = Automaticky &ukončit aplikace a pokusit se je po d
 msi-rm-files-in-use-dont-use-rm = &Neukončovat aplikace. (Bude nutné restartovat počítač.)
 
 # MSI Installer UI - Resume Dialog
-msi-resume-title = Pokračování Průvodce instalací produktu { $app_title }
-msi-resume-description = Průvodce instalací dokončí instalaci produktu { $app_title } do počítače. Pokračujte kliknutím na tlačítko Nainstalovat, nebo kliknutím na tlačítko Storno ukončete Průvodce instalací.
+msi-resume-title = Pokračování Průvodce instalací produktu { $app_title } { $app_version }
+msi-resume-description = Průvodce instalací dokončí instalaci produktu { $app_title } { $app_version } do počítače. Pokračujte kliknutím na tlačítko Nainstalovat, nebo kliknutím na tlačítko Storno ukončete Průvodce instalací.
 msi-resume-btn-install = &Nainstalovat
 
 # MSI Installer UI - Shortcut Descriptions
-msi-desktop-shortcut-description = Zástupce { $app_title } na ploše
-msi-start-menu-shortcut-description = Zástupce { $app_title } v nabídce Start
+msi-desktop-shortcut-description = Zástupce { $app_title } { $app_version } na ploše
+msi-start-menu-shortcut-description = Zástupce { $app_title } { $app_version } v nabídce Start
 # MSI Installer UI - Readme Dialog
 msi-readme-title = Důležité informace
 msi-readme-description = Před pokračováním si prosím přečtěte následující informace.

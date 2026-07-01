@@ -21,14 +21,15 @@ impl MsiFontStyle {
 }
 
 /// Returns all MSI locale strings as (MSI property name, localized value) pairs.
-/// The `app_title` parameter is used for strings that reference the application name.
+/// The `app_title` and `app_version` parameters are used for strings that reference the application name/version.
 /// Font formatting prefixes ({\WixUI_Font_*}) are applied automatically to the
 /// appropriate strings so that localization authors don't need to include them.
-pub fn locale_strings(app_title: &str) -> Vec<(&'static str, String)> {
+pub fn locale_strings(app_title: &str, app_version: &str) -> Vec<(&'static str, String)> {
     use MsiFontStyle::*;
 
     let mut args = FluentArgs::new();
     args.set("app_title", app_title.to_string());
+    args.set("app_version", app_version.to_string());
     let with_app = Some(&args);
 
     // (property_name, fluent_key, needs_app_title, font_style)

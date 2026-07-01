@@ -1,4 +1,4 @@
-# Shared titles
+﻿# Shared titles
 title-update = { $app_title } Oppdatering
 title-setup = { $app_title } Installasjon
 title-uninstall = { $app_title } Avinstallasjon
@@ -50,7 +50,7 @@ install-hook-body = Installasjonen er fullført, men noen trinn kan ha mislyktes
 
 # Splash fallback (splash.rs)
 splash-header = Installerer { $app_title }
-splash-body = Konfigurerer { $app_title } { $app_version }, vennligst vent...
+splash-body = Konfigurerer { $app_title }, vennligst vent...
 
 # Dependency download (prerequisite.rs)
 deps-download-header = Laster ned nødvendig komponent
@@ -80,7 +80,7 @@ setup-update-exe-missing = Denne installasjonen mangler en kritisk binærfil (Up
 setup-main-exe-missing = Fant ikke hovedprogramfilen i pakken. Kontakt programmets utgiver.
 
 # MSI Installer UI - Common
-msi-dlg-title = { $app_title } Installasjon
+msi-dlg-title = { $app_title } { $app_version } Installasjon
 msi-btn-back = &Tilbake
 msi-btn-next = &Neste
 msi-btn-cancel = Avbryt
@@ -92,17 +92,17 @@ msi-btn-retry = &Prøv på nytt
 msi-btn-ignore = &Ignorer
 
 # MSI Installer UI - Welcome Dialog
-msi-welcome-title = Velkommen til installasjonsveiviseren for { $app_title }
-msi-welcome-description = Installasjonsveiviseren vil installere { $app_title } på datamaskinen din. Klikk Neste for å fortsette eller Avbryt for å avslutte installasjonsveiviseren.
-msi-welcome-update-description = Installasjonsveiviseren vil oppdatere { $app_title } på datamaskinen din. Klikk Neste for å fortsette eller Avbryt for å avslutte installasjonsveiviseren.
+msi-welcome-title = Velkommen til installasjonsveiviseren for { $app_title } { $app_version }
+msi-welcome-description = Installasjonsveiviseren vil installere { $app_title } { $app_version } på datamaskinen din. Klikk Neste for å fortsette eller Avbryt for å avslutte installasjonsveiviseren.
+msi-welcome-update-description = Installasjonsveiviseren vil oppdatere { $app_title } { $app_version } på datamaskinen din. Klikk Neste for å fortsette eller Avbryt for å avslutte installasjonsveiviseren.
 
 # MSI Installer UI - Exit Dialog
-msi-exit-title = Installasjonsveiviseren for { $app_title } er fullført
+msi-exit-title = Installasjonsveiviseren for { $app_title } { $app_version } er fullført
 msi-exit-description = Klikk knappen Fullfør for å avslutte installasjonsveiviseren.
-msi-exit-launch-checkbox = Start { $app_title }
+msi-exit-launch-checkbox = Start { $app_title } { $app_version }
 
 # MSI Installer UI - Prepare Dialog
-msi-prepare-title = Velkommen til installasjonsveiviseren for { $app_title }
+msi-prepare-title = Velkommen til installasjonsveiviseren for { $app_title } { $app_version }
 msi-prepare-description = Vent mens installasjonsveiviseren forbereder å lede deg gjennom installasjonen.
 
 # MSI Installer UI - License Agreement Dialog
@@ -120,15 +120,15 @@ msi-scope-no-per-user-description = Krever administratorrettigheter
 msi-scope-per-machine-description = Krever administratorrettigheter
 
 # MSI Installer UI - Verify Ready Dialog
-msi-ready-install-title = Klar til å installere { $app_title }
+msi-ready-install-title = Klar til å installere { $app_title } { $app_version }
 msi-ready-install-text = Klikk Installer for å starte installasjonen. Klikk Tilbake for å kontrollere eller endre noen av installasjonsinnstillingene.
-msi-ready-change-title = Klar til å endre { $app_title }
+msi-ready-change-title = Klar til å endre { $app_title } { $app_version }
 msi-ready-change-text = Klikk Endre for å starte å endre installasjonen. Klikk Tilbake for å kontrollere eller endre noen av installasjonsinnstillingene.
-msi-ready-repair-title = Klar til å reparere { $app_title }
+msi-ready-repair-title = Klar til å reparere { $app_title } { $app_version }
 msi-ready-repair-text = Klikk Reparer for å starte reparasjonen. Klikk Tilbake for å kontrollere eller endre noen av installasjonsinnstillingene.
-msi-ready-remove-title = Klar til å fjerne { $app_title }
-msi-ready-remove-text = Klikk Fjern for å fjerne { $app_title } fra datamaskinen. Klikk Tilbake for å kontrollere eller endre noen av installasjonsinnstillingene.
-msi-ready-update-title = Klar til å oppdatere { $app_title }
+msi-ready-remove-title = Klar til å fjerne { $app_title } { $app_version }
+msi-ready-remove-text = Klikk Fjern for å fjerne { $app_title } { $app_version } fra datamaskinen. Klikk Tilbake for å kontrollere eller endre noen av installasjonsinnstillingene.
+msi-ready-update-title = Klar til å oppdatere { $app_title } { $app_version }
 msi-ready-update-text = Klikk Oppdater for å starte oppdateringen. Klikk Tilbake for å kontrollere eller endre noen av installasjonsinnstillingene.
 msi-ready-btn-install = &Installer
 msi-ready-btn-change = &Endre
@@ -137,21 +137,21 @@ msi-ready-btn-remove = &Fjern
 msi-ready-btn-update = &Oppdater
 
 # MSI Installer UI - Progress Dialog
-msi-progress-installing-title = Installerer { $app_title }
-msi-progress-installing-text = Vent mens installasjonsveiviseren installerer { $app_title }.
-msi-progress-changing-title = Endrer { $app_title }
-msi-progress-changing-text = Vent mens installasjonsveiviseren endrer { $app_title }.
-msi-progress-repairing-title = Reparerer { $app_title }
-msi-progress-repairing-text = Vent mens installasjonsveiviseren reparerer { $app_title }.
-msi-progress-removing-title = Fjerner { $app_title }
-msi-progress-removing-text = Vent mens installasjonsveiviseren fjerner { $app_title }.
-msi-progress-updating-title = Oppdaterer { $app_title }
-msi-progress-updating-text = Vent mens installasjonsveiviseren oppdaterer { $app_title }.
+msi-progress-installing-title = Installerer { $app_title } { $app_version }
+msi-progress-installing-text = Vent mens installasjonsveiviseren installerer { $app_title } { $app_version }.
+msi-progress-changing-title = Endrer { $app_title } { $app_version }
+msi-progress-changing-text = Vent mens installasjonsveiviseren endrer { $app_title } { $app_version }.
+msi-progress-repairing-title = Reparerer { $app_title } { $app_version }
+msi-progress-repairing-text = Vent mens installasjonsveiviseren reparerer { $app_title } { $app_version }.
+msi-progress-removing-title = Fjerner { $app_title } { $app_version }
+msi-progress-removing-text = Vent mens installasjonsveiviseren fjerner { $app_title } { $app_version }.
+msi-progress-updating-title = Oppdaterer { $app_title } { $app_version }
+msi-progress-updating-text = Vent mens installasjonsveiviseren oppdaterer { $app_title } { $app_version }.
 msi-progress-status = Status:
 
 # MSI Installer UI - Maintenance Welcome Dialog
-msi-maint-welcome-title = Velkommen til installasjonsveiviseren for { $app_title }
-msi-maint-welcome-description = Installasjonsveiviseren lar deg reparere eller fjerne { $app_title }. Klikk Neste for å fortsette eller Avbryt for å avslutte installasjonsveiviseren.
+msi-maint-welcome-title = Velkommen til installasjonsveiviseren for { $app_title } { $app_version }
+msi-maint-welcome-description = Installasjonsveiviseren lar deg reparere eller fjerne { $app_title } { $app_version }. Klikk Neste for å fortsette eller Avbryt for å avslutte installasjonsveiviseren.
 
 # MSI Installer UI - Maintenance Type Dialog
 msi-maint-type-title = Endre, reparer eller fjern installasjonen
@@ -166,11 +166,11 @@ msi-maint-repair-text = Reparerer feil i den siste installasjonen - retter opp m
 msi-maint-repair-disabled = Reparer er for øyeblikket deaktivert.
 msi-maint-remove-button = &Fjern
 msi-maint-remove-tooltip = Fjern installasjonen
-msi-maint-remove-text = Fjerner { $app_title } fra datamaskinen.
+msi-maint-remove-text = Fjerner { $app_title } { $app_version } fra datamaskinen.
 msi-maint-remove-disabled = Fjern er for øyeblikket deaktivert.
 
 # MSI Installer UI - Cancel Dialog
-msi-cancel-text = Er du sikker på at du vil avbryte installasjonen av { $app_title }?
+msi-cancel-text = Er du sikker på at du vil avbryte installasjonen av { $app_title } { $app_version }?
 
 # MSI Installer UI - Browse Dialog
 msi-browse-title = Endre gjeldende målmappe
@@ -189,16 +189,16 @@ msi-disk-cost-description = Diskplassen som kreves for installasjon av de valgte
 msi-disk-cost-text = De merkede volumene har ikke nok ledig diskplass til de valgte funksjonene. Du kan enten fjerne noen filer fra de merkede volumene, velge å installere færre funksjoner til de lokale stasjonene eller velge andre målstasjoner.
 
 # MSI Installer UI - Error Dialog
-msi-error-dlg-title = { $app_title } Installasjonsinformasjon
+msi-error-dlg-title = { $app_title } { $app_version } Installasjonsinformasjon
 
 # MSI Installer UI - Fatal Error Dialog
-msi-fatal-title = Installasjonsveiviseren for { $app_title } ble avsluttet for tidlig
-msi-fatal-description1 = Installasjonen av { $app_title } ble avbrutt. Systemet ditt har ikke blitt endret. For å installere dette programmet senere, kjør installasjonen på nytt.
+msi-fatal-title = Installasjonsveiviseren for { $app_title } { $app_version } ble avsluttet for tidlig
+msi-fatal-description1 = Installasjonen av { $app_title } { $app_version } ble avbrutt. Systemet ditt har ikke blitt endret. For å installere dette programmet senere, kjør installasjonen på nytt.
 msi-fatal-description2 = Klikk knappen Fullfør for å avslutte installasjonsveiviseren.
 
 # MSI Installer UI - User Exit Dialog
-msi-user-exit-title = Installasjonsveiviseren for { $app_title } ble avbrutt
-msi-user-exit-description1 = Installasjonen av { $app_title } ble avbrutt. Systemet ditt har ikke blitt endret. For å installere dette programmet senere, kjør installasjonen på nytt.
+msi-user-exit-title = Installasjonsveiviseren for { $app_title } { $app_version } ble avbrutt
+msi-user-exit-description1 = Installasjonen av { $app_title } { $app_version } ble avbrutt. Systemet ditt har ikke blitt endret. For å installere dette programmet senere, kjør installasjonen på nytt.
 msi-user-exit-description2 = Klikk knappen Fullfør for å avslutte installasjonsveiviseren.
 
 # MSI Installer UI - Files In Use Dialog
@@ -215,13 +215,13 @@ msi-rm-files-in-use-use-rm = &Lukk programmene automatisk og prøv å starte dem
 msi-rm-files-in-use-dont-use-rm = &Ikke lukk programmer. (En omstart vil være nødvendig.)
 
 # MSI Installer UI - Resume Dialog
-msi-resume-title = Gjenopptar installasjonsveiviseren for { $app_title }
-msi-resume-description = Installasjonsveiviseren vil fullføre installasjonen av { $app_title } på datamaskinen. Klikk Installer for å fortsette eller Avbryt for å avslutte installasjonsveiviseren.
+msi-resume-title = Gjenopptar installasjonsveiviseren for { $app_title } { $app_version }
+msi-resume-description = Installasjonsveiviseren vil fullføre installasjonen av { $app_title } { $app_version } på datamaskinen. Klikk Installer for å fortsette eller Avbryt for å avslutte installasjonsveiviseren.
 msi-resume-btn-install = &Installer
 
 # MSI Installer UI - Shortcut Descriptions
-msi-desktop-shortcut-description = Skrivebordssnarvei for { $app_title }
-msi-start-menu-shortcut-description = Startmeny-snarvei for { $app_title }
+msi-desktop-shortcut-description = Skrivebordssnarvei for { $app_title } { $app_version }
+msi-start-menu-shortcut-description = Startmeny-snarvei for { $app_title } { $app_version }
 # MSI Installer UI - Readme Dialog
 msi-readme-title = Viktig informasjon
 msi-readme-description = Vennligst les følgende informasjon før du fortsetter.

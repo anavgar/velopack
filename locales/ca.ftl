@@ -1,4 +1,4 @@
-# Shared titles
+﻿# Shared titles
 title-update = Actualització de { $app_title }
 title-setup = Instal·lació de { $app_title }
 title-uninstall = Desinstal·lació de { $app_title }
@@ -50,7 +50,7 @@ install-hook-body = La instal·lació s'ha completat, però alguns passos poden 
 
 # Splash fallback (splash.rs)
 splash-header = S'està instal·lant { $app_title }
-splash-body = S'està configurant { $app_title } { $app_version }, espereu...
+splash-body = S'està configurant { $app_title }, espereu...
 
 # Dependency download (prerequisite.rs)
 deps-download-header = S'està baixant el component necessari
@@ -80,7 +80,7 @@ setup-update-exe-missing = A aquest instal·lador li falta un fitxer binari esse
 setup-main-exe-missing = No s'ha pogut trobar l'executable principal al paquet. Contacteu amb l'autor de l'aplicació.
 
 # MSI Installer UI - Common
-msi-dlg-title = Instal·lació de { $app_title }
+msi-dlg-title = Instal·lació de { $app_title } { $app_version }
 msi-btn-back = &Endarrere
 msi-btn-next = &Endavant
 msi-btn-cancel = Cancel·la
@@ -92,17 +92,17 @@ msi-btn-retry = &Torna-ho a provar
 msi-btn-ignore = &Ignora-ho
 
 # MSI Installer UI - Welcome Dialog
-msi-welcome-title = Benvinguts a l'auxiliar d'instal·lació de { $app_title }
-msi-welcome-description = L'auxiliar d'instal·lació instal·larà { $app_title } a l'ordinador. Feu clic a Endavant per continuar o a Cancel·la per sortir de l'auxiliar d'instal·lació.
-msi-welcome-update-description = L'auxiliar d'instal·lació actualitzarà { $app_title } a l'ordinador. Feu clic a Endavant per continuar o a Cancel·la per sortir de l'auxiliar d'instal·lació.
+msi-welcome-title = Benvinguts a l'auxiliar d'instal·lació de { $app_title } { $app_version }
+msi-welcome-description = L'auxiliar d'instal·lació instal·larà { $app_title } { $app_version } a l'ordinador. Feu clic a Endavant per continuar o a Cancel·la per sortir de l'auxiliar d'instal·lació.
+msi-welcome-update-description = L'auxiliar d'instal·lació actualitzarà { $app_title } { $app_version } a l'ordinador. Feu clic a Endavant per continuar o a Cancel·la per sortir de l'auxiliar d'instal·lació.
 
 # MSI Installer UI - Exit Dialog
-msi-exit-title = S'ha completat l'auxiliar d'instal·lació de { $app_title }
+msi-exit-title = S'ha completat l'auxiliar d'instal·lació de { $app_title } { $app_version }
 msi-exit-description = Feu clic al botó Final per sortir de l'auxiliar d'instal·lació.
-msi-exit-launch-checkbox = Inicia { $app_title }
+msi-exit-launch-checkbox = Inicia { $app_title } { $app_version }
 
 # MSI Installer UI - Prepare Dialog
-msi-prepare-title = Benvinguts a l'auxiliar d'instal·lació de { $app_title }
+msi-prepare-title = Benvinguts a l'auxiliar d'instal·lació de { $app_title } { $app_version }
 msi-prepare-description = Espereu mentre l'auxiliar d'instal·lació es prepara per guiar-vos pel procés d'instal·lació.
 
 # MSI Installer UI - License Agreement Dialog
@@ -120,15 +120,15 @@ msi-scope-no-per-user-description = Requereix privilegis d'administrador
 msi-scope-per-machine-description = Requereix privilegis d'administrador
 
 # MSI Installer UI - Verify Ready Dialog
-msi-ready-install-title = A punt per instal·lar { $app_title }
+msi-ready-install-title = A punt per instal·lar { $app_title } { $app_version }
 msi-ready-install-text = Feu clic a Instal·la per començar la instal·lació. Feu clic a Endarrere per revisar o canviar les opcions de configuració de la instal·lació.
-msi-ready-change-title = A punt per canviar { $app_title }
+msi-ready-change-title = A punt per canviar { $app_title } { $app_version }
 msi-ready-change-text = Feu clic a Canvia per començar el canvi de la instal·lació. Feu clic a Endarrere per revisar o canviar les opcions de configuració de la instal·lació.
-msi-ready-repair-title = A punt per reparar { $app_title }
+msi-ready-repair-title = A punt per reparar { $app_title } { $app_version }
 msi-ready-repair-text = Feu clic a Repara per començar la reparació. Feu clic a Endarrere per revisar o canviar les opcions de configuració de la instal·lació.
-msi-ready-remove-title = A punt per suprimir { $app_title }
-msi-ready-remove-text = Feu clic a Suprimeix per suprimir { $app_title } de l'ordinador. Feu clic a Endarrere per revisar o canviar les opcions de configuració de la instal·lació.
-msi-ready-update-title = A punt per actualitzar { $app_title }
+msi-ready-remove-title = A punt per suprimir { $app_title } { $app_version }
+msi-ready-remove-text = Feu clic a Suprimeix per suprimir { $app_title } { $app_version } de l'ordinador. Feu clic a Endarrere per revisar o canviar les opcions de configuració de la instal·lació.
+msi-ready-update-title = A punt per actualitzar { $app_title } { $app_version }
 msi-ready-update-text = Feu clic a Actualitza per començar l'actualització. Feu clic a Endarrere per revisar o canviar les opcions de configuració de la instal·lació.
 msi-ready-btn-install = &Instal·la
 msi-ready-btn-change = &Canvia
@@ -137,21 +137,21 @@ msi-ready-btn-remove = &Suprimeix
 msi-ready-btn-update = &Actualitza
 
 # MSI Installer UI - Progress Dialog
-msi-progress-installing-title = S'està instal·lant { $app_title }
-msi-progress-installing-text = Espereu mentre l'auxiliar d'instal·lació instal·la { $app_title }.
-msi-progress-changing-title = S'està canviant { $app_title }
-msi-progress-changing-text = Espereu mentre l'auxiliar d'instal·lació canvia { $app_title }.
-msi-progress-repairing-title = S'està reparant { $app_title }
-msi-progress-repairing-text = Espereu mentre l'auxiliar d'instal·lació repara { $app_title }.
-msi-progress-removing-title = S'està suprimint { $app_title }
-msi-progress-removing-text = Espereu mentre l'auxiliar d'instal·lació suprimeix { $app_title }.
-msi-progress-updating-title = S'està actualitzant { $app_title }
-msi-progress-updating-text = Espereu mentre l'auxiliar d'instal·lació actualitza { $app_title }.
+msi-progress-installing-title = S'està instal·lant { $app_title } { $app_version }
+msi-progress-installing-text = Espereu mentre l'auxiliar d'instal·lació instal·la { $app_title } { $app_version }.
+msi-progress-changing-title = S'està canviant { $app_title } { $app_version }
+msi-progress-changing-text = Espereu mentre l'auxiliar d'instal·lació canvia { $app_title } { $app_version }.
+msi-progress-repairing-title = S'està reparant { $app_title } { $app_version }
+msi-progress-repairing-text = Espereu mentre l'auxiliar d'instal·lació repara { $app_title } { $app_version }.
+msi-progress-removing-title = S'està suprimint { $app_title } { $app_version }
+msi-progress-removing-text = Espereu mentre l'auxiliar d'instal·lació suprimeix { $app_title } { $app_version }.
+msi-progress-updating-title = S'està actualitzant { $app_title } { $app_version }
+msi-progress-updating-text = Espereu mentre l'auxiliar d'instal·lació actualitza { $app_title } { $app_version }.
 msi-progress-status = Estat:
 
 # MSI Installer UI - Maintenance Welcome Dialog
-msi-maint-welcome-title = Benvinguts a l'auxiliar d'instal·lació de { $app_title }
-msi-maint-welcome-description = L'auxiliar d'instal·lació us permetrà reparar o suprimir { $app_title }. Feu clic a Endavant per continuar o a Cancel·la per sortir de l'auxiliar d'instal·lació.
+msi-maint-welcome-title = Benvinguts a l'auxiliar d'instal·lació de { $app_title } { $app_version }
+msi-maint-welcome-description = L'auxiliar d'instal·lació us permetrà reparar o suprimir { $app_title } { $app_version }. Feu clic a Endavant per continuar o a Cancel·la per sortir de l'auxiliar d'instal·lació.
 
 # MSI Installer UI - Maintenance Type Dialog
 msi-maint-type-title = Canvi, reparació o supressió de la instal·lació
@@ -166,11 +166,11 @@ msi-maint-repair-text = Repara els errors de la instal·lació més recent - cor
 msi-maint-repair-disabled = Repara està desactivat actualment.
 msi-maint-remove-button = &Suprimeix
 msi-maint-remove-tooltip = Suprimeix
-msi-maint-remove-text = Suprimeix { $app_title } de l'ordinador.
+msi-maint-remove-text = Suprimeix { $app_title } { $app_version } de l'ordinador.
 msi-maint-remove-disabled = Suprimeix està desactivat actualment.
 
 # MSI Installer UI - Cancel Dialog
-msi-cancel-text = Esteu segur que voleu cancel·lar la instal·lació de { $app_title }?
+msi-cancel-text = Esteu segur que voleu cancel·lar la instal·lació de { $app_title } { $app_version }?
 
 # MSI Installer UI - Browse Dialog
 msi-browse-title = Canvia la carpeta de destinació actual
@@ -189,16 +189,16 @@ msi-disk-cost-description = L'espai de disc necessari per a la instal·lació de
 msi-disk-cost-text = Els volums ressaltats no tenen prou espai disponible al disc per a les característiques actualment seleccionades. Podeu suprimir alguns fitxers dels volums ressaltats, triar instal·lar menys característiques a les unitats locals, o seleccionar altres unitats de destinació.
 
 # MSI Installer UI - Error Dialog
-msi-error-dlg-title = Informació de l'instal·lador de { $app_title }
+msi-error-dlg-title = Informació de l'instal·lador de { $app_title } { $app_version }
 
 # MSI Installer UI - Fatal Error Dialog
-msi-fatal-title = L'auxiliar d'instal·lació de { $app_title } ha finalitzat abans d'hora
-msi-fatal-description1 = S'ha interromput la instal·lació de { $app_title }. No s'ha modificat el sistema. Per instal·lar aquest programa en un altre moment, torneu a executar la instal·lació.
+msi-fatal-title = L'auxiliar d'instal·lació de { $app_title } { $app_version } ha finalitzat abans d'hora
+msi-fatal-description1 = S'ha interromput la instal·lació de { $app_title } { $app_version }. No s'ha modificat el sistema. Per instal·lar aquest programa en un altre moment, torneu a executar la instal·lació.
 msi-fatal-description2 = Feu clic al botó Final per sortir de l'auxiliar d'instal·lació.
 
 # MSI Installer UI - User Exit Dialog
-msi-user-exit-title = S'ha interromput l'auxiliar d'instal·lació de { $app_title }
-msi-user-exit-description1 = S'ha interromput la instal·lació de { $app_title }. No s'ha modificat el sistema. Per instal·lar aquest programa en un altre moment, torneu a executar la instal·lació.
+msi-user-exit-title = S'ha interromput l'auxiliar d'instal·lació de { $app_title } { $app_version }
+msi-user-exit-description1 = S'ha interromput la instal·lació de { $app_title } { $app_version }. No s'ha modificat el sistema. Per instal·lar aquest programa en un altre moment, torneu a executar la instal·lació.
 msi-user-exit-description2 = Feu clic al botó Final per sortir de l'auxiliar d'instal·lació.
 
 # MSI Installer UI - Files In Use Dialog
@@ -215,13 +215,13 @@ msi-rm-files-in-use-use-rm = &Tanca automàticament les aplicacions i intenta re
 msi-rm-files-in-use-dont-use-rm = &No tanquis les aplicacions. (Caldrà reiniciar.)
 
 # MSI Installer UI - Resume Dialog
-msi-resume-title = S'està reprenent l'auxiliar d'instal·lació de { $app_title }
-msi-resume-description = L'auxiliar d'instal·lació completarà la instal·lació de { $app_title } a l'ordinador. Feu clic a Instal·la per continuar o a Cancel·la per sortir de l'auxiliar d'instal·lació.
+msi-resume-title = S'està reprenent l'auxiliar d'instal·lació de { $app_title } { $app_version }
+msi-resume-description = L'auxiliar d'instal·lació completarà la instal·lació de { $app_title } { $app_version } a l'ordinador. Feu clic a Instal·la per continuar o a Cancel·la per sortir de l'auxiliar d'instal·lació.
 msi-resume-btn-install = &Instal·la
 
 # MSI Installer UI - Shortcut Descriptions
-msi-desktop-shortcut-description = Drecera d'escriptori per a { $app_title }
-msi-start-menu-shortcut-description = Drecera del menú Inici per a { $app_title }
+msi-desktop-shortcut-description = Drecera d'escriptori per a { $app_title } { $app_version }
+msi-start-menu-shortcut-description = Drecera del menú Inici per a { $app_title } { $app_version }
 # MSI Installer UI - Readme Dialog
 msi-readme-title = Informació important
 msi-readme-description = Si us plau, llegiu la informació següent abans de continuar.

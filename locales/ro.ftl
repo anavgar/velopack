@@ -1,4 +1,4 @@
-# Shared titles
+﻿# Shared titles
 title-update = Actualizare { $app_title }
 title-setup = Instalare { $app_title }
 title-uninstall = Dezinstalare { $app_title }
@@ -50,7 +50,7 @@ install-hook-body = Instalarea s-a încheiat, dar este posibil ca unele etape s�
 
 # Splash fallback (splash.rs)
 splash-header = Se instalează { $app_title }
-splash-body = Se configurează { $app_title } { $app_version }, vă rugăm așteptați...
+splash-body = Se configurează { $app_title }, vă rugăm așteptați...
 
 # Dependency download (prerequisite.rs)
 deps-download-header = Se descarcă componenta necesară
@@ -80,7 +80,7 @@ setup-update-exe-missing = Acestui program de instalare îi lipsește un fișier
 setup-main-exe-missing = Fișierul executabil principal nu a fost găsit în pachet. Contactați autorul aplicației.
 
 # MSI Installer UI - Common
-msi-dlg-title = Programul de instalare { $app_title }
+msi-dlg-title = Programul de instalare { $app_title } { $app_version }
 msi-btn-back = Î&napoi
 msi-btn-next = &Următorul
 msi-btn-cancel = Revocare
@@ -92,17 +92,17 @@ msi-btn-retry = &Reîncercare
 msi-btn-ignore = &Ignorare
 
 # MSI Installer UI - Welcome Dialog
-msi-welcome-title = Bun venit la Expertul de instalare { $app_title }
-msi-welcome-description = Expertul de instalare va instala { $app_title } pe computer. Faceți clic pe Următorul pentru a continua sau pe Revocare pentru a ieși din Expertul de instalare.
-msi-welcome-update-description = Expertul de instalare va actualiza { $app_title } pe computer. Faceți clic pe Următorul pentru a continua sau pe Revocare pentru a ieși din Expertul de instalare.
+msi-welcome-title = Bun venit la Expertul de instalare { $app_title } { $app_version }
+msi-welcome-description = Expertul de instalare va instala { $app_title } { $app_version } pe computer. Faceți clic pe Următorul pentru a continua sau pe Revocare pentru a ieși din Expertul de instalare.
+msi-welcome-update-description = Expertul de instalare va actualiza { $app_title } { $app_version } pe computer. Faceți clic pe Următorul pentru a continua sau pe Revocare pentru a ieși din Expertul de instalare.
 
 # MSI Installer UI - Exit Dialog
-msi-exit-title = Expertul de instalare { $app_title } s-a încheiat
+msi-exit-title = Expertul de instalare { $app_title } { $app_version } s-a încheiat
 msi-exit-description = Faceți clic pe Terminare pentru a ieși din Expertul de instalare.
-msi-exit-launch-checkbox = Lansare { $app_title }
+msi-exit-launch-checkbox = Lansare { $app_title } { $app_version }
 
 # MSI Installer UI - Prepare Dialog
-msi-prepare-title = Bun venit la Expertul de instalare { $app_title }
+msi-prepare-title = Bun venit la Expertul de instalare { $app_title } { $app_version }
 msi-prepare-description = Așteptați. Expertul de instalare se pregătește să vă ghideze pe parcursul instalării.
 
 # MSI Installer UI - License Agreement Dialog
@@ -120,15 +120,15 @@ msi-scope-no-per-user-description = Necesită privilegii de administrator
 msi-scope-per-machine-description = Necesită privilegii de administrator
 
 # MSI Installer UI - Verify Ready Dialog
-msi-ready-install-title = Pregătit pentru instalarea { $app_title }
+msi-ready-install-title = Pregătit pentru instalarea { $app_title } { $app_version }
 msi-ready-install-text = Faceți clic pe Instalare pentru a începe instalarea. Faceți clic pe Înapoi pentru a examina sau a modifica oricare dintre setările de instalare.
-msi-ready-change-title = Pregătit pentru modificarea { $app_title }
+msi-ready-change-title = Pregătit pentru modificarea { $app_title } { $app_version }
 msi-ready-change-text = Faceți clic pe Modificare pentru a începe modificarea instalării. Faceți clic pe Înapoi pentru a examina sau a modifica oricare dintre setările de instalare.
-msi-ready-repair-title = Pregătit pentru repararea { $app_title }
+msi-ready-repair-title = Pregătit pentru repararea { $app_title } { $app_version }
 msi-ready-repair-text = Faceți clic pe Reparare pentru a începe repararea. Faceți clic pe Înapoi pentru a examina sau a modifica oricare dintre setările de instalare.
-msi-ready-remove-title = Pregătit pentru eliminarea { $app_title }
-msi-ready-remove-text = Faceți clic pe Eliminare pentru a elimina { $app_title } de pe computer. Faceți clic pe Înapoi pentru a examina sau a modifica oricare dintre setările de instalare.
-msi-ready-update-title = Pregătit pentru actualizarea { $app_title }
+msi-ready-remove-title = Pregătit pentru eliminarea { $app_title } { $app_version }
+msi-ready-remove-text = Faceți clic pe Eliminare pentru a elimina { $app_title } { $app_version } de pe computer. Faceți clic pe Înapoi pentru a examina sau a modifica oricare dintre setările de instalare.
+msi-ready-update-title = Pregătit pentru actualizarea { $app_title } { $app_version }
 msi-ready-update-text = Faceți clic pe Actualizare pentru a începe actualizarea. Faceți clic pe Înapoi pentru a examina sau a modifica oricare dintre setările de instalare.
 msi-ready-btn-install = &Instalare
 msi-ready-btn-change = &Modificare
@@ -137,21 +137,21 @@ msi-ready-btn-remove = &Eliminare
 msi-ready-btn-update = Act&ualizare
 
 # MSI Installer UI - Progress Dialog
-msi-progress-installing-title = Se instalează { $app_title }
-msi-progress-installing-text = Așteptați, Expertul de instalare instalează { $app_title }.
-msi-progress-changing-title = Se modifică { $app_title }
-msi-progress-changing-text = Așteptați, Expertul de instalare modifică { $app_title }.
-msi-progress-repairing-title = Se repară { $app_title }
-msi-progress-repairing-text = Așteptați, Expertul de instalare repară { $app_title }.
-msi-progress-removing-title = Se elimină { $app_title }
-msi-progress-removing-text = Așteptați, Expertul de instalare elimină { $app_title }.
-msi-progress-updating-title = Se actualizează { $app_title }
-msi-progress-updating-text = Așteptați, Expertul de instalare actualizează { $app_title }.
+msi-progress-installing-title = Se instalează { $app_title } { $app_version }
+msi-progress-installing-text = Așteptați, Expertul de instalare instalează { $app_title } { $app_version }.
+msi-progress-changing-title = Se modifică { $app_title } { $app_version }
+msi-progress-changing-text = Așteptați, Expertul de instalare modifică { $app_title } { $app_version }.
+msi-progress-repairing-title = Se repară { $app_title } { $app_version }
+msi-progress-repairing-text = Așteptați, Expertul de instalare repară { $app_title } { $app_version }.
+msi-progress-removing-title = Se elimină { $app_title } { $app_version }
+msi-progress-removing-text = Așteptați, Expertul de instalare elimină { $app_title } { $app_version }.
+msi-progress-updating-title = Se actualizează { $app_title } { $app_version }
+msi-progress-updating-text = Așteptați, Expertul de instalare actualizează { $app_title } { $app_version }.
 msi-progress-status = Stare:
 
 # MSI Installer UI - Maintenance Welcome Dialog
-msi-maint-welcome-title = Bun venit la Expertul de instalare { $app_title }
-msi-maint-welcome-description = Expertul de instalare vă permite să reparați sau să eliminați { $app_title }. Faceți clic pe Următorul pentru a continua sau pe Revocare pentru a ieși din Expertul de instalare.
+msi-maint-welcome-title = Bun venit la Expertul de instalare { $app_title } { $app_version }
+msi-maint-welcome-description = Expertul de instalare vă permite să reparați sau să eliminați { $app_title } { $app_version }. Faceți clic pe Următorul pentru a continua sau pe Revocare pentru a ieși din Expertul de instalare.
 
 # MSI Installer UI - Maintenance Type Dialog
 msi-maint-type-title = Modificați, reparați sau eliminați instalarea
@@ -166,11 +166,11 @@ msi-maint-repair-text = Repară erorile celei mai recente instalări, prin remed
 msi-maint-repair-disabled = Repararea este momentan dezactivată.
 msi-maint-remove-button = &Eliminare
 msi-maint-remove-tooltip = Eliminare
-msi-maint-remove-text = Elimină { $app_title } de pe computer.
+msi-maint-remove-text = Elimină { $app_title } { $app_version } de pe computer.
 msi-maint-remove-disabled = Eliminarea este momentan dezactivată.
 
 # MSI Installer UI - Cancel Dialog
-msi-cancel-text = Sigur revocați instalarea { $app_title }?
+msi-cancel-text = Sigur revocați instalarea { $app_title } { $app_version }?
 
 # MSI Installer UI - Browse Dialog
 msi-browse-title = Modificați folderul curent de destinație
@@ -189,16 +189,16 @@ msi-disk-cost-description = Spațiul-disc necesar instalării caracteristicilor 
 msi-disk-cost-text = Volumele evidențiate nu au suficient spațiu-disc disponibil pentru caracteristicile selectate momentan. Aveți posibilitatea să eliminați unele fișiere din volumele evidențiate, să instalați mai puține caracteristici pe unitatea/unitățile locale sau să selectați altă unitate de destinație.
 
 # MSI Installer UI - Error Dialog
-msi-error-dlg-title = { $app_title } Informații despre program de instalare
+msi-error-dlg-title = { $app_title } { $app_version } Informații despre program de instalare
 
 # MSI Installer UI - Fatal Error Dialog
-msi-fatal-title = Expertul de instalare { $app_title } s-a încheiat prematur
-msi-fatal-description1 = Instalarea { $app_title } a fost întreruptă. Sistemul nu a fost modificat. Pentru a instala ulterior acest program, executați din nou instalarea.
+msi-fatal-title = Expertul de instalare { $app_title } { $app_version } s-a încheiat prematur
+msi-fatal-description1 = Instalarea { $app_title } { $app_version } a fost întreruptă. Sistemul nu a fost modificat. Pentru a instala ulterior acest program, executați din nou instalarea.
 msi-fatal-description2 = Faceți clic pe Terminare pentru a ieși din Expertul de instalare.
 
 # MSI Installer UI - User Exit Dialog
-msi-user-exit-title = Expertul de instalare { $app_title } a fost întrerupt
-msi-user-exit-description1 = Instalarea { $app_title } a fost întreruptă. Sistemul nu a fost modificat. Pentru a instala ulterior acest program, executați din nou instalarea.
+msi-user-exit-title = Expertul de instalare { $app_title } { $app_version } a fost întrerupt
+msi-user-exit-description1 = Instalarea { $app_title } { $app_version } a fost întreruptă. Sistemul nu a fost modificat. Pentru a instala ulterior acest program, executați din nou instalarea.
 msi-user-exit-description2 = Faceți clic pe Terminare pentru a ieși din Expertul de instalare.
 
 # MSI Installer UI - Files In Use Dialog
@@ -215,13 +215,13 @@ msi-rm-files-in-use-use-rm = &Se închid automat aplicațiile și se încearcă 
 msi-rm-files-in-use-dont-use-rm = &Nu se închid aplicațiile. (Va fi necesară o repornire.)
 
 # MSI Installer UI - Resume Dialog
-msi-resume-title = Se reia Expertul de instalare { $app_title }
-msi-resume-description = Expertul de instalare va finaliza instalarea { $app_title } pe computer. Faceți clic pe Instalare pentru a continua sau pe Revocare pentru a ieși din Expertul de instalare.
+msi-resume-title = Se reia Expertul de instalare { $app_title } { $app_version }
+msi-resume-description = Expertul de instalare va finaliza instalarea { $app_title } { $app_version } pe computer. Faceți clic pe Instalare pentru a continua sau pe Revocare pentru a ieși din Expertul de instalare.
 msi-resume-btn-install = &Instalare
 
 # MSI Installer UI - Shortcut Descriptions
-msi-desktop-shortcut-description = Comandă rapidă pe desktop pentru { $app_title }
-msi-start-menu-shortcut-description = Comandă rapidă în meniul Start pentru { $app_title }
+msi-desktop-shortcut-description = Comandă rapidă pe desktop pentru { $app_title } { $app_version }
+msi-start-menu-shortcut-description = Comandă rapidă în meniul Start pentru { $app_title } { $app_version }
 # MSI Installer UI - Readme Dialog
 msi-readme-title = Informații importante
 msi-readme-description = Vă rugăm să citiți următoarele informații înainte de a continua.

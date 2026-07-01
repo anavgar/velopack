@@ -1,4 +1,4 @@
-# Shared titles
+﻿# Shared titles
 title-update = Ažuriranje { $app_title }
 title-setup = Instalacija { $app_title }
 title-uninstall = Deinstalacija { $app_title }
@@ -50,7 +50,7 @@ install-hook-body = Instalacija je dovršena, ali su neki koraci možda neuspeli
 
 # Splash fallback (splash.rs)
 splash-header = Instaliranje { $app_title }
-splash-body = Podešavanje { $app_title } { $app_version }, sačekajte...
+splash-body = Podešavanje { $app_title }, sačekajte...
 
 # Dependency download (prerequisite.rs)
 deps-download-header = Preuzimanje potrebne komponente
@@ -80,7 +80,7 @@ setup-update-exe-missing = Ovom instalateru nedostaje ključna binarna datoteka 
 setup-main-exe-missing = Glavna izvršna datoteka nije pronađena u paketu. Obratite se autoru aplikacije.
 
 # MSI Installer UI - Common
-msi-dlg-title = Instalacija programa { $app_title }
+msi-dlg-title = Instalacija programa { $app_title } { $app_version }
 msi-btn-back = &Nazad
 msi-btn-next = &Dalje
 msi-btn-cancel = Otkaži
@@ -92,17 +92,17 @@ msi-btn-retry = &Pokušaj opet
 msi-btn-ignore = Zanemar&i
 
 # MSI Installer UI - Welcome Dialog
-msi-welcome-title = Dobro došli u čarobnjak za instalaciju proizvoda { $app_title }
-msi-welcome-description = Čarobnjak za instalaciju će instalirati { $app_title } na računar. Kliknite na dugme „Dalje“ da biste nastavili ili na dugme „Otkaži“ da biste izašli iz čarobnjaka za instalaciju.
-msi-welcome-update-description = Čarobnjak za instalaciju će ažurirati { $app_title } na računaru. Kliknite na dugme „Dalje“ da biste nastavili ili na dugme „Otkaži“ da biste izašli iz čarobnjaka za instalaciju.
+msi-welcome-title = Dobro došli u čarobnjak za instalaciju proizvoda { $app_title } { $app_version }
+msi-welcome-description = Čarobnjak za instalaciju će instalirati { $app_title } { $app_version } na računar. Kliknite na dugme „Dalje“ da biste nastavili ili na dugme „Otkaži“ da biste izašli iz čarobnjaka za instalaciju.
+msi-welcome-update-description = Čarobnjak za instalaciju će ažurirati { $app_title } { $app_version } na računaru. Kliknite na dugme „Dalje“ da biste nastavili ili na dugme „Otkaži“ da biste izašli iz čarobnjaka za instalaciju.
 
 # MSI Installer UI - Exit Dialog
-msi-exit-title = Dovršen je čarobnjak za instalaciju proizvoda { $app_title }
+msi-exit-title = Dovršen je čarobnjak za instalaciju proizvoda { $app_title } { $app_version }
 msi-exit-description = Kliknite na dugme „Završi“ da biste izašli iz čarobnjaka za instalaciju.
-msi-exit-launch-checkbox = Pokreni { $app_title }
+msi-exit-launch-checkbox = Pokreni { $app_title } { $app_version }
 
 # MSI Installer UI - Prepare Dialog
-msi-prepare-title = Dobro došli u čarobnjak za instalaciju proizvoda { $app_title }
+msi-prepare-title = Dobro došli u čarobnjak za instalaciju proizvoda { $app_title } { $app_version }
 msi-prepare-description = Sačekajte dok se čarobnjak za instalaciju pripremi da vas vodi kroz instalaciju.
 
 # MSI Installer UI - License Agreement Dialog
@@ -120,15 +120,15 @@ msi-scope-no-per-user-description = Zahteva administratorske privilegije
 msi-scope-per-machine-description = Zahteva administratorske privilegije
 
 # MSI Installer UI - Verify Ready Dialog
-msi-ready-install-title = Spremno za instalaciju proizvoda { $app_title }
+msi-ready-install-title = Spremno za instalaciju proizvoda { $app_title } { $app_version }
 msi-ready-install-text = Kliknite na dugme „Instaliraj“ da biste započeli instalaciju. Kliknite na dugme „Nazad“ da biste pregledali ili promenili bilo koju postavku instalacije.
-msi-ready-change-title = Spremno za promenu proizvoda { $app_title }
+msi-ready-change-title = Spremno za promenu proizvoda { $app_title } { $app_version }
 msi-ready-change-text = Kliknite na dugme „Promeni“ da biste započeli promenu instalacije. Kliknite na dugme „Nazad“ da biste pregledali ili promenili bilo koju postavku instalacije.
-msi-ready-repair-title = Spremno za popravku proizvoda { $app_title }
+msi-ready-repair-title = Spremno za popravku proizvoda { $app_title } { $app_version }
 msi-ready-repair-text = Kliknite na dugme „Popravi“ da biste započeli popravku. Kliknite na dugme „Nazad“ da biste pregledali ili promenili bilo koju postavku instalacije.
-msi-ready-remove-title = Spremno za uklanjanje proizvoda { $app_title }
-msi-ready-remove-text = Kliknite na dugme „Ukloni“ da biste uklonili { $app_title } sa računara. Kliknite na dugme „Nazad“ da biste pregledali ili promenili bilo koju postavku instalacije.
-msi-ready-update-title = Spremno za ažuriranje proizvoda { $app_title }
+msi-ready-remove-title = Spremno za uklanjanje proizvoda { $app_title } { $app_version }
+msi-ready-remove-text = Kliknite na dugme „Ukloni“ da biste uklonili { $app_title } { $app_version } sa računara. Kliknite na dugme „Nazad“ da biste pregledali ili promenili bilo koju postavku instalacije.
+msi-ready-update-title = Spremno za ažuriranje proizvoda { $app_title } { $app_version }
 msi-ready-update-text = Kliknite na dugme „Ažuriraj“ da biste započeli ažuriranje. Kliknite na dugme „Nazad“ da biste pregledali ili promenili bilo koju postavku instalacije.
 msi-ready-btn-install = &Instaliraj
 msi-ready-btn-change = &Promeni
@@ -137,21 +137,21 @@ msi-ready-btn-remove = &Ukloni
 msi-ready-btn-update = Až&uriraj
 
 # MSI Installer UI - Progress Dialog
-msi-progress-installing-title = Instalacija proizvoda { $app_title }
-msi-progress-installing-text = Sačekajte dok čarobnjak za instalaciju instalira { $app_title }.
-msi-progress-changing-title = Promena proizvoda { $app_title }
-msi-progress-changing-text = Sačekajte dok čarobnjak za instalaciju promeni { $app_title }.
-msi-progress-repairing-title = Popravka proizvoda { $app_title }
-msi-progress-repairing-text = Sačekajte dok čarobnjak za instalaciju popravi { $app_title }.
-msi-progress-removing-title = Uklanjanje proizvoda { $app_title }
-msi-progress-removing-text = Sačekajte dok čarobnjak za instalaciju ukloni { $app_title }.
-msi-progress-updating-title = Ažuriranje proizvoda { $app_title }
-msi-progress-updating-text = Sačekajte dok čarobnjak za instalaciju ažurira { $app_title }.
+msi-progress-installing-title = Instalacija proizvoda { $app_title } { $app_version }
+msi-progress-installing-text = Sačekajte dok čarobnjak za instalaciju instalira { $app_title } { $app_version }.
+msi-progress-changing-title = Promena proizvoda { $app_title } { $app_version }
+msi-progress-changing-text = Sačekajte dok čarobnjak za instalaciju promeni { $app_title } { $app_version }.
+msi-progress-repairing-title = Popravka proizvoda { $app_title } { $app_version }
+msi-progress-repairing-text = Sačekajte dok čarobnjak za instalaciju popravi { $app_title } { $app_version }.
+msi-progress-removing-title = Uklanjanje proizvoda { $app_title } { $app_version }
+msi-progress-removing-text = Sačekajte dok čarobnjak za instalaciju ukloni { $app_title } { $app_version }.
+msi-progress-updating-title = Ažuriranje proizvoda { $app_title } { $app_version }
+msi-progress-updating-text = Sačekajte dok čarobnjak za instalaciju ažurira { $app_title } { $app_version }.
 msi-progress-status = Status:
 
 # MSI Installer UI - Maintenance Welcome Dialog
-msi-maint-welcome-title = Dobro došli u čarobnjak za instalaciju proizvoda { $app_title }
-msi-maint-welcome-description = Čarobnjak za instalaciju će vam omogućiti da popravite ili uklonite { $app_title }. Kliknite na dugme „Dalje“ da biste nastavili ili na dugme „Otkaži“ da biste izašli iz čarobnjaka za instalaciju.
+msi-maint-welcome-title = Dobro došli u čarobnjak za instalaciju proizvoda { $app_title } { $app_version }
+msi-maint-welcome-description = Čarobnjak za instalaciju će vam omogućiti da popravite ili uklonite { $app_title } { $app_version }. Kliknite na dugme „Dalje“ da biste nastavili ili na dugme „Otkaži“ da biste izašli iz čarobnjaka za instalaciju.
 
 # MSI Installer UI - Maintenance Type Dialog
 msi-maint-type-title = Promena, popravka ili uklanjanje instalacije
@@ -166,11 +166,11 @@ msi-maint-repair-text = Popravlja greške u najnovijoj instalaciji - popravlja d
 msi-maint-repair-disabled = Popravka je trenutno onemogućena.
 msi-maint-remove-button = &Ukloni
 msi-maint-remove-tooltip = Ukloni
-msi-maint-remove-text = Uklanja { $app_title } sa vašeg računara.
+msi-maint-remove-text = Uklanja { $app_title } { $app_version } sa vašeg računara.
 msi-maint-remove-disabled = Uklanjanje je trenutno onemogućeno.
 
 # MSI Installer UI - Cancel Dialog
-msi-cancel-text = Želite li zaista da otkažete instalaciju proizvoda { $app_title }?
+msi-cancel-text = Želite li zaista da otkažete instalaciju proizvoda { $app_title } { $app_version }?
 
 # MSI Installer UI - Browse Dialog
 msi-browse-title = Promena trenutne odredišne fascikle
@@ -189,16 +189,16 @@ msi-disk-cost-description = Prostor na disku koji je potreban za instalaciju iza
 msi-disk-cost-text = Na markiranim volumenima nema dovoljno dostupnog prostora za trenutno izabrane funkcije. Možete ukloniti neke datoteke iz markiranih volumena, instalirati manje funkcija na lokalne disk jedinice ili izabrati druge odredišne disk jedinice.
 
 # MSI Installer UI - Error Dialog
-msi-error-dlg-title = Informacije instalatera za { $app_title }
+msi-error-dlg-title = Informacije instalatera za { $app_title } { $app_version }
 
 # MSI Installer UI - Fatal Error Dialog
-msi-fatal-title = Čarobnjak za instalaciju proizvoda { $app_title } je pre vremena završio sa radom
-msi-fatal-description1 = Instalacija proizvoda { $app_title } je prekinuta. Sistem nije izmenjen. Da biste kasnije instalirali ovaj program, ponovo pokrenite instalaciju.
+msi-fatal-title = Čarobnjak za instalaciju proizvoda { $app_title } { $app_version } je pre vremena završio sa radom
+msi-fatal-description1 = Instalacija proizvoda { $app_title } { $app_version } je prekinuta. Sistem nije izmenjen. Da biste kasnije instalirali ovaj program, ponovo pokrenite instalaciju.
 msi-fatal-description2 = Kliknite na dugme „Završi“ da biste izašli iz čarobnjaka za instalaciju.
 
 # MSI Installer UI - User Exit Dialog
-msi-user-exit-title = Čarobnjak za instalaciju proizvoda { $app_title } je prekinut
-msi-user-exit-description1 = Instalacija proizvoda { $app_title } je prekinuta. Sistem nije izmenjen. Da biste ovaj program instalirali kasnije, ponovo pokrenite instalaciju.
+msi-user-exit-title = Čarobnjak za instalaciju proizvoda { $app_title } { $app_version } je prekinut
+msi-user-exit-description1 = Instalacija proizvoda { $app_title } { $app_version } je prekinuta. Sistem nije izmenjen. Da biste ovaj program instalirali kasnije, ponovo pokrenite instalaciju.
 msi-user-exit-description2 = Kliknite na dugme „Završi“ da biste izašli iz čarobnjaka za instalaciju.
 
 # MSI Installer UI - Files In Use Dialog
@@ -215,13 +215,13 @@ msi-rm-files-in-use-use-rm = Automatski &zatvori aplikacije i pokušaj ponovo da
 msi-rm-files-in-use-dont-use-rm = &Ne zatvaraj aplikacije. (Biće potrebno ponovno pokretanje sistema.)
 
 # MSI Installer UI - Resume Dialog
-msi-resume-title = Nastavak rada čarobnjaka za instalaciju proizvoda { $app_title }
-msi-resume-description = Čarobnjak za instalaciju će dovršiti instalaciju proizvoda { $app_title } na računaru. Kliknite na dugme „Instaliraj“ da biste nastavili ili na dugme „Otkaži“ da biste izašli iz čarobnjaka za instalaciju.
+msi-resume-title = Nastavak rada čarobnjaka za instalaciju proizvoda { $app_title } { $app_version }
+msi-resume-description = Čarobnjak za instalaciju će dovršiti instalaciju proizvoda { $app_title } { $app_version } na računaru. Kliknite na dugme „Instaliraj“ da biste nastavili ili na dugme „Otkaži“ da biste izašli iz čarobnjaka za instalaciju.
 msi-resume-btn-install = &Instaliraj
 
 # MSI Installer UI - Shortcut Descriptions
-msi-desktop-shortcut-description = Prečica za { $app_title } na radnoj površini
-msi-start-menu-shortcut-description = Prečica za { $app_title } u Start meniju
+msi-desktop-shortcut-description = Prečica za { $app_title } { $app_version } na radnoj površini
+msi-start-menu-shortcut-description = Prečica za { $app_title } { $app_version } u Start meniju
 # MSI Installer UI - Readme Dialog
 msi-readme-title = Važne informacije
 msi-readme-description = Molimo pročitajte sledeće informacije pre nego što nastavite.

@@ -1,4 +1,4 @@
-# Shared titles
+﻿# Shared titles
 title-update = Përditësim i { $app_title }
 title-setup = Rregullim i { $app_title }
 title-uninstall = Çinstalim i { $app_title }
@@ -50,7 +50,7 @@ install-hook-body = Instalimi u plotësua, por disa hapa mund të kenë dështua
 
 # Splash fallback (splash.rs)
 splash-header = Po instalohet { $app_title }
-splash-body = Po rregullohet { $app_title } { $app_version }, ju lutemi, pritni…
+splash-body = Po rregullohet { $app_title }, ju lutemi, pritni…
 
 # Dependency download (prerequisite.rs)
 deps-download-header = Po shkarkohet përbërësi i domosdoshëm
@@ -80,7 +80,7 @@ setup-update-exe-missing = Këtij instaluesi i mungon një skedar dyor kritik (U
 setup-main-exe-missing = I ekzekutueshmi kryesor s’u gjet dot te paketa. Ju lutemi, lidhuni me autorin e aplikacionit.
 
 # MSI Installer UI - Common
-msi-dlg-title = Rregullim i { $app_title }
+msi-dlg-title = Rregullim i { $app_title } { $app_version }
 msi-btn-back = &Mbrapsht
 msi-btn-next = P&asuesi
 msi-btn-cancel = Anuloje
@@ -92,17 +92,17 @@ msi-btn-retry = &Riprovoni
 msi-btn-ignore = &Shpërfille
 
 # MSI Installer UI - Welcome Dialog
-msi-welcome-title = Mirë se vini te Ndihmësi i Rregullimit të { $app_title }
-msi-welcome-description = Ndihmësi i Rregullimit do të instalojë { $app_title } në kompjuterin tuaj. Klikoni mbi Pasuesi që të vazhdohet, ose mbi Anuloje që të dilet nga Ndihmësi i Rregullimit.
-msi-welcome-update-description = Ndihmësi i Rregullimit do të përditësojë { $app_title } në kompjuterin tuaj. Klikoni mbi Pasuesi që të vazhdohet, ose mbi Anuloje që të dilet nga Ndihmësi i Rregullimit.
+msi-welcome-title = Mirë se vini te Ndihmësi i Rregullimit të { $app_title } { $app_version }
+msi-welcome-description = Ndihmësi i Rregullimit do të instalojë { $app_title } { $app_version } në kompjuterin tuaj. Klikoni mbi Pasuesi që të vazhdohet, ose mbi Anuloje që të dilet nga Ndihmësi i Rregullimit.
+msi-welcome-update-description = Ndihmësi i Rregullimit do të përditësojë { $app_title } { $app_version } në kompjuterin tuaj. Klikoni mbi Pasuesi që të vazhdohet, ose mbi Anuloje që të dilet nga Ndihmësi i Rregullimit.
 
 # MSI Installer UI - Exit Dialog
-msi-exit-title = U plotësua Ndihmësi i Rregullimit të { $app_title }
+msi-exit-title = U plotësua Ndihmësi i Rregullimit të { $app_title } { $app_version }
 msi-exit-description = Klikoni mbi butonin Përfundoje që të dilet nga Ndihmësi i Rregullimit.
-msi-exit-launch-checkbox = Nise { $app_title }
+msi-exit-launch-checkbox = Nise { $app_title } { $app_version }
 
 # MSI Installer UI - Prepare Dialog
-msi-prepare-title = Mirë se vini te Ndihmësi i Rregullimit të { $app_title }
+msi-prepare-title = Mirë se vini te Ndihmësi i Rregullimit të { $app_title } { $app_version }
 msi-prepare-description = Ju lutemi, pritni teksa Ndihmësi i Rregullimit përgatitet t’ju udhëheqë përmes instalimit.
 
 # MSI Installer UI - License Agreement Dialog
@@ -120,15 +120,15 @@ msi-scope-no-per-user-description = Lypsen privilegje administratori
 msi-scope-per-machine-description = Lypsen privilegje administratori
 
 # MSI Installer UI - Verify Ready Dialog
-msi-ready-install-title = Gati për të instaluar { $app_title }
+msi-ready-install-title = Gati për të instaluar { $app_title } { $app_version }
 msi-ready-install-text = Klikoni mbi Instaloje që të fillojë instalimi. Klikoni mbi Mbrapsht që të rishihni ose ndryshoni çfarëdo rregullimi tuajin për instalimin.
-msi-ready-change-title = Gati për të ndryshuar { $app_title }
+msi-ready-change-title = Gati për të ndryshuar { $app_title } { $app_version }
 msi-ready-change-text = Klikoni mbi Ndryshoje që të fillojë ndryshimi i instalimit. Klikoni mbi Mbrapsht që të rishihni ose ndryshoni çfarëdo rregullimi tuajin për instalimin.
-msi-ready-repair-title = Gati për të riparuar { $app_title }
+msi-ready-repair-title = Gati për të riparuar { $app_title } { $app_version }
 msi-ready-repair-text = Klikoni mbi Riparoje që të fillojë riparimi. Klikoni mbi Mbrapsht që të rishihni ose ndryshoni çfarëdo rregullimi tuajin për instalimin.
-msi-ready-remove-title = Gati për të hequr { $app_title }
-msi-ready-remove-text = Klikoni mbi Hiqe që të hiqet { $app_title } prej kompjuterit tuaj. Klikoni mbi Mbrapsht që të rishihni ose ndryshoni çfarëdo rregullimi tuajin për instalimin.
-msi-ready-update-title = Gati për të përditësuar { $app_title }
+msi-ready-remove-title = Gati për të hequr { $app_title } { $app_version }
+msi-ready-remove-text = Klikoni mbi Hiqe që të hiqet { $app_title } { $app_version } prej kompjuterit tuaj. Klikoni mbi Mbrapsht që të rishihni ose ndryshoni çfarëdo rregullimi tuajin për instalimin.
+msi-ready-update-title = Gati për të përditësuar { $app_title } { $app_version }
 msi-ready-update-text = Klikoni mbi Përditësoje që të fillojë përditësimi. Klikoni mbi Mbrapsht që të rishihni ose ndryshoni çfarëdo rregullimi tuajin për instalimin.
 msi-ready-btn-install = &Instaloje
 msi-ready-btn-change = &Ndryshoje
@@ -137,21 +137,21 @@ msi-ready-btn-remove = &Hiqe
 msi-ready-btn-update = &Përditësoje
 
 # MSI Installer UI - Progress Dialog
-msi-progress-installing-title = Po instalohet { $app_title }
-msi-progress-installing-text = Ju lutemi, pritni teksa Ndihmësi i Rregullimit instalon { $app_title }.
-msi-progress-changing-title = Po ndryshohet { $app_title }
-msi-progress-changing-text = Ju lutemi, pritni teksa Ndihmësi i Rregullimit ndryshon { $app_title }.
-msi-progress-repairing-title = Po riparohet { $app_title }
-msi-progress-repairing-text = Ju lutemi, pritni teksa Ndihmësi i Rregullimit riparon { $app_title }.
-msi-progress-removing-title = Po hiqet { $app_title }
-msi-progress-removing-text = Ju lutemi, pritni teksa Ndihmësi i Rregullimit heq { $app_title }.
-msi-progress-updating-title = Po përditësohet { $app_title }
-msi-progress-updating-text = Ju lutemi, pritni teksa Ndihmësi i Rregullimit përditëson { $app_title }.
+msi-progress-installing-title = Po instalohet { $app_title } { $app_version }
+msi-progress-installing-text = Ju lutemi, pritni teksa Ndihmësi i Rregullimit instalon { $app_title } { $app_version }.
+msi-progress-changing-title = Po ndryshohet { $app_title } { $app_version }
+msi-progress-changing-text = Ju lutemi, pritni teksa Ndihmësi i Rregullimit ndryshon { $app_title } { $app_version }.
+msi-progress-repairing-title = Po riparohet { $app_title } { $app_version }
+msi-progress-repairing-text = Ju lutemi, pritni teksa Ndihmësi i Rregullimit riparon { $app_title } { $app_version }.
+msi-progress-removing-title = Po hiqet { $app_title } { $app_version }
+msi-progress-removing-text = Ju lutemi, pritni teksa Ndihmësi i Rregullimit heq { $app_title } { $app_version }.
+msi-progress-updating-title = Po përditësohet { $app_title } { $app_version }
+msi-progress-updating-text = Ju lutemi, pritni teksa Ndihmësi i Rregullimit përditëson { $app_title } { $app_version }.
 msi-progress-status = Gjendje:
 
 # MSI Installer UI - Maintenance Welcome Dialog
-msi-maint-welcome-title = Mirë se vini te Ndihmësi i Rregullimit të { $app_title }
-msi-maint-welcome-description = Ndihmësi i Rregullimit do t’ju lejojë të riparoni ose hiqni { $app_title }. Klikoni mbi Pasuesi që të vazhdohet, ose mbi Anuloje që të dilet nga Ndihmësi i Rregullimit.
+msi-maint-welcome-title = Mirë se vini te Ndihmësi i Rregullimit të { $app_title } { $app_version }
+msi-maint-welcome-description = Ndihmësi i Rregullimit do t’ju lejojë të riparoni ose hiqni { $app_title } { $app_version }. Klikoni mbi Pasuesi që të vazhdohet, ose mbi Anuloje që të dilet nga Ndihmësi i Rregullimit.
 
 # MSI Installer UI - Maintenance Type Dialog
 msi-maint-type-title = Ndryshoni, riparoni, ose hiqni një instalim
@@ -166,11 +166,11 @@ msi-maint-repair-text = Ndreq gabimet në instalimin më të freskët - rregullo
 msi-maint-repair-disabled = Riparimi është aktualisht i çaktivizuar.
 msi-maint-remove-button = &Hiqe
 msi-maint-remove-tooltip = Hiqe
-msi-maint-remove-text = E heq { $app_title } nga kompjuteri juaj.
+msi-maint-remove-text = E heq { $app_title } { $app_version } nga kompjuteri juaj.
 msi-maint-remove-disabled = Heqja është aktualisht e çaktivizuar.
 
 # MSI Installer UI - Cancel Dialog
-msi-cancel-text = Jeni i sigurt se doni të anulohet instalimi i { $app_title }?
+msi-cancel-text = Jeni i sigurt se doni të anulohet instalimi i { $app_title } { $app_version }?
 
 # MSI Installer UI - Browse Dialog
 msi-browse-title = Ndryshoni dosjen e tanishme destinacion
@@ -189,16 +189,16 @@ msi-disk-cost-description = Hapësira e domosdoshme në disk për instalimin e v
 msi-disk-cost-text = Vëllimet e theksuar nuk kanë në disk hapësirë të mjaftueshme për veçoritë e përzgjedhura në këtë çast. Ose mund të hiqni skedarë prej vëllimeve të theksuar, ose të zgjidhni të instaloni më pak veçori në disqe lokalë, ose të përzgjidhni disqe të tjerë destinacion.
 
 # MSI Installer UI - Error Dialog
-msi-error-dlg-title = Të dhëna instaluesi për { $app_title }
+msi-error-dlg-title = Të dhëna instaluesi për { $app_title } { $app_version }
 
 # MSI Installer UI - Fatal Error Dialog
-msi-fatal-title = Ndihmësi i Rregullimit të { $app_title } përfundoi para kohe
-msi-fatal-description1 = Rregullimi i { $app_title } u ndërpre. Sistemi juaj nuk u modifikua. Që të instaloni këtë program në një kohë tjetër, ju lutemi, xhironi sërish rregullimin.
+msi-fatal-title = Ndihmësi i Rregullimit të { $app_title } { $app_version } përfundoi para kohe
+msi-fatal-description1 = Rregullimi i { $app_title } { $app_version } u ndërpre. Sistemi juaj nuk u modifikua. Që të instaloni këtë program në një kohë tjetër, ju lutemi, xhironi sërish rregullimin.
 msi-fatal-description2 = Klikoni butonin Përfundoje që të dilni nga Ndihmësi i Rregullimit.
 
 # MSI Installer UI - User Exit Dialog
-msi-user-exit-title = Puna e Ndihmësit të Rregullimit të { $app_title } u ndërpre
-msi-user-exit-description1 = Rregullimi i { $app_title } u ndërpre. Sistemi juaj nuk u modifikua. Që të instaloni këtë program në një kohë tjetër, ju lutemi, xhironi sërish rregullimin.
+msi-user-exit-title = Puna e Ndihmësit të Rregullimit të { $app_title } { $app_version } u ndërpre
+msi-user-exit-description1 = Rregullimi i { $app_title } { $app_version } u ndërpre. Sistemi juaj nuk u modifikua. Që të instaloni këtë program në një kohë tjetër, ju lutemi, xhironi sërish rregullimin.
 msi-user-exit-description2 = Klikoni mbi butonin Përfundoje që të dilet nga Ndihmësi i Rregullimit.
 
 # MSI Installer UI - Files In Use Dialog
@@ -215,13 +215,13 @@ msi-rm-files-in-use-use-rm = Mbylli automatikisht aplikacionet dhe &provo t’i 
 msi-rm-files-in-use-dont-use-rm = M&os i mbyll aplikacionet. (Do të kërkohet një rinisje.)
 
 # MSI Installer UI - Resume Dialog
-msi-resume-title = Po rimerret Ndihmësi i Rregullimit të { $app_title }
-msi-resume-description = Ndihmësi i Rregullimit do të plotësojë instalimin e { $app_title } në kompjuterin tuaj. Klikoni mbi Instaloje që të vazhdohet ose mbi Anuloje që të dilet nga Ndihmësi i Rregullimit.
+msi-resume-title = Po rimerret Ndihmësi i Rregullimit të { $app_title } { $app_version }
+msi-resume-description = Ndihmësi i Rregullimit do të plotësojë instalimin e { $app_title } { $app_version } në kompjuterin tuaj. Klikoni mbi Instaloje që të vazhdohet ose mbi Anuloje që të dilet nga Ndihmësi i Rregullimit.
 msi-resume-btn-install = &Instaloje
 
 # MSI Installer UI - Shortcut Descriptions
-msi-desktop-shortcut-description = Shkurtore për { $app_title } në desktop
-msi-start-menu-shortcut-description = Shkurtore për { $app_title } në menynë Fillim
+msi-desktop-shortcut-description = Shkurtore për { $app_title } { $app_version } në desktop
+msi-start-menu-shortcut-description = Shkurtore për { $app_title } { $app_version } në menynë Fillim
 # MSI Installer UI - Readme Dialog
 msi-readme-title = Informacion i rëndësishëm
 msi-readme-description = Ju lutemi lexoni informacionin e mëposhtëm përpara se të vazhdoni.

@@ -1,4 +1,4 @@
-# Shared titles
+﻿# Shared titles
 title-update = Оновлення { $app_title }
 title-setup = Інсталяція { $app_title }
 title-uninstall = Видалення { $app_title }
@@ -50,7 +50,7 @@ install-hook-body = Інсталяцію завершено, але деякі �
 
 # Splash fallback (splash.rs)
 splash-header = Інсталяція { $app_title }
-splash-body = Налаштування { $app_title } { $app_version }, зачекайте…
+splash-body = Налаштування { $app_title }, зачекайте…
 
 # Dependency download (prerequisite.rs)
 deps-download-header = Завантаження необхідного компонента
@@ -80,7 +80,7 @@ setup-update-exe-missing = У цьому інсталяторі відсутні
 setup-main-exe-missing = Не вдалося знайти основний виконуваний файл у пакеті. Зверніться до автора застосунку.
 
 # MSI Installer UI - Common
-msi-dlg-title = Інсталяція { $app_title }
+msi-dlg-title = Інсталяція { $app_title } { $app_version }
 msi-btn-back = &Назад
 msi-btn-next = &Далі
 msi-btn-cancel = Скасувати
@@ -92,17 +92,17 @@ msi-btn-retry = &Повторити
 msi-btn-ignore = &Пропустити
 
 # MSI Installer UI - Welcome Dialog
-msi-welcome-title = Вас вітає майстер інсталяції { $app_title }
-msi-welcome-description = Майстер інсталяції інсталює { $app_title } на ваш комп’ютер. Натисніть «Далі», щоб продовжити, або «Скасувати», щоб закрити майстер інсталяції.
-msi-welcome-update-description = Майстер інсталяції оновить { $app_title } на вашому комп’ютері. Натисніть «Далі», щоб продовжити, або «Скасувати», щоб закрити майстер інсталяції.
+msi-welcome-title = Вас вітає майстер інсталяції { $app_title } { $app_version }
+msi-welcome-description = Майстер інсталяції інсталює { $app_title } { $app_version } на ваш комп’ютер. Натисніть «Далі», щоб продовжити, або «Скасувати», щоб закрити майстер інсталяції.
+msi-welcome-update-description = Майстер інсталяції оновить { $app_title } { $app_version } на вашому комп’ютері. Натисніть «Далі», щоб продовжити, або «Скасувати», щоб закрити майстер інсталяції.
 
 # MSI Installer UI - Exit Dialog
-msi-exit-title = Роботу майстра інсталяції { $app_title } завершено
+msi-exit-title = Роботу майстра інсталяції { $app_title } { $app_version } завершено
 msi-exit-description = Натисніть кнопку «Готово», щоб закрити майстер інсталяції.
-msi-exit-launch-checkbox = Запустити { $app_title }
+msi-exit-launch-checkbox = Запустити { $app_title } { $app_version }
 
 # MSI Installer UI - Prepare Dialog
-msi-prepare-title = Вас вітає майстер інсталяції { $app_title }
+msi-prepare-title = Вас вітає майстер інсталяції { $app_title } { $app_version }
 msi-prepare-description = Зачекайте: майстер готується до інсталяції.
 
 # MSI Installer UI - License Agreement Dialog
@@ -120,15 +120,15 @@ msi-scope-no-per-user-description = Потрібні права адмініст
 msi-scope-per-machine-description = Потрібні права адміністратора
 
 # MSI Installer UI - Verify Ready Dialog
-msi-ready-install-title = Усе готово до інсталяції { $app_title }
+msi-ready-install-title = Усе готово до інсталяції { $app_title } { $app_version }
 msi-ready-install-text = Натисніть «Інсталювати», щоб розпочати інсталяцію. Натисніть «Назад», щоб переглянути або змінити параметри інсталяції.
-msi-ready-change-title = Усе готово до змінення { $app_title }
+msi-ready-change-title = Усе готово до змінення { $app_title } { $app_version }
 msi-ready-change-text = Натисніть «Змінити», щоб розпочати змінення інсталяції. Натисніть «Назад», щоб переглянути або змінити параметри інсталяції.
-msi-ready-repair-title = Усе готово до відновлення { $app_title }
+msi-ready-repair-title = Усе готово до відновлення { $app_title } { $app_version }
 msi-ready-repair-text = Натисніть «Відновити», щоб розпочати відновлення. Натисніть «Назад», щоб переглянути або змінити параметри інсталяції.
-msi-ready-remove-title = Усе готово до видалення { $app_title }
-msi-ready-remove-text = Натисніть «Видалити», щоб видалити { $app_title } з комп’ютера. Натисніть «Назад», щоб переглянути або змінити параметри інсталяції.
-msi-ready-update-title = Усе готово до оновлення { $app_title }
+msi-ready-remove-title = Усе готово до видалення { $app_title } { $app_version }
+msi-ready-remove-text = Натисніть «Видалити», щоб видалити { $app_title } { $app_version } з комп’ютера. Натисніть «Назад», щоб переглянути або змінити параметри інсталяції.
+msi-ready-update-title = Усе готово до оновлення { $app_title } { $app_version }
 msi-ready-update-text = Натисніть «Оновити», щоб розпочати оновлення. Натисніть «Назад», щоб переглянути або змінити параметри інсталяції.
 msi-ready-btn-install = &Інсталювати
 msi-ready-btn-change = &Змінити
@@ -137,21 +137,21 @@ msi-ready-btn-remove = &Видалити
 msi-ready-btn-update = &Оновити
 
 # MSI Installer UI - Progress Dialog
-msi-progress-installing-title = Триває інсталяція { $app_title }
-msi-progress-installing-text = Зачекайте: майстер виконує інсталяцію { $app_title }.
-msi-progress-changing-title = Змінення { $app_title }
-msi-progress-changing-text = Зачекайте: майстер інсталяції змінює { $app_title }.
-msi-progress-repairing-title = Відновлення { $app_title }
-msi-progress-repairing-text = Зачекайте: майстер інсталяції відновлює { $app_title }.
-msi-progress-removing-title = Видалення { $app_title }
-msi-progress-removing-text = Зачекайте: майстер інсталяції видаляє { $app_title }.
-msi-progress-updating-title = Оновлення { $app_title }
-msi-progress-updating-text = Зачекайте: майстер інсталяції оновлює { $app_title }.
+msi-progress-installing-title = Триває інсталяція { $app_title } { $app_version }
+msi-progress-installing-text = Зачекайте: майстер виконує інсталяцію { $app_title } { $app_version }.
+msi-progress-changing-title = Змінення { $app_title } { $app_version }
+msi-progress-changing-text = Зачекайте: майстер інсталяції змінює { $app_title } { $app_version }.
+msi-progress-repairing-title = Відновлення { $app_title } { $app_version }
+msi-progress-repairing-text = Зачекайте: майстер інсталяції відновлює { $app_title } { $app_version }.
+msi-progress-removing-title = Видалення { $app_title } { $app_version }
+msi-progress-removing-text = Зачекайте: майстер інсталяції видаляє { $app_title } { $app_version }.
+msi-progress-updating-title = Оновлення { $app_title } { $app_version }
+msi-progress-updating-text = Зачекайте: майстер інсталяції оновлює { $app_title } { $app_version }.
 msi-progress-status = Стан:
 
 # MSI Installer UI - Maintenance Welcome Dialog
-msi-maint-welcome-title = Вас вітає майстер інсталяції { $app_title }
-msi-maint-welcome-description = Майстер інсталяції дає змогу відновити або видалити { $app_title }. Натисніть «Далі», щоб продовжити, або «Скасувати», щоб закрити майстер інсталяції.
+msi-maint-welcome-title = Вас вітає майстер інсталяції { $app_title } { $app_version }
+msi-maint-welcome-description = Майстер інсталяції дає змогу відновити або видалити { $app_title } { $app_version }. Натисніть «Далі», щоб продовжити, або «Скасувати», щоб закрити майстер інсталяції.
 
 # MSI Installer UI - Maintenance Type Dialog
 msi-maint-type-title = Змінити, відновити або видалити інсталяцію
@@ -166,11 +166,11 @@ msi-maint-repair-text = Виправляє помилки останньої і�
 msi-maint-repair-disabled = Відновлення наразі вимкнено.
 msi-maint-remove-button = &Видалити
 msi-maint-remove-tooltip = Видалити
-msi-maint-remove-text = Видаляє { $app_title } з вашого комп’ютера.
+msi-maint-remove-text = Видаляє { $app_title } { $app_version } з вашого комп’ютера.
 msi-maint-remove-disabled = Видалення наразі вимкнено.
 
 # MSI Installer UI - Cancel Dialog
-msi-cancel-text = Справді скасувати інсталяцію { $app_title }?
+msi-cancel-text = Справді скасувати інсталяцію { $app_title } { $app_version }?
 
 # MSI Installer UI - Browse Dialog
 msi-browse-title = Змінення поточної папки призначення
@@ -189,16 +189,16 @@ msi-disk-cost-description = Дисковий простір, необхідни�
 msi-disk-cost-text = У виділених томах бракує дискового простору для поточних вибраних компонентів. Можна видалити з виділених томів кілька файлів, інсталювати менше компонентів на локальні диски або вибрати інші диски призначення.
 
 # MSI Installer UI - Error Dialog
-msi-error-dlg-title = Інформація інсталятора { $app_title }
+msi-error-dlg-title = Інформація інсталятора { $app_title } { $app_version }
 
 # MSI Installer UI - Fatal Error Dialog
-msi-fatal-title = Роботу майстра інсталяції { $app_title } завершено передчасно
-msi-fatal-description1 = Інсталяцію { $app_title } було перервано. Систему не змінено. Щоб інсталювати цю програму пізніше, знову запустіть інсталятор.
+msi-fatal-title = Роботу майстра інсталяції { $app_title } { $app_version } завершено передчасно
+msi-fatal-description1 = Інсталяцію { $app_title } { $app_version } було перервано. Систему не змінено. Щоб інсталювати цю програму пізніше, знову запустіть інсталятор.
 msi-fatal-description2 = Натисніть кнопку «Готово», щоб закрити майстер інсталяції.
 
 # MSI Installer UI - User Exit Dialog
-msi-user-exit-title = Роботу майстра інсталяції { $app_title } було перервано
-msi-user-exit-description1 = Інсталяцію { $app_title } було перервано. Систему не змінено. Щоб інсталювати цю програму пізніше, знову запустіть інсталятор.
+msi-user-exit-title = Роботу майстра інсталяції { $app_title } { $app_version } було перервано
+msi-user-exit-description1 = Інсталяцію { $app_title } { $app_version } було перервано. Систему не змінено. Щоб інсталювати цю програму пізніше, знову запустіть інсталятор.
 msi-user-exit-description2 = Натисніть кнопку «Готово», щоб закрити майстер інсталяції.
 
 # MSI Installer UI - Files In Use Dialog
@@ -215,13 +215,13 @@ msi-rm-files-in-use-use-rm = Автоматично &закрити застос
 msi-rm-files-in-use-dont-use-rm = &Не закривати застосунки. (Потрібно буде перезавантажити комп’ютер.)
 
 # MSI Installer UI - Resume Dialog
-msi-resume-title = Відновлення роботи майстра інсталяції { $app_title }
-msi-resume-description = Майстер інсталяції завершить інсталяцію { $app_title } на вашому комп’ютері. Натисніть «Інсталювати», щоб продовжити, або «Скасувати», щоб закрити майстер інсталяції.
+msi-resume-title = Відновлення роботи майстра інсталяції { $app_title } { $app_version }
+msi-resume-description = Майстер інсталяції завершить інсталяцію { $app_title } { $app_version } на вашому комп’ютері. Натисніть «Інсталювати», щоб продовжити, або «Скасувати», щоб закрити майстер інсталяції.
 msi-resume-btn-install = &Інсталювати
 
 # MSI Installer UI - Shortcut Descriptions
-msi-desktop-shortcut-description = Ярлик { $app_title } на робочому столі
-msi-start-menu-shortcut-description = Ярлик { $app_title } у меню «Пуск»
+msi-desktop-shortcut-description = Ярлик { $app_title } { $app_version } на робочому столі
+msi-start-menu-shortcut-description = Ярлик { $app_title } { $app_version } у меню «Пуск»
 # MSI Installer UI - Readme Dialog
 msi-readme-title = Важлива інформація
 msi-readme-description = Будь ласка, прочитайте наступну інформацію перед продовженням.

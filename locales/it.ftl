@@ -1,4 +1,4 @@
-# Shared titles
+﻿# Shared titles
 title-update = Aggiornamento di { $app_title }
 title-setup = Installazione di { $app_title }
 title-uninstall = Disinstallazione di { $app_title }
@@ -50,7 +50,7 @@ install-hook-body = L'installazione è stata completata, ma alcuni passaggi potr
 
 # Splash fallback (splash.rs)
 splash-header = Installazione di { $app_title } in corso
-splash-body = Configurazione di { $app_title } { $app_version } in corso, attendere...
+splash-body = Configurazione di { $app_title } in corso, attendere...
 
 # Dependency download (prerequisite.rs)
 deps-download-header = Download del componente richiesto in corso
@@ -80,7 +80,7 @@ setup-update-exe-missing = In questo programma di installazione manca un file bi
 setup-main-exe-missing = Impossibile trovare l'eseguibile principale nel pacchetto. Contattare l'autore dell'applicazione.
 
 # MSI Installer UI - Common
-msi-dlg-title = Installazione di { $app_title }
+msi-dlg-title = Installazione di { $app_title } { $app_version }
 msi-btn-back = In&dietro
 msi-btn-next = &Avanti
 msi-btn-cancel = Annulla
@@ -92,17 +92,17 @@ msi-btn-retry = &Riprova
 msi-btn-ignore = &Ignora
 
 # MSI Installer UI - Welcome Dialog
-msi-welcome-title = Installazione guidata di { $app_title }
-msi-welcome-description = L'Installazione guidata installerà { $app_title } nel computer. Fare clic su Avanti per continuare oppure su Annulla per uscire dall'Installazione guidata.
-msi-welcome-update-description = L'Installazione guidata aggiornerà { $app_title } nel computer. Fare clic su Avanti per continuare oppure su Annulla per uscire dall'Installazione guidata.
+msi-welcome-title = Installazione guidata di { $app_title } { $app_version }
+msi-welcome-description = L'Installazione guidata installerà { $app_title } { $app_version } nel computer. Fare clic su Avanti per continuare oppure su Annulla per uscire dall'Installazione guidata.
+msi-welcome-update-description = L'Installazione guidata aggiornerà { $app_title } { $app_version } nel computer. Fare clic su Avanti per continuare oppure su Annulla per uscire dall'Installazione guidata.
 
 # MSI Installer UI - Exit Dialog
-msi-exit-title = Installazione guidata di { $app_title } completata
+msi-exit-title = Installazione guidata di { $app_title } { $app_version } completata
 msi-exit-description = Fare clic sul pulsante Fine per uscire dall'Installazione guidata.
-msi-exit-launch-checkbox = Avvia { $app_title }
+msi-exit-launch-checkbox = Avvia { $app_title } { $app_version }
 
 # MSI Installer UI - Prepare Dialog
-msi-prepare-title = Installazione guidata di { $app_title }
+msi-prepare-title = Installazione guidata di { $app_title } { $app_version }
 msi-prepare-description = Attendere. È in corso la preparazione dell'Installazione guidata.
 
 # MSI Installer UI - License Agreement Dialog
@@ -120,15 +120,15 @@ msi-scope-no-per-user-description = Richiede privilegi di amministratore
 msi-scope-per-machine-description = Richiede privilegi di amministratore
 
 # MSI Installer UI - Verify Ready Dialog
-msi-ready-install-title = Pronto a installare { $app_title }
+msi-ready-install-title = Pronto a installare { $app_title } { $app_version }
 msi-ready-install-text = Fare clic su Installa per avviare l'installazione. Fare clic su Indietro per rivedere o modificare le impostazioni di installazione.
-msi-ready-change-title = Pronto a modificare { $app_title }
+msi-ready-change-title = Pronto a modificare { $app_title } { $app_version }
 msi-ready-change-text = Fare clic su Cambia per avviare la modifica dell'installazione. Fare clic su Indietro per rivedere o modificare le impostazioni di installazione.
-msi-ready-repair-title = Pronto a riparare { $app_title }
+msi-ready-repair-title = Pronto a riparare { $app_title } { $app_version }
 msi-ready-repair-text = Fare clic su Ripara per avviare la riparazione. Fare clic su Indietro per rivedere o modificare le impostazioni di installazione.
-msi-ready-remove-title = Pronto a rimuovere { $app_title }
-msi-ready-remove-text = Fare clic su Rimuovi per rimuovere { $app_title } dal computer. Fare clic su Indietro per rivedere o modificare le impostazioni di installazione.
-msi-ready-update-title = Pronto ad aggiornare { $app_title }
+msi-ready-remove-title = Pronto a rimuovere { $app_title } { $app_version }
+msi-ready-remove-text = Fare clic su Rimuovi per rimuovere { $app_title } { $app_version } dal computer. Fare clic su Indietro per rivedere o modificare le impostazioni di installazione.
+msi-ready-update-title = Pronto ad aggiornare { $app_title } { $app_version }
 msi-ready-update-text = Fare clic su Aggiorna per avviare l'aggiornamento. Fare clic su Indietro per rivedere o modificare le impostazioni di installazione.
 msi-ready-btn-install = &Installa
 msi-ready-btn-change = &Cambia
@@ -137,21 +137,21 @@ msi-ready-btn-remove = &Rimuovi
 msi-ready-btn-update = A&ggiorna
 
 # MSI Installer UI - Progress Dialog
-msi-progress-installing-title = Installazione di { $app_title } in corso
-msi-progress-installing-text = Attendere. È in corso l'installazione di { $app_title }.
-msi-progress-changing-title = Modifica di { $app_title } in corso
-msi-progress-changing-text = Attendere. È in corso la modifica di { $app_title }.
-msi-progress-repairing-title = Riparazione di { $app_title } in corso
-msi-progress-repairing-text = Attendere. È in corso la riparazione di { $app_title }.
-msi-progress-removing-title = Rimozione di { $app_title } in corso
-msi-progress-removing-text = Attendere. È in corso la rimozione di { $app_title }.
-msi-progress-updating-title = Aggiornamento di { $app_title } in corso
-msi-progress-updating-text = Attendere. È in corso l'aggiornamento di { $app_title }.
+msi-progress-installing-title = Installazione di { $app_title } { $app_version } in corso
+msi-progress-installing-text = Attendere. È in corso l'installazione di { $app_title } { $app_version }.
+msi-progress-changing-title = Modifica di { $app_title } { $app_version } in corso
+msi-progress-changing-text = Attendere. È in corso la modifica di { $app_title } { $app_version }.
+msi-progress-repairing-title = Riparazione di { $app_title } { $app_version } in corso
+msi-progress-repairing-text = Attendere. È in corso la riparazione di { $app_title } { $app_version }.
+msi-progress-removing-title = Rimozione di { $app_title } { $app_version } in corso
+msi-progress-removing-text = Attendere. È in corso la rimozione di { $app_title } { $app_version }.
+msi-progress-updating-title = Aggiornamento di { $app_title } { $app_version } in corso
+msi-progress-updating-text = Attendere. È in corso l'aggiornamento di { $app_title } { $app_version }.
 msi-progress-status = Stato:
 
 # MSI Installer UI - Maintenance Welcome Dialog
-msi-maint-welcome-title = Installazione guidata di { $app_title }
-msi-maint-welcome-description = L'Installazione guidata consente di riparare o rimuovere { $app_title }. Fare clic su Avanti per continuare oppure su Annulla per uscire dall'Installazione guidata.
+msi-maint-welcome-title = Installazione guidata di { $app_title } { $app_version }
+msi-maint-welcome-description = L'Installazione guidata consente di riparare o rimuovere { $app_title } { $app_version }. Fare clic su Avanti per continuare oppure su Annulla per uscire dall'Installazione guidata.
 
 # MSI Installer UI - Maintenance Type Dialog
 msi-maint-type-title = Modifica, riparazione o rimozione installazione
@@ -166,11 +166,11 @@ msi-maint-repair-text = Corregge gli errori presenti nell'installazione più rec
 msi-maint-repair-disabled = Ripara è attualmente disabilitato.
 msi-maint-remove-button = &Rimuovi
 msi-maint-remove-tooltip = Rimuovi
-msi-maint-remove-text = Rimuove { $app_title } dal computer.
+msi-maint-remove-text = Rimuove { $app_title } { $app_version } dal computer.
 msi-maint-remove-disabled = Rimuovi è attualmente disabilitato.
 
 # MSI Installer UI - Cancel Dialog
-msi-cancel-text = Annullare l'installazione di { $app_title }?
+msi-cancel-text = Annullare l'installazione di { $app_title } { $app_version }?
 
 # MSI Installer UI - Browse Dialog
 msi-browse-title = Modifica cartella di destinazione corrente
@@ -189,16 +189,16 @@ msi-disk-cost-description = Spazio su disco necessario per l'installazione delle
 msi-disk-cost-text = Lo spazio su disco disponibile nei volumi evidenziati non è sufficiente per installare le funzionalità attualmente selezionate. È possibile rimuovere alcuni file dai volumi evidenziati, scegliere di installare un numero minore di funzionalità nelle unità locali, oppure selezionare unità di destinazione diverse.
 
 # MSI Installer UI - Error Dialog
-msi-error-dlg-title = Informazioni sull'installazione di { $app_title }
+msi-error-dlg-title = Informazioni sull'installazione di { $app_title } { $app_version }
 
 # MSI Installer UI - Fatal Error Dialog
-msi-fatal-title = Installazione guidata di { $app_title } terminata prima del completamento
-msi-fatal-description1 = L'installazione di { $app_title } è stata interrotta. Il sistema non è stato modificato. Per installare il programma in un secondo momento, eseguire di nuovo l'installazione.
+msi-fatal-title = Installazione guidata di { $app_title } { $app_version } terminata prima del completamento
+msi-fatal-description1 = L'installazione di { $app_title } { $app_version } è stata interrotta. Il sistema non è stato modificato. Per installare il programma in un secondo momento, eseguire di nuovo l'installazione.
 msi-fatal-description2 = Fare clic sul pulsante Fine per uscire dall'Installazione guidata.
 
 # MSI Installer UI - User Exit Dialog
-msi-user-exit-title = Installazione guidata di { $app_title } interrotta
-msi-user-exit-description1 = L'installazione di { $app_title } è stata interrotta. Il sistema non è stato modificato. Per installare il programma in un secondo momento, eseguire di nuovo l'installazione.
+msi-user-exit-title = Installazione guidata di { $app_title } { $app_version } interrotta
+msi-user-exit-description1 = L'installazione di { $app_title } { $app_version } è stata interrotta. Il sistema non è stato modificato. Per installare il programma in un secondo momento, eseguire di nuovo l'installazione.
 msi-user-exit-description2 = Fare clic sul pulsante Fine per uscire dall'Installazione guidata.
 
 # MSI Installer UI - Files In Use Dialog
@@ -215,13 +215,13 @@ msi-rm-files-in-use-use-rm = &Chiudi automaticamente le applicazioni e tenta di 
 msi-rm-files-in-use-dont-use-rm = &Non chiudere le applicazioni. (Sarà necessario riavviare il sistema.)
 
 # MSI Installer UI - Resume Dialog
-msi-resume-title = Ripresa dell'Installazione guidata di { $app_title }
-msi-resume-description = L'Installazione guidata completerà l'installazione di { $app_title } nel computer in uso. Fare clic su Installa per continuare oppure su Annulla per uscire dall'Installazione guidata.
+msi-resume-title = Ripresa dell'Installazione guidata di { $app_title } { $app_version }
+msi-resume-description = L'Installazione guidata completerà l'installazione di { $app_title } { $app_version } nel computer in uso. Fare clic su Installa per continuare oppure su Annulla per uscire dall'Installazione guidata.
 msi-resume-btn-install = &Installa
 
 # MSI Installer UI - Shortcut Descriptions
-msi-desktop-shortcut-description = Collegamento sul desktop per { $app_title }
-msi-start-menu-shortcut-description = Collegamento nel menu Start per { $app_title }
+msi-desktop-shortcut-description = Collegamento sul desktop per { $app_title } { $app_version }
+msi-start-menu-shortcut-description = Collegamento nel menu Start per { $app_title } { $app_version }
 # MSI Installer UI - Readme Dialog
 msi-readme-title = Informazioni importanti
 msi-readme-description = Leggere le seguenti informazioni prima di continuare.

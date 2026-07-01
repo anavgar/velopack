@@ -1,4 +1,4 @@
-# Shared titles
+﻿# Shared titles
 title-update = Ενημέρωση του { $app_title }
 title-setup = Εγκατάσταση του { $app_title }
 title-uninstall = Κατάργηση εγκατάστασης του { $app_title }
@@ -50,7 +50,7 @@ install-hook-body = Η εγκατάσταση ολοκληρώθηκε, αλλά
 
 # Splash fallback (splash.rs)
 splash-header = Εγκατάσταση του { $app_title }
-splash-body = Ρύθμιση του { $app_title } { $app_version }, περιμένετε…
+splash-body = Ρύθμιση του { $app_title }, περιμένετε…
 
 # Dependency download (prerequisite.rs)
 deps-download-header = Λήψη απαιτούμενου στοιχείου
@@ -80,7 +80,7 @@ setup-update-exe-missing = Από αυτό το πρόγραμμα εγκατά�
 setup-main-exe-missing = Το κύριο εκτελέσιμο αρχείο δεν βρέθηκε στο πακέτο. Επικοινωνήστε με τον δημιουργό της εφαρμογής.
 
 # MSI Installer UI - Common
-msi-dlg-title = Πρόγραμμα εγκατάστασης του { $app_title }
+msi-dlg-title = Πρόγραμμα εγκατάστασης του { $app_title } { $app_version }
 msi-btn-back = &Πίσω
 msi-btn-next = Ε&πόμενο
 msi-btn-cancel = Άκυρο
@@ -92,17 +92,17 @@ msi-btn-retry = &Επανάληψη
 msi-btn-ignore = &Παράβλεψη
 
 # MSI Installer UI - Welcome Dialog
-msi-welcome-title = Καλώς ορίσατε στον Οδηγό εγκατάστασης του { $app_title }
-msi-welcome-description = Ο Οδηγός εγκατάστασης θα εγκαταστήσει το { $app_title } στον υπολογιστή σας. Κάντε κλικ στο κουμπί «Επόμενο» για να συνεχίσετε ή στο κουμπί «Άκυρο» για να εξέλθετε από τον Οδηγό εγκατάστασης.
-msi-welcome-update-description = Ο Οδηγός εγκατάστασης θα ενημερώσει το { $app_title } στον υπολογιστή σας. Κάντε κλικ στο κουμπί «Επόμενο» για να συνεχίσετε ή στο κουμπί «Άκυρο» για να εξέλθετε από τον Οδηγό εγκατάστασης.
+msi-welcome-title = Καλώς ορίσατε στον Οδηγό εγκατάστασης του { $app_title } { $app_version }
+msi-welcome-description = Ο Οδηγός εγκατάστασης θα εγκαταστήσει το { $app_title } { $app_version } στον υπολογιστή σας. Κάντε κλικ στο κουμπί «Επόμενο» για να συνεχίσετε ή στο κουμπί «Άκυρο» για να εξέλθετε από τον Οδηγό εγκατάστασης.
+msi-welcome-update-description = Ο Οδηγός εγκατάστασης θα ενημερώσει το { $app_title } { $app_version } στον υπολογιστή σας. Κάντε κλικ στο κουμπί «Επόμενο» για να συνεχίσετε ή στο κουμπί «Άκυρο» για να εξέλθετε από τον Οδηγό εγκατάστασης.
 
 # MSI Installer UI - Exit Dialog
-msi-exit-title = Ο Οδηγός εγκατάστασης του { $app_title } ολοκληρώθηκε
+msi-exit-title = Ο Οδηγός εγκατάστασης του { $app_title } { $app_version } ολοκληρώθηκε
 msi-exit-description = Κάντε κλικ στο κουμπί «Τέλος» για να εξέλθετε από τον Οδηγό εγκατάστασης.
-msi-exit-launch-checkbox = Εκκίνηση του { $app_title }
+msi-exit-launch-checkbox = Εκκίνηση του { $app_title } { $app_version }
 
 # MSI Installer UI - Prepare Dialog
-msi-prepare-title = Καλώς ορίσατε στον Οδηγό εγκατάστασης του { $app_title }
+msi-prepare-title = Καλώς ορίσατε στον Οδηγό εγκατάστασης του { $app_title } { $app_version }
 msi-prepare-description = Περιμένετε όσο ο Οδηγός εγκατάστασης προετοιμάζεται για να σας καθοδηγήσει στην εγκατάσταση.
 
 # MSI Installer UI - License Agreement Dialog
@@ -120,15 +120,15 @@ msi-scope-no-per-user-description = Απαιτούνται δικαιώματα 
 msi-scope-per-machine-description = Απαιτούνται δικαιώματα διαχειριστή
 
 # MSI Installer UI - Verify Ready Dialog
-msi-ready-install-title = Έτοιμο για εγκατάσταση του { $app_title }
+msi-ready-install-title = Έτοιμο για εγκατάσταση του { $app_title } { $app_version }
 msi-ready-install-text = Κάντε κλικ στο κουμπί «Εγκατάσταση» για να ξεκινήσει η εγκατάσταση. Κάντε κλικ στο κουμπί «Πίσω» για να ελέγξετε ή να αλλάξετε τις ρυθμίσεις της εγκατάστασης.
-msi-ready-change-title = Έτοιμο για αλλαγή του { $app_title }
+msi-ready-change-title = Έτοιμο για αλλαγή του { $app_title } { $app_version }
 msi-ready-change-text = Κάντε κλικ στο κουμπί «Αλλαγή» για να ξεκινήσει η αλλαγή της εγκατάστασης. Κάντε κλικ στο κουμπί «Πίσω» για να ελέγξετε ή να αλλάξετε τις ρυθμίσεις της εγκατάστασης.
-msi-ready-repair-title = Έτοιμο για επιδιόρθωση του { $app_title }
+msi-ready-repair-title = Έτοιμο για επιδιόρθωση του { $app_title } { $app_version }
 msi-ready-repair-text = Κάντε κλικ στο κουμπί «Επιδιόρθωση» για να ξεκινήσει η επιδιόρθωση. Κάντε κλικ στο κουμπί «Πίσω» για να ελέγξετε ή να αλλάξετε τις ρυθμίσεις της εγκατάστασης.
-msi-ready-remove-title = Έτοιμο για κατάργηση του { $app_title }
-msi-ready-remove-text = Κάντε κλικ στο κουμπί «Κατάργηση» για να καταργήσετε το { $app_title } από τον υπολογιστή σας. Κάντε κλικ στο κουμπί «Πίσω» για να ελέγξετε ή να αλλάξετε τις ρυθμίσεις της εγκατάστασης.
-msi-ready-update-title = Έτοιμο για ενημέρωση του { $app_title }
+msi-ready-remove-title = Έτοιμο για κατάργηση του { $app_title } { $app_version }
+msi-ready-remove-text = Κάντε κλικ στο κουμπί «Κατάργηση» για να καταργήσετε το { $app_title } { $app_version } από τον υπολογιστή σας. Κάντε κλικ στο κουμπί «Πίσω» για να ελέγξετε ή να αλλάξετε τις ρυθμίσεις της εγκατάστασης.
+msi-ready-update-title = Έτοιμο για ενημέρωση του { $app_title } { $app_version }
 msi-ready-update-text = Κάντε κλικ στο κουμπί «Ενημέρωση» για να ξεκινήσει η ενημέρωση. Κάντε κλικ στο κουμπί «Πίσω» για να ελέγξετε ή να αλλάξετε τις ρυθμίσεις της εγκατάστασης.
 msi-ready-btn-install = &Εγκατάσταση
 msi-ready-btn-change = &Αλλαγή
@@ -137,21 +137,21 @@ msi-ready-btn-remove = &Κατάργηση
 msi-ready-btn-update = &Ενημέρωση
 
 # MSI Installer UI - Progress Dialog
-msi-progress-installing-title = Εγκατάσταση του { $app_title }
-msi-progress-installing-text = Περιμένετε όσο ο Οδηγός εγκατάστασης εγκαθιστά το { $app_title }.
-msi-progress-changing-title = Αλλαγή του { $app_title }
-msi-progress-changing-text = Περιμένετε όσο ο Οδηγός εγκατάστασης αλλάζει το { $app_title }.
-msi-progress-repairing-title = Επιδιόρθωση του { $app_title }
-msi-progress-repairing-text = Περιμένετε όσο ο Οδηγός εγκατάστασης επιδιορθώνει το { $app_title }.
-msi-progress-removing-title = Κατάργηση του { $app_title }
-msi-progress-removing-text = Περιμένετε όσο ο Οδηγός εγκατάστασης καταργεί το { $app_title }.
-msi-progress-updating-title = Ενημέρωση του { $app_title }
-msi-progress-updating-text = Περιμένετε όσο ο Οδηγός εγκατάστασης ενημερώνει το { $app_title }.
+msi-progress-installing-title = Εγκατάσταση του { $app_title } { $app_version }
+msi-progress-installing-text = Περιμένετε όσο ο Οδηγός εγκατάστασης εγκαθιστά το { $app_title } { $app_version }.
+msi-progress-changing-title = Αλλαγή του { $app_title } { $app_version }
+msi-progress-changing-text = Περιμένετε όσο ο Οδηγός εγκατάστασης αλλάζει το { $app_title } { $app_version }.
+msi-progress-repairing-title = Επιδιόρθωση του { $app_title } { $app_version }
+msi-progress-repairing-text = Περιμένετε όσο ο Οδηγός εγκατάστασης επιδιορθώνει το { $app_title } { $app_version }.
+msi-progress-removing-title = Κατάργηση του { $app_title } { $app_version }
+msi-progress-removing-text = Περιμένετε όσο ο Οδηγός εγκατάστασης καταργεί το { $app_title } { $app_version }.
+msi-progress-updating-title = Ενημέρωση του { $app_title } { $app_version }
+msi-progress-updating-text = Περιμένετε όσο ο Οδηγός εγκατάστασης ενημερώνει το { $app_title } { $app_version }.
 msi-progress-status = Κατάσταση:
 
 # MSI Installer UI - Maintenance Welcome Dialog
-msi-maint-welcome-title = Καλώς ορίσατε στον Οδηγό εγκατάστασης του { $app_title }
-msi-maint-welcome-description = Ο Οδηγός εγκατάστασης σάς επιτρέπει να επιδιορθώσετε ή να καταργήσετε το { $app_title }. Κάντε κλικ στο κουμπί «Επόμενο» για να συνεχίσετε ή στο κουμπί «Άκυρο» για να εξέλθετε από τον Οδηγό εγκατάστασης.
+msi-maint-welcome-title = Καλώς ορίσατε στον Οδηγό εγκατάστασης του { $app_title } { $app_version }
+msi-maint-welcome-description = Ο Οδηγός εγκατάστασης σάς επιτρέπει να επιδιορθώσετε ή να καταργήσετε το { $app_title } { $app_version }. Κάντε κλικ στο κουμπί «Επόμενο» για να συνεχίσετε ή στο κουμπί «Άκυρο» για να εξέλθετε από τον Οδηγό εγκατάστασης.
 
 # MSI Installer UI - Maintenance Type Dialog
 msi-maint-type-title = Αλλαγή, επιδιόρθωση ή κατάργηση εγκατάστασης
@@ -166,11 +166,11 @@ msi-maint-repair-text = Επιδιορθώνει σφάλματα στην πι�
 msi-maint-repair-disabled = Η επιδιόρθωση είναι απενεργοποιημένη αυτήν τη στιγμή.
 msi-maint-remove-button = &Κατάργηση
 msi-maint-remove-tooltip = Κατάργηση
-msi-maint-remove-text = Καταργεί το { $app_title } από τον υπολογιστή σας.
+msi-maint-remove-text = Καταργεί το { $app_title } { $app_version } από τον υπολογιστή σας.
 msi-maint-remove-disabled = Η κατάργηση είναι απενεργοποιημένη αυτήν τη στιγμή.
 
 # MSI Installer UI - Cancel Dialog
-msi-cancel-text = Είστε βέβαιοι ότι θέλετε να ακυρώσετε την εγκατάσταση του { $app_title };
+msi-cancel-text = Είστε βέβαιοι ότι θέλετε να ακυρώσετε την εγκατάσταση του { $app_title } { $app_version };
 
 # MSI Installer UI - Browse Dialog
 msi-browse-title = Αλλαγή του τρέχοντος φακέλου προορισμού
@@ -189,16 +189,16 @@ msi-disk-cost-description = Ο χώρος στο δίσκο που απαιτε�
 msi-disk-cost-text = Οι τόμοι που επισημαίνονται δεν έχουν αρκετό διαθέσιμο χώρο στο δίσκο για τις τρέχουσες επιλεγμένες δυνατότητες. Μπορείτε να καταργήσετε μερικά αρχεία από τους τόμους που επισημαίνονται, να επιλέξετε εγκατάσταση λιγότερων δυνατοτήτων σε τοπικές μονάδες δίσκου ή να επιλέξετε διαφορετικές μονάδες δίσκου προορισμού.
 
 # MSI Installer UI - Error Dialog
-msi-error-dlg-title = Πληροφορίες προγράμματος εγκατάστασης του { $app_title }
+msi-error-dlg-title = Πληροφορίες προγράμματος εγκατάστασης του { $app_title } { $app_version }
 
 # MSI Installer UI - Fatal Error Dialog
-msi-fatal-title = Ο Οδηγός εγκατάστασης του { $app_title } τερματίστηκε πρόωρα
-msi-fatal-description1 = Η εγκατάσταση του { $app_title } διακόπηκε. Το σύστημά σας δεν τροποποιήθηκε. Για να εγκαταστήσετε αυτό το πρόγραμμα αργότερα, εκτελέστε ξανά το πρόγραμμα εγκατάστασης.
+msi-fatal-title = Ο Οδηγός εγκατάστασης του { $app_title } { $app_version } τερματίστηκε πρόωρα
+msi-fatal-description1 = Η εγκατάσταση του { $app_title } { $app_version } διακόπηκε. Το σύστημά σας δεν τροποποιήθηκε. Για να εγκαταστήσετε αυτό το πρόγραμμα αργότερα, εκτελέστε ξανά το πρόγραμμα εγκατάστασης.
 msi-fatal-description2 = Κάντε κλικ στο κουμπί «Τέλος» για να εξέλθετε από τον Οδηγό εγκατάστασης.
 
 # MSI Installer UI - User Exit Dialog
-msi-user-exit-title = Ο Οδηγός εγκατάστασης του { $app_title } διακόπηκε
-msi-user-exit-description1 = Η εγκατάσταση του { $app_title } διακόπηκε. Το σύστημά σας δεν τροποποιήθηκε. Για να εγκαταστήσετε αυτό το πρόγραμμα αργότερα, εκτελέστε ξανά το πρόγραμμα εγκατάστασης.
+msi-user-exit-title = Ο Οδηγός εγκατάστασης του { $app_title } { $app_version } διακόπηκε
+msi-user-exit-description1 = Η εγκατάσταση του { $app_title } { $app_version } διακόπηκε. Το σύστημά σας δεν τροποποιήθηκε. Για να εγκαταστήσετε αυτό το πρόγραμμα αργότερα, εκτελέστε ξανά το πρόγραμμα εγκατάστασης.
 msi-user-exit-description2 = Κάντε κλικ στο κουμπί «Τέλος» για να εξέλθετε από τον Οδηγό εγκατάστασης.
 
 # MSI Installer UI - Files In Use Dialog
@@ -215,13 +215,13 @@ msi-rm-files-in-use-use-rm = Αυτόματο &κλείσιμο των εφαρ�
 msi-rm-files-in-use-dont-use-rm = &Μην κλείνετε τις εφαρμογές. (Θα απαιτηθεί επανεκκίνηση.)
 
 # MSI Installer UI - Resume Dialog
-msi-resume-title = Συνέχιση του Οδηγού εγκατάστασης του { $app_title }
-msi-resume-description = Ο Οδηγός εγκατάστασης θα ολοκληρώσει την εγκατάσταση του { $app_title } στον υπολογιστή σας. Κάντε κλικ στο κουμπί «Εγκατάσταση» για να συνεχίσετε ή στο κουμπί «Άκυρο» για να εξέλθετε από τον Οδηγό εγκατάστασης.
+msi-resume-title = Συνέχιση του Οδηγού εγκατάστασης του { $app_title } { $app_version }
+msi-resume-description = Ο Οδηγός εγκατάστασης θα ολοκληρώσει την εγκατάσταση του { $app_title } { $app_version } στον υπολογιστή σας. Κάντε κλικ στο κουμπί «Εγκατάσταση» για να συνεχίσετε ή στο κουμπί «Άκυρο» για να εξέλθετε από τον Οδηγό εγκατάστασης.
 msi-resume-btn-install = &Εγκατάσταση
 
 # MSI Installer UI - Shortcut Descriptions
-msi-desktop-shortcut-description = Συντόμευση του { $app_title } στην επιφάνεια εργασίας
-msi-start-menu-shortcut-description = Συντόμευση του { $app_title } στο μενού Έναρξη
+msi-desktop-shortcut-description = Συντόμευση του { $app_title } { $app_version } στην επιφάνεια εργασίας
+msi-start-menu-shortcut-description = Συντόμευση του { $app_title } { $app_version } στο μενού Έναρξη
 # MSI Installer UI - Readme Dialog
 msi-readme-title = Πληροφορίες
 msi-readme-description = Παρακαλούμε διαβάστε τις ακόλουθες πληροφορίες πριν συνεχίσετε.

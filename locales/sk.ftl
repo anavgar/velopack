@@ -1,4 +1,4 @@
-# Shared titles
+﻿# Shared titles
 title-update = Aktualizácia { $app_title }
 title-setup = Inštalácia { $app_title }
 title-uninstall = Odinštalovanie { $app_title }
@@ -50,7 +50,7 @@ install-hook-body = Inštalácia bola dokončená, ale niektoré kroky sa nemuse
 
 # Splash fallback (splash.rs)
 splash-header = Inštaluje sa { $app_title }
-splash-body = Prebieha nastavovanie { $app_title } { $app_version }, počkajte prosím...
+splash-body = Prebieha nastavovanie { $app_title }, počkajte prosím...
 
 # Dependency download (prerequisite.rs)
 deps-download-header = Preberá sa požadovaná súčasť
@@ -80,7 +80,7 @@ setup-update-exe-missing = V tomto inštalátore chýba dôležitý binárny sú
 setup-main-exe-missing = Hlavný spustiteľný súbor sa v balíku nepodarilo nájsť. Kontaktujte prosím autora aplikácie.
 
 # MSI Installer UI - Common
-msi-dlg-title = { $app_title } – inštalácia
+msi-dlg-title = { $app_title } { $app_version } – inštalácia
 msi-btn-back = &Späť
 msi-btn-next = Ď&alej
 msi-btn-cancel = Zrušiť
@@ -92,17 +92,17 @@ msi-btn-retry = Z&nova
 msi-btn-ignore = &Ignorovať
 
 # MSI Installer UI - Welcome Dialog
-msi-welcome-title = Víta vás Sprievodca inštaláciou programu { $app_title }
-msi-welcome-description = Sprievodca inštaláciou nainštaluje program { $app_title } v počítači. Ak chcete pokračovať, kliknite na tlačidlo Ďalej. Ak chcete Sprievodcu inštaláciou ukončiť, kliknite na tlačidlo Zrušiť.
-msi-welcome-update-description = Sprievodca inštaláciou vykoná aktualizáciu programu { $app_title } v počítači. Ak chcete pokračovať, kliknite na tlačidlo Ďalej. Ak chcete Sprievodcu inštaláciou ukončiť, kliknite na tlačidlo Zrušiť.
+msi-welcome-title = Víta vás Sprievodca inštaláciou programu { $app_title } { $app_version }
+msi-welcome-description = Sprievodca inštaláciou nainštaluje program { $app_title } { $app_version } v počítači. Ak chcete pokračovať, kliknite na tlačidlo Ďalej. Ak chcete Sprievodcu inštaláciou ukončiť, kliknite na tlačidlo Zrušiť.
+msi-welcome-update-description = Sprievodca inštaláciou vykoná aktualizáciu programu { $app_title } { $app_version } v počítači. Ak chcete pokračovať, kliknite na tlačidlo Ďalej. Ak chcete Sprievodcu inštaláciou ukončiť, kliknite na tlačidlo Zrušiť.
 
 # MSI Installer UI - Exit Dialog
-msi-exit-title = Sprievodca inštaláciou programu { $app_title } bol dokončený
+msi-exit-title = Sprievodca inštaláciou programu { $app_title } { $app_version } bol dokončený
 msi-exit-description = Kliknutím na tlačidlo Dokončiť ukončíte Sprievodcu inštaláciou.
-msi-exit-launch-checkbox = Spustiť { $app_title }
+msi-exit-launch-checkbox = Spustiť { $app_title } { $app_version }
 
 # MSI Installer UI - Prepare Dialog
-msi-prepare-title = Víta vás Sprievodca inštaláciou programu { $app_title }
+msi-prepare-title = Víta vás Sprievodca inštaláciou programu { $app_title } { $app_version }
 msi-prepare-description = Počkajte, kým sa Sprievodca inštaláciou pripraví na prevádzanie inštaláciou.
 
 # MSI Installer UI - License Agreement Dialog
@@ -120,15 +120,15 @@ msi-scope-no-per-user-description = Vyžaduje oprávnenia správcu
 msi-scope-per-machine-description = Vyžaduje oprávnenia správcu
 
 # MSI Installer UI - Verify Ready Dialog
-msi-ready-install-title = Pripravený na inštaláciu programu { $app_title }
+msi-ready-install-title = Pripravený na inštaláciu programu { $app_title } { $app_version }
 msi-ready-install-text = Ak chcete spustiť inštaláciu, kliknite na tlačidlo Inštalovať. Ak chcete skontrolovať alebo zmeniť niektoré z nastavení inštalácie, kliknite na tlačidlo Späť.
-msi-ready-change-title = Pripravený na zmenu programu { $app_title }
+msi-ready-change-title = Pripravený na zmenu programu { $app_title } { $app_version }
 msi-ready-change-text = Ak chcete spustiť zmenu inštalácie, kliknite na tlačidlo Zmeniť. Ak chcete skontrolovať alebo zmeniť niektoré z nastavení inštalácie, kliknite na tlačidlo Späť.
-msi-ready-repair-title = Pripravený na opravu programu { $app_title }
+msi-ready-repair-title = Pripravený na opravu programu { $app_title } { $app_version }
 msi-ready-repair-text = Kliknutím na tlačidlo Opraviť spustíte opravu. Ak chcete skontrolovať alebo zmeniť niektoré z nastavení inštalácie, kliknite na tlačidlo Späť.
-msi-ready-remove-title = Pripravený na odstránenie programu { $app_title }
-msi-ready-remove-text = Kliknutím na tlačidlo Odstrániť odstránite program { $app_title } z počítača. Ak chcete skontrolovať alebo zmeniť niektoré z nastavení inštalácie, kliknite na tlačidlo Späť.
-msi-ready-update-title = Pripravený na aktualizáciu programu { $app_title }
+msi-ready-remove-title = Pripravený na odstránenie programu { $app_title } { $app_version }
+msi-ready-remove-text = Kliknutím na tlačidlo Odstrániť odstránite program { $app_title } { $app_version } z počítača. Ak chcete skontrolovať alebo zmeniť niektoré z nastavení inštalácie, kliknite na tlačidlo Späť.
+msi-ready-update-title = Pripravený na aktualizáciu programu { $app_title } { $app_version }
 msi-ready-update-text = Kliknutím na tlačidlo Aktualizovať spustíte aktualizáciu. Ak chcete skontrolovať alebo zmeniť niektoré z nastavení inštalácie, kliknite na tlačidlo Späť.
 msi-ready-btn-install = I&nštalovať
 msi-ready-btn-change = Z&meniť
@@ -137,21 +137,21 @@ msi-ready-btn-remove = &Odstrániť
 msi-ready-btn-update = &Aktualizovať
 
 # MSI Installer UI - Progress Dialog
-msi-progress-installing-title = Inštaluje sa program { $app_title }
-msi-progress-installing-text = Počkajte, kým Sprievodca inštaláciou nainštaluje program { $app_title }.
-msi-progress-changing-title = Mení sa program { $app_title }
-msi-progress-changing-text = Počkajte, kým Sprievodca inštaláciou zmení program { $app_title }.
-msi-progress-repairing-title = Opravuje sa program { $app_title }
-msi-progress-repairing-text = Počkajte, kým Sprievodca inštaláciou opraví program { $app_title }.
-msi-progress-removing-title = Odstraňuje sa program { $app_title }
-msi-progress-removing-text = Počkajte, kým Sprievodca inštaláciou odstráni program { $app_title }.
-msi-progress-updating-title = Aktualizuje sa program { $app_title }
-msi-progress-updating-text = Počkajte, kým Sprievodca inštaláciou aktualizuje program { $app_title }.
+msi-progress-installing-title = Inštaluje sa program { $app_title } { $app_version }
+msi-progress-installing-text = Počkajte, kým Sprievodca inštaláciou nainštaluje program { $app_title } { $app_version }.
+msi-progress-changing-title = Mení sa program { $app_title } { $app_version }
+msi-progress-changing-text = Počkajte, kým Sprievodca inštaláciou zmení program { $app_title } { $app_version }.
+msi-progress-repairing-title = Opravuje sa program { $app_title } { $app_version }
+msi-progress-repairing-text = Počkajte, kým Sprievodca inštaláciou opraví program { $app_title } { $app_version }.
+msi-progress-removing-title = Odstraňuje sa program { $app_title } { $app_version }
+msi-progress-removing-text = Počkajte, kým Sprievodca inštaláciou odstráni program { $app_title } { $app_version }.
+msi-progress-updating-title = Aktualizuje sa program { $app_title } { $app_version }
+msi-progress-updating-text = Počkajte, kým Sprievodca inštaláciou aktualizuje program { $app_title } { $app_version }.
 msi-progress-status = Stav:
 
 # MSI Installer UI - Maintenance Welcome Dialog
-msi-maint-welcome-title = Víta vás Sprievodca inštaláciou programu { $app_title }
-msi-maint-welcome-description = Sprievodca inštaláciou vám umožňuje opraviť alebo odstrániť program { $app_title }. Ak chcete pokračovať, kliknite na tlačidlo Ďalej. Ak chcete Sprievodcu inštaláciou ukončiť, kliknite na tlačidlo Zrušiť.
+msi-maint-welcome-title = Víta vás Sprievodca inštaláciou programu { $app_title } { $app_version }
+msi-maint-welcome-description = Sprievodca inštaláciou vám umožňuje opraviť alebo odstrániť program { $app_title } { $app_version }. Ak chcete pokračovať, kliknite na tlačidlo Ďalej. Ak chcete Sprievodcu inštaláciou ukončiť, kliknite na tlačidlo Zrušiť.
 
 # MSI Installer UI - Maintenance Type Dialog
 msi-maint-type-title = Zmena, oprava alebo odstránenie inštalácie
@@ -166,11 +166,11 @@ msi-maint-repair-text = Slúži na opravu chýb poslednej inštalácie prostredn
 msi-maint-repair-disabled = Oprava je momentálne zakázaná.
 msi-maint-remove-button = &Odstrániť
 msi-maint-remove-tooltip = Odstrániť
-msi-maint-remove-text = Odstráni program { $app_title } z počítača.
+msi-maint-remove-text = Odstráni program { $app_title } { $app_version } z počítača.
 msi-maint-remove-disabled = Odstránenie je momentálne zakázané.
 
 # MSI Installer UI - Cancel Dialog
-msi-cancel-text = Naozaj chcete zrušiť inštaláciu programu { $app_title }?
+msi-cancel-text = Naozaj chcete zrušiť inštaláciu programu { $app_title } { $app_version }?
 
 # MSI Installer UI - Browse Dialog
 msi-browse-title = Zmena aktuálneho cieľového priečinka
@@ -189,16 +189,16 @@ msi-disk-cost-description = Požadované miesto na disku na inštaláciu vybrat�
 msi-disk-cost-text = Označené zväzky nemajú dostatok miesta na disku na aktuálne vybraté súčasti. Môžete odstrániť niektoré súbory z vyznačených zväzkov, nainštalovať menej súčastí na lokálnu jednotku alebo vybrať iné cieľové jednotky.
 
 # MSI Installer UI - Error Dialog
-msi-error-dlg-title = { $app_title } – informácie inštalátora
+msi-error-dlg-title = { $app_title } { $app_version } – informácie inštalátora
 
 # MSI Installer UI - Fatal Error Dialog
-msi-fatal-title = Sprievodca inštaláciou programu { $app_title } sa predčasne ukončil
-msi-fatal-description1 = Inštalácia programu { $app_title } sa prerušila. Nastavenie systému sa nezmenilo. Ak budete chcieť tento program nainštalovať neskôr, znova spustite inštaláciu.
+msi-fatal-title = Sprievodca inštaláciou programu { $app_title } { $app_version } sa predčasne ukončil
+msi-fatal-description1 = Inštalácia programu { $app_title } { $app_version } sa prerušila. Nastavenie systému sa nezmenilo. Ak budete chcieť tento program nainštalovať neskôr, znova spustite inštaláciu.
 msi-fatal-description2 = Kliknutím na tlačidlo Dokončiť ukončíte Sprievodcu inštaláciou.
 
 # MSI Installer UI - User Exit Dialog
-msi-user-exit-title = Sprievodca inštaláciou programu { $app_title } sa prerušil
-msi-user-exit-description1 = Inštalácia programu { $app_title } sa prerušila. Nastavenie systému sa nezmenilo. Ak budete chcieť tento program nainštalovať neskôr, znova spustite inštaláciu.
+msi-user-exit-title = Sprievodca inštaláciou programu { $app_title } { $app_version } sa prerušil
+msi-user-exit-description1 = Inštalácia programu { $app_title } { $app_version } sa prerušila. Nastavenie systému sa nezmenilo. Ak budete chcieť tento program nainštalovať neskôr, znova spustite inštaláciu.
 msi-user-exit-description2 = Kliknutím na tlačidlo Dokončiť ukončíte Sprievodcu inštaláciou.
 
 # MSI Installer UI - Files In Use Dialog
@@ -215,13 +215,13 @@ msi-rm-files-in-use-use-rm = Automaticky &zavrieť aplikácie a po dokončení i
 msi-rm-files-in-use-dont-use-rm = &Nezatvárať aplikácie. (Bude sa vyžadovať reštartovanie počítača.)
 
 # MSI Installer UI - Resume Dialog
-msi-resume-title = Obnovuje sa Sprievodca inštaláciou programu { $app_title }
-msi-resume-description = Sprievodca inštaláciou dokončí inštaláciu programu { $app_title } v počítači. Ak chcete pokračovať, kliknite na tlačidlo Inštalovať. Ak chcete Sprievodcu inštaláciou ukončiť, kliknite na tlačidlo Zrušiť.
+msi-resume-title = Obnovuje sa Sprievodca inštaláciou programu { $app_title } { $app_version }
+msi-resume-description = Sprievodca inštaláciou dokončí inštaláciu programu { $app_title } { $app_version } v počítači. Ak chcete pokračovať, kliknite na tlačidlo Inštalovať. Ak chcete Sprievodcu inštaláciou ukončiť, kliknite na tlačidlo Zrušiť.
 msi-resume-btn-install = I&nštalovať
 
 # MSI Installer UI - Shortcut Descriptions
-msi-desktop-shortcut-description = Odkaz na pracovnej ploche pre { $app_title }
-msi-start-menu-shortcut-description = Odkaz v ponuke Štart pre { $app_title }
+msi-desktop-shortcut-description = Odkaz na pracovnej ploche pre { $app_title } { $app_version }
+msi-start-menu-shortcut-description = Odkaz v ponuke Štart pre { $app_title } { $app_version }
 # MSI Installer UI - Readme Dialog
 msi-readme-title = Dôležité informácie
 msi-readme-description = Pred pokračovaním si prečítajte nasledujúce informácie.

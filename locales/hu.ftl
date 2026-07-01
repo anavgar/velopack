@@ -1,4 +1,4 @@
-# Shared titles
+﻿# Shared titles
 title-update = { $app_title } frissítése
 title-setup = { $app_title } telepítése
 title-uninstall = { $app_title } eltávolítása
@@ -50,7 +50,7 @@ install-hook-body = A telepítés befejeződött, de néhány lépés meghiúsul
 
 # Splash fallback (splash.rs)
 splash-header = A(z) { $app_title } telepítése
-splash-body = A(z) { $app_title } { $app_version } beállítása, kérjük, várjon...
+splash-body = A(z) { $app_title } beállítása, kérjük, várjon...
 
 # Dependency download (prerequisite.rs)
 deps-download-header = Szükséges összetevő letöltése
@@ -80,7 +80,7 @@ setup-update-exe-missing = Ebből a telepítőből hiányzik egy kritikus binár
 setup-main-exe-missing = A fő futtatható fájl nem található a csomagban. Kérjük, lépjen kapcsolatba az alkalmazás szerzőjével.
 
 # MSI Installer UI - Common
-msi-dlg-title = A(z) { $app_title } telepítése
+msi-dlg-title = A(z) { $app_title } { $app_version } telepítése
 msi-btn-back = &Vissza
 msi-btn-next = &Tovább
 msi-btn-cancel = Mégse
@@ -92,17 +92,17 @@ msi-btn-retry = Újr&a
 msi-btn-ignore = &Mellőzés
 
 # MSI Installer UI - Welcome Dialog
-msi-welcome-title = A(z) { $app_title } telepítése – üdvözli a varázsló
-msi-welcome-description = A telepítővarázsló telepíti a(z) { $app_title } alkalmazást a számítógépre. A folytatáshoz kattintson a Tovább gombra, a telepítővarázslóból való kilépéshez a Mégse gombra.
-msi-welcome-update-description = A telepítővarázsló frissíti a(z) { $app_title } terméket a számítógépen. A folytatáshoz kattintson a Tovább gombra, a telepítővarázslóból való kilépéshez a Mégse gombra.
+msi-welcome-title = A(z) { $app_title } { $app_version } telepítése – üdvözli a varázsló
+msi-welcome-description = A telepítővarázsló telepíti a(z) { $app_title } { $app_version } alkalmazást a számítógépre. A folytatáshoz kattintson a Tovább gombra, a telepítővarázslóból való kilépéshez a Mégse gombra.
+msi-welcome-update-description = A telepítővarázsló frissíti a(z) { $app_title } { $app_version } terméket a számítógépen. A folytatáshoz kattintson a Tovább gombra, a telepítővarázslóból való kilépéshez a Mégse gombra.
 
 # MSI Installer UI - Exit Dialog
-msi-exit-title = A(z) { $app_title } telepítővarázsló futása befejeződött
+msi-exit-title = A(z) { $app_title } { $app_version } telepítővarázsló futása befejeződött
 msi-exit-description = A telepítővarázslóból való kilépéshez kattintson a Befejezés gombra.
-msi-exit-launch-checkbox = A(z) { $app_title } indítása
+msi-exit-launch-checkbox = A(z) { $app_title } { $app_version } indítása
 
 # MSI Installer UI - Prepare Dialog
-msi-prepare-title = A(z) { $app_title } telepítése – üdvözli a varázsló
+msi-prepare-title = A(z) { $app_title } { $app_version } telepítése – üdvözli a varázsló
 msi-prepare-description = Várjon, amíg a telepítővarázsló felkészül, hogy végigvezesse Önt a telepítés folyamatán.
 
 # MSI Installer UI - License Agreement Dialog
@@ -120,15 +120,15 @@ msi-scope-no-per-user-description = Rendszergazdai jogok szükségesek
 msi-scope-per-machine-description = Rendszergazdai jogok szükségesek
 
 # MSI Installer UI - Verify Ready Dialog
-msi-ready-install-title = A telepítő készen áll a(z) { $app_title } telepítésére
+msi-ready-install-title = A telepítő készen áll a(z) { $app_title } { $app_version } telepítésére
 msi-ready-install-text = A telepítés megkezdéséhez kattintson a Telepítés gombra. A Vissza gombra kattintva áttekintheti és módosíthatja a telepítési beállításokat.
-msi-ready-change-title = A telepítő készen áll a(z) { $app_title } módosítására
+msi-ready-change-title = A telepítő készen áll a(z) { $app_title } { $app_version } módosítására
 msi-ready-change-text = A módosítás megkezdéséhez kattintson a Módosítás gombra. A Vissza gombra kattintva áttekintheti és módosíthatja a telepítési beállításokat.
-msi-ready-repair-title = A telepítő készen áll a(z) { $app_title } kijavítására
+msi-ready-repair-title = A telepítő készen áll a(z) { $app_title } { $app_version } kijavítására
 msi-ready-repair-text = A javítás megkezdéséhez kattintson a Javítás gombra. A Vissza gombra kattintva áttekintheti és módosíthatja a telepítési beállításokat.
-msi-ready-remove-title = A telepítő készen áll a(z) { $app_title } eltávolítására
-msi-ready-remove-text = A(z) { $app_title } eltávolításához kattintson az Eltávolítás gombra. A Vissza gombra kattintva áttekintheti és módosíthatja a telepítési beállításokat.
-msi-ready-update-title = A telepítő készen áll a(z) { $app_title } frissítésére
+msi-ready-remove-title = A telepítő készen áll a(z) { $app_title } { $app_version } eltávolítására
+msi-ready-remove-text = A(z) { $app_title } { $app_version } eltávolításához kattintson az Eltávolítás gombra. A Vissza gombra kattintva áttekintheti és módosíthatja a telepítési beállításokat.
+msi-ready-update-title = A telepítő készen áll a(z) { $app_title } { $app_version } frissítésére
 msi-ready-update-text = A frissítés megkezdéséhez kattintson a Frissítés gombra. A Vissza gombra kattintva áttekintheti és módosíthatja a telepítési beállításokat.
 msi-ready-btn-install = &Telepítés
 msi-ready-btn-change = &Módosítás
@@ -137,21 +137,21 @@ msi-ready-btn-remove = &Eltávolítás
 msi-ready-btn-update = &Frissítés
 
 # MSI Installer UI - Progress Dialog
-msi-progress-installing-title = A(z) { $app_title } telepítése
-msi-progress-installing-text = Várjon, amíg a telepítővarázsló telepíti a(z) { $app_title } terméket.
-msi-progress-changing-title = A(z) { $app_title } módosítása
-msi-progress-changing-text = Várjon, amíg a telepítővarázsló módosítja a(z) { $app_title } terméket.
-msi-progress-repairing-title = A(z) { $app_title } kijavítása
-msi-progress-repairing-text = Várjon, amíg a telepítővarázsló kijavítja a(z) { $app_title } terméket.
-msi-progress-removing-title = A(z) { $app_title } eltávolítása
-msi-progress-removing-text = Várjon, amíg a telepítővarázsló eltávolítja a(z) { $app_title } terméket.
-msi-progress-updating-title = A(z) { $app_title } frissítése
-msi-progress-updating-text = Kis türelmet, a telepítővarázsló a(z) { $app_title } frissítését végzi.
+msi-progress-installing-title = A(z) { $app_title } { $app_version } telepítése
+msi-progress-installing-text = Várjon, amíg a telepítővarázsló telepíti a(z) { $app_title } { $app_version } terméket.
+msi-progress-changing-title = A(z) { $app_title } { $app_version } módosítása
+msi-progress-changing-text = Várjon, amíg a telepítővarázsló módosítja a(z) { $app_title } { $app_version } terméket.
+msi-progress-repairing-title = A(z) { $app_title } { $app_version } kijavítása
+msi-progress-repairing-text = Várjon, amíg a telepítővarázsló kijavítja a(z) { $app_title } { $app_version } terméket.
+msi-progress-removing-title = A(z) { $app_title } { $app_version } eltávolítása
+msi-progress-removing-text = Várjon, amíg a telepítővarázsló eltávolítja a(z) { $app_title } { $app_version } terméket.
+msi-progress-updating-title = A(z) { $app_title } { $app_version } frissítése
+msi-progress-updating-text = Kis türelmet, a telepítővarázsló a(z) { $app_title } { $app_version } frissítését végzi.
 msi-progress-status = Állapot:
 
 # MSI Installer UI - Maintenance Welcome Dialog
-msi-maint-welcome-title = A(z) { $app_title } telepítése – üdvözli a varázsló
-msi-maint-welcome-description = A telepítővarázslóval kijavíthatja vagy eltávolíthatja a(z) { $app_title } terméket. A folytatáshoz kattintson a Tovább gombra, a telepítővarázslóból való kilépéshez a Mégse gombra.
+msi-maint-welcome-title = A(z) { $app_title } { $app_version } telepítése – üdvözli a varázsló
+msi-maint-welcome-description = A telepítővarázslóval kijavíthatja vagy eltávolíthatja a(z) { $app_title } { $app_version } terméket. A folytatáshoz kattintson a Tovább gombra, a telepítővarázslóból való kilépéshez a Mégse gombra.
 
 # MSI Installer UI - Maintenance Type Dialog
 msi-maint-type-title = A telepítés módosítása, kijavítása vagy eltávolítása
@@ -166,11 +166,11 @@ msi-maint-repair-text = Kijavítja a legutóbbi telepítés hibáit úgy, hogy h
 msi-maint-repair-disabled = A javítás jelenleg le van tiltva.
 msi-maint-remove-button = &Eltávolítás
 msi-maint-remove-tooltip = Eltávolítás
-msi-maint-remove-text = A(z) { $app_title } eltávolítása a számítógépről.
+msi-maint-remove-text = A(z) { $app_title } { $app_version } eltávolítása a számítógépről.
 msi-maint-remove-disabled = Az eltávolítás jelenleg le van tiltva.
 
 # MSI Installer UI - Cancel Dialog
-msi-cancel-text = Biztosan megszakítja a(z) { $app_title } telepítését?
+msi-cancel-text = Biztosan megszakítja a(z) { $app_title } { $app_version } telepítését?
 
 # MSI Installer UI - Browse Dialog
 msi-browse-title = Aktuális célmappa módosítása
@@ -189,16 +189,16 @@ msi-disk-cost-description = A kijelölt szolgáltatások telepítéséhez szüks
 msi-disk-cost-text = A kijelölt köteteken nincs elég szabad lemezterület a jelenleg kiválasztott szolgáltatások telepítéséhez. A probléma megoldásához törölhet néhány fájlt a kijelölt kötetekről, telepíthet kevesebb szolgáltatást a helyi meghajtó(k)ra, vagy más célmeghajtót választhat.
 
 # MSI Installer UI - Error Dialog
-msi-error-dlg-title = A(z) { $app_title } telepítőjének információi
+msi-error-dlg-title = A(z) { $app_title } { $app_version } telepítőjének információi
 
 # MSI Installer UI - Fatal Error Dialog
-msi-fatal-title = A(z) { $app_title } telepítővarázsló futása idő előtt véget ért
-msi-fatal-description1 = A(z) { $app_title } telepítése megszakadt. A rendszer nem módosult. A programot később a telepítés futtatásával telepítheti.
+msi-fatal-title = A(z) { $app_title } { $app_version } telepítővarázsló futása idő előtt véget ért
+msi-fatal-description1 = A(z) { $app_title } { $app_version } telepítése megszakadt. A rendszer nem módosult. A programot később a telepítés futtatásával telepítheti.
 msi-fatal-description2 = A telepítővarázslóból való kilépéshez kattintson a Befejezés gombra.
 
 # MSI Installer UI - User Exit Dialog
-msi-user-exit-title = A(z) { $app_title } telepítővarázsló futása megszakadt
-msi-user-exit-description1 = A(z) { $app_title } telepítése megszakadt. A rendszer nem módosult. A programot később a telepítés futtatásával telepítheti.
+msi-user-exit-title = A(z) { $app_title } { $app_version } telepítővarázsló futása megszakadt
+msi-user-exit-description1 = A(z) { $app_title } { $app_version } telepítése megszakadt. A rendszer nem módosult. A programot később a telepítés futtatásával telepítheti.
 msi-user-exit-description2 = A telepítővarázslóból való kilépéshez kattintson a Befejezés gombra.
 
 # MSI Installer UI - Files In Use Dialog
@@ -215,13 +215,13 @@ msi-rm-files-in-use-use-rm = Az alkalmazások automatikus &bezárása és újrai
 msi-rm-files-in-use-dont-use-rm = Az alkalmazások bezárásának &mellőzése. (Újraindítás szükséges.)
 
 # MSI Installer UI - Resume Dialog
-msi-resume-title = A(z) { $app_title } telepítővarázsló folytatása
-msi-resume-description = A telepítővarázsló befejezi a(z) { $app_title } telepítését a számítógépre. A folytatáshoz kattintson a Telepítés gombra, a varázslóból való kilépéshez a Mégse gombra.
+msi-resume-title = A(z) { $app_title } { $app_version } telepítővarázsló folytatása
+msi-resume-description = A telepítővarázsló befejezi a(z) { $app_title } { $app_version } telepítését a számítógépre. A folytatáshoz kattintson a Telepítés gombra, a varázslóból való kilépéshez a Mégse gombra.
 msi-resume-btn-install = &Telepítés
 
 # MSI Installer UI - Shortcut Descriptions
-msi-desktop-shortcut-description = Asztali parancsikon a(z) { $app_title } alkalmazáshoz
-msi-start-menu-shortcut-description = Start menü parancsikon a(z) { $app_title } alkalmazáshoz
+msi-desktop-shortcut-description = Asztali parancsikon a(z) { $app_title } { $app_version } alkalmazáshoz
+msi-start-menu-shortcut-description = Start menü parancsikon a(z) { $app_title } { $app_version } alkalmazáshoz
 # MSI Installer UI - Readme Dialog
 msi-readme-title = Fontos információk
 msi-readme-description = Kérjük, olvassa el az alábbi információkat a folytatás előtt.

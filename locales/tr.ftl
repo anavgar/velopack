@@ -1,4 +1,4 @@
-# Shared titles
+﻿# Shared titles
 title-update = { $app_title } Güncelleme
 title-setup = { $app_title } Kurulumu
 title-uninstall = { $app_title } Kaldırma
@@ -50,7 +50,7 @@ install-hook-body = Yükleme tamamlandı, ancak bazı adımlar başarısız olmu
 
 # Splash fallback (splash.rs)
 splash-header = { $app_title } yükleniyor
-splash-body = { $app_title } { $app_version } kuruluyor, lütfen bekleyin…
+splash-body = { $app_title } kuruluyor, lütfen bekleyin…
 
 # Dependency download (prerequisite.rs)
 deps-download-header = Gerekli Bileşen İndiriliyor
@@ -80,7 +80,7 @@ setup-update-exe-missing = Bu yükleyicide kritik bir ikili dosya (Update.exe) e
 setup-main-exe-missing = Ana yürütülebilir dosya pakette bulunamadı. Lütfen uygulama yazarıyla iletişime geçin.
 
 # MSI Installer UI - Common
-msi-dlg-title = { $app_title } Kurulumu
+msi-dlg-title = { $app_title } { $app_version } Kurulumu
 msi-btn-back = &Geri
 msi-btn-next = İ&leri
 msi-btn-cancel = İptal
@@ -92,17 +92,17 @@ msi-btn-retry = Yeniden &Dene
 msi-btn-ignore = &Yoksay
 
 # MSI Installer UI - Welcome Dialog
-msi-welcome-title = { $app_title } Kurulum Sihirbazı'na Hoş Geldiniz
-msi-welcome-description = Kurulum Sihirbazı { $app_title } ürününü bilgisayarınıza yükleyecek. Devam etmek için İleri'yi, Kurulum Sihirbazı'ndan çıkmak içinse İptal'i tıklatın.
-msi-welcome-update-description = Kurulum Sihirbazı { $app_title } ürününü bilgisayarınızda güncelleştirecek. Devam etmek için İleri'yi, Kurulum Sihirbazı'ndan çıkmak içinse İptal'i tıklatın.
+msi-welcome-title = { $app_title } { $app_version } Kurulum Sihirbazı'na Hoş Geldiniz
+msi-welcome-description = Kurulum Sihirbazı { $app_title } { $app_version } ürününü bilgisayarınıza yükleyecek. Devam etmek için İleri'yi, Kurulum Sihirbazı'ndan çıkmak içinse İptal'i tıklatın.
+msi-welcome-update-description = Kurulum Sihirbazı { $app_title } { $app_version } ürününü bilgisayarınızda güncelleştirecek. Devam etmek için İleri'yi, Kurulum Sihirbazı'ndan çıkmak içinse İptal'i tıklatın.
 
 # MSI Installer UI - Exit Dialog
-msi-exit-title = { $app_title } Kurulum Sihirbazı tamamlandı
+msi-exit-title = { $app_title } { $app_version } Kurulum Sihirbazı tamamlandı
 msi-exit-description = Kurulum Sihirbazı'ndan çıkmak için Son düğmesini tıklatın.
-msi-exit-launch-checkbox = { $app_title } başlat
+msi-exit-launch-checkbox = { $app_title } { $app_version } başlat
 
 # MSI Installer UI - Prepare Dialog
-msi-prepare-title = { $app_title } Kurulum Sihirbazı'na Hoş Geldiniz
+msi-prepare-title = { $app_title } { $app_version } Kurulum Sihirbazı'na Hoş Geldiniz
 msi-prepare-description = Kurulum Sihirbazı yükleme sırasında size yol göstermek için hazırlanırken lütfen bekleyin.
 
 # MSI Installer UI - License Agreement Dialog
@@ -120,15 +120,15 @@ msi-scope-no-per-user-description = Yönetici ayrıcalıkları gerektirir
 msi-scope-per-machine-description = Yönetici ayrıcalıkları gerektirir
 
 # MSI Installer UI - Verify Ready Dialog
-msi-ready-install-title = { $app_title } ürünü yüklenmeye hazır
+msi-ready-install-title = { $app_title } { $app_version } ürünü yüklenmeye hazır
 msi-ready-install-text = Yüklemeyi başlatmak için Yükle'yi tıklatın. Yükleme ayarlarınızdan herhangi birini gözden geçirmek veya değiştirmek için Geri'yi tıklatın.
-msi-ready-change-title = { $app_title } ürünü değiştirilmeye hazır
+msi-ready-change-title = { $app_title } { $app_version } ürünü değiştirilmeye hazır
 msi-ready-change-text = Yükleme işlemini değiştirmeye başlamak için Değiştir'i tıklatın. Yükleme ayarlarınızdan herhangi birini gözden geçirmek veya değiştirmek için Geri'yi tıklatın.
-msi-ready-repair-title = { $app_title } ürünü onarılmaya hazır
+msi-ready-repair-title = { $app_title } { $app_version } ürünü onarılmaya hazır
 msi-ready-repair-text = Onarımı başlatmak için Onar'ı tıklatın. Yükleme ayarlarınızdan herhangi birini gözden geçirmek veya değiştirmek için Geri'yi tıklatın.
-msi-ready-remove-title = { $app_title } ürünü kaldırılmaya hazır
-msi-ready-remove-text = { $app_title } ürününü bilgisayarınızdan kaldırmak için Kaldır'ı tıklatın. Yükleme ayarlarınızdan herhangi birini gözden geçirmek veya değiştirmek için Geri'yi tıklatın.
-msi-ready-update-title = { $app_title } ürünü güncellenmeye hazır
+msi-ready-remove-title = { $app_title } { $app_version } ürünü kaldırılmaya hazır
+msi-ready-remove-text = { $app_title } { $app_version } ürününü bilgisayarınızdan kaldırmak için Kaldır'ı tıklatın. Yükleme ayarlarınızdan herhangi birini gözden geçirmek veya değiştirmek için Geri'yi tıklatın.
+msi-ready-update-title = { $app_title } { $app_version } ürünü güncellenmeye hazır
 msi-ready-update-text = Güncellemeyi başlatmak için Güncelle'yi tıklatın. Yükleme ayarlarınızdan herhangi birini gözden geçirmek veya değiştirmek için Geri'yi tıklatın.
 msi-ready-btn-install = Yü&kle
 msi-ready-btn-change = &Değiştir
@@ -137,21 +137,21 @@ msi-ready-btn-remove = &Kaldır
 msi-ready-btn-update = &Güncelle
 
 # MSI Installer UI - Progress Dialog
-msi-progress-installing-title = { $app_title } yükleniyor
-msi-progress-installing-text = Kurulum Sihirbazı { $app_title } ürününü yüklerken lütfen bekleyin.
-msi-progress-changing-title = { $app_title } değiştiriliyor
-msi-progress-changing-text = Kurulum Sihirbazı { $app_title } ürününü değiştirirken lütfen bekleyin.
-msi-progress-repairing-title = { $app_title } onarılıyor
-msi-progress-repairing-text = Kurulum Sihirbazı { $app_title } ürününü onarırken lütfen bekleyin.
-msi-progress-removing-title = { $app_title } kaldırılıyor
-msi-progress-removing-text = Kurulum Sihirbazı { $app_title } ürününü kaldırırken lütfen bekleyin.
-msi-progress-updating-title = { $app_title } güncelleniyor
-msi-progress-updating-text = Kurulum Sihirbazı { $app_title } ürününü güncellerken lütfen bekleyin.
+msi-progress-installing-title = { $app_title } { $app_version } yükleniyor
+msi-progress-installing-text = Kurulum Sihirbazı { $app_title } { $app_version } ürününü yüklerken lütfen bekleyin.
+msi-progress-changing-title = { $app_title } { $app_version } değiştiriliyor
+msi-progress-changing-text = Kurulum Sihirbazı { $app_title } { $app_version } ürününü değiştirirken lütfen bekleyin.
+msi-progress-repairing-title = { $app_title } { $app_version } onarılıyor
+msi-progress-repairing-text = Kurulum Sihirbazı { $app_title } { $app_version } ürününü onarırken lütfen bekleyin.
+msi-progress-removing-title = { $app_title } { $app_version } kaldırılıyor
+msi-progress-removing-text = Kurulum Sihirbazı { $app_title } { $app_version } ürününü kaldırırken lütfen bekleyin.
+msi-progress-updating-title = { $app_title } { $app_version } güncelleniyor
+msi-progress-updating-text = Kurulum Sihirbazı { $app_title } { $app_version } ürününü güncellerken lütfen bekleyin.
 msi-progress-status = Durum:
 
 # MSI Installer UI - Maintenance Welcome Dialog
-msi-maint-welcome-title = { $app_title } Kurulum Sihirbazı'na Hoş Geldiniz
-msi-maint-welcome-description = Kurulum Sihirbazı { $app_title } ürününü onarmanıza veya kaldırmanıza olanak verir. Devam etmek için İleri'yi, Kurulum Sihirbazı'ndan çıkmak içinse İptal'i tıklatın.
+msi-maint-welcome-title = { $app_title } { $app_version } Kurulum Sihirbazı'na Hoş Geldiniz
+msi-maint-welcome-description = Kurulum Sihirbazı { $app_title } { $app_version } ürününü onarmanıza veya kaldırmanıza olanak verir. Devam etmek için İleri'yi, Kurulum Sihirbazı'ndan çıkmak içinse İptal'i tıklatın.
 
 # MSI Installer UI - Maintenance Type Dialog
 msi-maint-type-title = Yüklemeyi değiştirin, onarın veya kaldırın
@@ -166,11 +166,11 @@ msi-maint-repair-text = En son yüklemedeki eksik veya bozuk dosyaları, kısayo
 msi-maint-repair-disabled = Onarım şu anda devre dışı.
 msi-maint-remove-button = &Kaldır
 msi-maint-remove-tooltip = Kaldır
-msi-maint-remove-text = { $app_title } ürününü bilgisayarınızdan kaldırır.
+msi-maint-remove-text = { $app_title } { $app_version } ürününü bilgisayarınızdan kaldırır.
 msi-maint-remove-disabled = Kaldırma şu anda devre dışı.
 
 # MSI Installer UI - Cancel Dialog
-msi-cancel-text = { $app_title } yükleme işlemini iptal etmek istediğinizden emin misiniz?
+msi-cancel-text = { $app_title } { $app_version } yükleme işlemini iptal etmek istediğinizden emin misiniz?
 
 # MSI Installer UI - Browse Dialog
 msi-browse-title = Geçerli hedef klasörü değiştir
@@ -189,16 +189,16 @@ msi-disk-cost-description = Seçili özelliklerin yüklenmesi için gereken disk
 msi-disk-cost-text = Vurgulanan birimlerde şu anda seçili olan özellikler için yeterli disk alanı yok. Vurgulanan birimlerdeki bazı dosyaları kaldırabilir, yerel sürücülere daha az özellik yükleyebilir veya farklı hedef sürücüler seçebilirsiniz.
 
 # MSI Installer UI - Error Dialog
-msi-error-dlg-title = { $app_title } Yükleyici Bilgileri
+msi-error-dlg-title = { $app_title } { $app_version } Yükleyici Bilgileri
 
 # MSI Installer UI - Fatal Error Dialog
-msi-fatal-title = { $app_title } Kurulum Sihirbazı tamamlanmadan sona erdi
-msi-fatal-description1 = { $app_title } kurulumu kesildi. Sisteminizde değişiklik yapılmadı. Daha sonra bu programı yüklemek için lütfen kurulumu yeniden çalıştırın.
+msi-fatal-title = { $app_title } { $app_version } Kurulum Sihirbazı tamamlanmadan sona erdi
+msi-fatal-description1 = { $app_title } { $app_version } kurulumu kesildi. Sisteminizde değişiklik yapılmadı. Daha sonra bu programı yüklemek için lütfen kurulumu yeniden çalıştırın.
 msi-fatal-description2 = Kurulum Sihirbazı'ndan çıkmak için Son düğmesini tıklatın.
 
 # MSI Installer UI - User Exit Dialog
-msi-user-exit-title = { $app_title } Kurulum Sihirbazı'nın çalışması kesildi
-msi-user-exit-description1 = { $app_title } kurulumu kesildi. Sisteminizde değişiklik yapılmadı. Daha sonra bu programı yüklemek için lütfen kurulumu yeniden çalıştırın.
+msi-user-exit-title = { $app_title } { $app_version } Kurulum Sihirbazı'nın çalışması kesildi
+msi-user-exit-description1 = { $app_title } { $app_version } kurulumu kesildi. Sisteminizde değişiklik yapılmadı. Daha sonra bu programı yüklemek için lütfen kurulumu yeniden çalıştırın.
 msi-user-exit-description2 = Kurulum Sihirbazı'ndan çıkmak için Son düğmesini tıklatın.
 
 # MSI Installer UI - Files In Use Dialog
@@ -215,13 +215,13 @@ msi-rm-files-in-use-use-rm = Uygulamaları otomatik olarak &kapat ve kurulum tam
 msi-rm-files-in-use-dont-use-rm = Uygula&maları kapatma. (Yeniden başlatma gerekecek.)
 
 # MSI Installer UI - Resume Dialog
-msi-resume-title = { $app_title } Kurulum Sihirbazı sürdürülüyor
-msi-resume-description = Kurulum Sihirbazı { $app_title } ürününü bilgisayarınıza yüklemeyi tamamlayacak. Devam etmek için Yükle'yi, Kurulum Sihirbazı'ndan çıkmak içinse İptal'i tıklatın.
+msi-resume-title = { $app_title } { $app_version } Kurulum Sihirbazı sürdürülüyor
+msi-resume-description = Kurulum Sihirbazı { $app_title } { $app_version } ürününü bilgisayarınıza yüklemeyi tamamlayacak. Devam etmek için Yükle'yi, Kurulum Sihirbazı'ndan çıkmak içinse İptal'i tıklatın.
 msi-resume-btn-install = Yü&kle
 
 # MSI Installer UI - Shortcut Descriptions
-msi-desktop-shortcut-description = { $app_title } için masaüstü kısayolu
-msi-start-menu-shortcut-description = { $app_title } için Başlat Menüsü kısayolu
+msi-desktop-shortcut-description = { $app_title } { $app_version } için masaüstü kısayolu
+msi-start-menu-shortcut-description = { $app_title } { $app_version } için Başlat Menüsü kısayolu
 # MSI Installer UI - Readme Dialog
 msi-readme-title = Önemli Bilgiler
 msi-readme-description = Devam etmeden önce lütfen aşağıdaki bilgileri okuyun.

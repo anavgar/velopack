@@ -1,4 +1,4 @@
-# Shared titles
+﻿# Shared titles
 title-update = Mise à jour de { $app_title }
 title-setup = Installation de { $app_title }
 title-uninstall = Désinstallation de { $app_title }
@@ -50,7 +50,7 @@ install-hook-body = L'installation est terminée, mais certaines étapes ont peu
 
 # Splash fallback (splash.rs)
 splash-header = Installation de { $app_title }
-splash-body = Configuration de { $app_title } { $app_version }, veuillez patienter...
+splash-body = Configuration de { $app_title }, veuillez patienter...
 
 # Dependency download (prerequisite.rs)
 deps-download-header = Téléchargement du composant requis
@@ -80,7 +80,7 @@ setup-update-exe-missing = Il manque un fichier binaire essentiel (Update.exe) �
 setup-main-exe-missing = L'exécutable principal est introuvable dans le paquet. Veuillez contacter l'auteur de l'application.
 
 # MSI Installer UI - Common
-msi-dlg-title = Installation de { $app_title }
+msi-dlg-title = Installation de { $app_title } { $app_version }
 msi-btn-back = &Précédent
 msi-btn-next = &Suivant
 msi-btn-cancel = Annuler
@@ -92,17 +92,17 @@ msi-btn-retry = &Réessayer
 msi-btn-ignore = &Ignorer
 
 # MSI Installer UI - Welcome Dialog
-msi-welcome-title = Bienvenue dans l'Assistant Installation de { $app_title }
-msi-welcome-description = L'Assistant Installation va installer { $app_title } sur l'ordinateur. Cliquez sur Suivant pour continuer, ou sur Annuler pour quitter l'Assistant Installation.
-msi-welcome-update-description = L'Assistant Installation va mettre à jour { $app_title } sur l'ordinateur. Cliquez sur Suivant pour continuer, ou sur Annuler pour quitter l'Assistant Installation.
+msi-welcome-title = Bienvenue dans l'Assistant Installation de { $app_title } { $app_version }
+msi-welcome-description = L'Assistant Installation va installer { $app_title } { $app_version } sur l'ordinateur. Cliquez sur Suivant pour continuer, ou sur Annuler pour quitter l'Assistant Installation.
+msi-welcome-update-description = L'Assistant Installation va mettre à jour { $app_title } { $app_version } sur l'ordinateur. Cliquez sur Suivant pour continuer, ou sur Annuler pour quitter l'Assistant Installation.
 
 # MSI Installer UI - Exit Dialog
-msi-exit-title = Assistant Installation de { $app_title } terminé
+msi-exit-title = Assistant Installation de { $app_title } { $app_version } terminé
 msi-exit-description = Cliquez sur le bouton Terminer pour quitter l'Assistant Installation.
-msi-exit-launch-checkbox = Lancer { $app_title }
+msi-exit-launch-checkbox = Lancer { $app_title } { $app_version }
 
 # MSI Installer UI - Prepare Dialog
-msi-prepare-title = Bienvenue dans l'Assistant Installation de { $app_title }
+msi-prepare-title = Bienvenue dans l'Assistant Installation de { $app_title } { $app_version }
 msi-prepare-description = Veuillez patienter pendant que l'Assistant Installation se prépare pour vous guider dans l'installation.
 
 # MSI Installer UI - License Agreement Dialog
@@ -120,15 +120,15 @@ msi-scope-no-per-user-description = Nécessite des privilèges administrateur
 msi-scope-per-machine-description = Nécessite des privilèges administrateur
 
 # MSI Installer UI - Verify Ready Dialog
-msi-ready-install-title = Prêt à installer { $app_title }
+msi-ready-install-title = Prêt à installer { $app_title } { $app_version }
 msi-ready-install-text = Cliquez sur Installer pour commencer l'installation. Cliquez sur Précédent pour vérifier ou modifier vos paramètres d'installation.
-msi-ready-change-title = Prêt à modifier { $app_title }
+msi-ready-change-title = Prêt à modifier { $app_title } { $app_version }
 msi-ready-change-text = Cliquez sur Modifier pour lancer la modification de l'installation. Cliquez sur Précédent pour vérifier ou modifier vos paramètres d'installation.
-msi-ready-repair-title = Prêt à réparer { $app_title }
+msi-ready-repair-title = Prêt à réparer { $app_title } { $app_version }
 msi-ready-repair-text = Cliquez sur Réparer pour lancer la réparation. Cliquez sur Précédent pour vérifier ou modifier vos paramètres d'installation.
-msi-ready-remove-title = Prêt à supprimer { $app_title }
-msi-ready-remove-text = Cliquez sur Supprimer pour supprimer { $app_title } de votre ordinateur. Cliquez sur Précédent pour vérifier ou modifier vos paramètres d'installation.
-msi-ready-update-title = Prêt à mettre à jour { $app_title }
+msi-ready-remove-title = Prêt à supprimer { $app_title } { $app_version }
+msi-ready-remove-text = Cliquez sur Supprimer pour supprimer { $app_title } { $app_version } de votre ordinateur. Cliquez sur Précédent pour vérifier ou modifier vos paramètres d'installation.
+msi-ready-update-title = Prêt à mettre à jour { $app_title } { $app_version }
 msi-ready-update-text = Cliquez sur Mettre à jour pour lancer la mise à jour. Cliquez sur Précédent pour vérifier ou modifier vos paramètres d'installation.
 msi-ready-btn-install = &Installer
 msi-ready-btn-change = &Modifier
@@ -137,21 +137,21 @@ msi-ready-btn-remove = &Supprimer
 msi-ready-btn-update = Mettre à jo&ur
 
 # MSI Installer UI - Progress Dialog
-msi-progress-installing-title = Installation de { $app_title }
-msi-progress-installing-text = Veuillez patienter pendant que l'Assistant Installation installe { $app_title }.
-msi-progress-changing-title = Modification de { $app_title }
-msi-progress-changing-text = Veuillez patienter pendant que l'Assistant Installation modifie { $app_title }.
-msi-progress-repairing-title = Réparation de { $app_title }
-msi-progress-repairing-text = Veuillez patienter pendant que l'Assistant Installation répare { $app_title }.
-msi-progress-removing-title = Suppression de { $app_title }
-msi-progress-removing-text = Veuillez patienter pendant que l'Assistant Installation supprime { $app_title }.
-msi-progress-updating-title = Mise à jour de { $app_title }
-msi-progress-updating-text = Veuillez patienter pendant que l'Assistant Installation met à jour { $app_title }.
+msi-progress-installing-title = Installation de { $app_title } { $app_version }
+msi-progress-installing-text = Veuillez patienter pendant que l'Assistant Installation installe { $app_title } { $app_version }.
+msi-progress-changing-title = Modification de { $app_title } { $app_version }
+msi-progress-changing-text = Veuillez patienter pendant que l'Assistant Installation modifie { $app_title } { $app_version }.
+msi-progress-repairing-title = Réparation de { $app_title } { $app_version }
+msi-progress-repairing-text = Veuillez patienter pendant que l'Assistant Installation répare { $app_title } { $app_version }.
+msi-progress-removing-title = Suppression de { $app_title } { $app_version }
+msi-progress-removing-text = Veuillez patienter pendant que l'Assistant Installation supprime { $app_title } { $app_version }.
+msi-progress-updating-title = Mise à jour de { $app_title } { $app_version }
+msi-progress-updating-text = Veuillez patienter pendant que l'Assistant Installation met à jour { $app_title } { $app_version }.
 msi-progress-status = Statut :
 
 # MSI Installer UI - Maintenance Welcome Dialog
-msi-maint-welcome-title = Bienvenue dans l'Assistant Installation de { $app_title }
-msi-maint-welcome-description = L'Assistant Installation vous permettra de réparer ou de supprimer { $app_title }. Cliquez sur Suivant pour continuer, ou sur Annuler pour quitter l'Assistant Installation.
+msi-maint-welcome-title = Bienvenue dans l'Assistant Installation de { $app_title } { $app_version }
+msi-maint-welcome-description = L'Assistant Installation vous permettra de réparer ou de supprimer { $app_title } { $app_version }. Cliquez sur Suivant pour continuer, ou sur Annuler pour quitter l'Assistant Installation.
 
 # MSI Installer UI - Maintenance Type Dialog
 msi-maint-type-title = Modifier, réparer ou supprimer l'installation
@@ -166,11 +166,11 @@ msi-maint-repair-text = Corrige les erreurs de l'installation la plus récente e
 msi-maint-repair-disabled = Réparer est actuellement désactivé.
 msi-maint-remove-button = &Supprimer
 msi-maint-remove-tooltip = Supprimer
-msi-maint-remove-text = Supprime { $app_title } de votre ordinateur.
+msi-maint-remove-text = Supprime { $app_title } { $app_version } de votre ordinateur.
 msi-maint-remove-disabled = Supprimer est actuellement désactivé.
 
 # MSI Installer UI - Cancel Dialog
-msi-cancel-text = Êtes-vous sûr de vouloir annuler l'installation de { $app_title } ?
+msi-cancel-text = Êtes-vous sûr de vouloir annuler l'installation de { $app_title } { $app_version } ?
 
 # MSI Installer UI - Browse Dialog
 msi-browse-title = Modifier le dossier de destination actuel
@@ -189,16 +189,16 @@ msi-disk-cost-description = Espace disque nécessaire pour l'installation des co
 msi-disk-cost-text = Les volumes mis en surbrillance ne disposent pas de suffisamment d'espace disque pour les composants actuellement sélectionnés. Vous pouvez supprimer certains fichiers des volumes mis en surbrillance, installer moins de composants sur le(s) lecteur(s) local(aux), ou sélectionner d'autres lecteurs de destination.
 
 # MSI Installer UI - Error Dialog
-msi-error-dlg-title = Informations de l'installateur { $app_title }
+msi-error-dlg-title = Informations de l'installateur { $app_title } { $app_version }
 
 # MSI Installer UI - Fatal Error Dialog
-msi-fatal-title = L'Assistant Installation de { $app_title } a pris fin prématurément
-msi-fatal-description1 = L'installation de { $app_title } a été interrompue. Votre système n'a pas été modifié. Pour installer ce programme ultérieurement, veuillez exécuter à nouveau l'installation.
+msi-fatal-title = L'Assistant Installation de { $app_title } { $app_version } a pris fin prématurément
+msi-fatal-description1 = L'installation de { $app_title } { $app_version } a été interrompue. Votre système n'a pas été modifié. Pour installer ce programme ultérieurement, veuillez exécuter à nouveau l'installation.
 msi-fatal-description2 = Cliquez sur le bouton Terminer pour quitter l'Assistant Installation.
 
 # MSI Installer UI - User Exit Dialog
-msi-user-exit-title = L'Assistant Installation de { $app_title } a été interrompu
-msi-user-exit-description1 = L'installation de { $app_title } a été interrompue. Votre système n'a pas été modifié. Pour installer ce programme ultérieurement, veuillez exécuter à nouveau l'installation.
+msi-user-exit-title = L'Assistant Installation de { $app_title } { $app_version } a été interrompu
+msi-user-exit-description1 = L'installation de { $app_title } { $app_version } a été interrompue. Votre système n'a pas été modifié. Pour installer ce programme ultérieurement, veuillez exécuter à nouveau l'installation.
 msi-user-exit-description2 = Cliquez sur le bouton Terminer pour quitter l'Assistant Installation.
 
 # MSI Installer UI - Files In Use Dialog
@@ -215,13 +215,13 @@ msi-rm-files-in-use-use-rm = &Fermer automatiquement les applications et tenter 
 msi-rm-files-in-use-dont-use-rm = &Ne pas fermer les applications. (Un redémarrage sera nécessaire.)
 
 # MSI Installer UI - Resume Dialog
-msi-resume-title = Reprise de l'Assistant Installation de { $app_title }
-msi-resume-description = L'Assistant Installation va terminer l'installation de { $app_title } sur votre ordinateur. Cliquez sur Installer pour continuer, ou sur Annuler pour quitter l'Assistant Installation.
+msi-resume-title = Reprise de l'Assistant Installation de { $app_title } { $app_version }
+msi-resume-description = L'Assistant Installation va terminer l'installation de { $app_title } { $app_version } sur votre ordinateur. Cliquez sur Installer pour continuer, ou sur Annuler pour quitter l'Assistant Installation.
 msi-resume-btn-install = &Installer
 
 # MSI Installer UI - Shortcut Descriptions
-msi-desktop-shortcut-description = Raccourci Bureau pour { $app_title }
-msi-start-menu-shortcut-description = Raccourci Menu Démarrer pour { $app_title }
+msi-desktop-shortcut-description = Raccourci Bureau pour { $app_title } { $app_version }
+msi-start-menu-shortcut-description = Raccourci Menu Démarrer pour { $app_title } { $app_version }
 # MSI Installer UI - Readme Dialog
 msi-readme-title = Informations importantes
 msi-readme-description = Veuillez lire les informations suivantes avant de continuer.

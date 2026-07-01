@@ -1,4 +1,4 @@
-# Shared titles
+﻿# Shared titles
 title-update = { $app_title } Update
 title-setup = { $app_title } Installatie
 title-uninstall = { $app_title } Verwijderen
@@ -50,7 +50,7 @@ install-hook-body = De installatie is voltooid, maar sommige stappen kunnen zijn
 
 # Splash fallback (splash.rs)
 splash-header = { $app_title } wordt geïnstalleerd
-splash-body = { $app_title } { $app_version } wordt ingesteld, een ogenblik geduld...
+splash-body = { $app_title } wordt ingesteld, een ogenblik geduld...
 
 # Dependency download (prerequisite.rs)
 deps-download-header = Vereist onderdeel wordt gedownload
@@ -80,7 +80,7 @@ setup-update-exe-missing = In dit installatieprogramma ontbreekt een essentieel 
 setup-main-exe-missing = Het uitvoerbare hoofdbestand is niet gevonden in het pakket. Neem contact op met de auteur van de toepassing.
 
 # MSI Installer UI - Common
-msi-dlg-title = { $app_title } Installatie
+msi-dlg-title = { $app_title } { $app_version } Installatie
 msi-btn-back = V&orige
 msi-btn-next = V&olgende
 msi-btn-cancel = Annuleren
@@ -92,17 +92,17 @@ msi-btn-retry = &Opnieuw
 msi-btn-ignore = &Negeren
 
 # MSI Installer UI - Welcome Dialog
-msi-welcome-title = Welkom bij de wizard Setup van { $app_title }
-msi-welcome-description = Met de wizard Setup wordt { $app_title } op uw computer geïnstalleerd. Klik op Volgende om door te gaan of op Annuleren als u de wizard Setup wilt afsluiten.
-msi-welcome-update-description = Met de wizard Setup wordt { $app_title } op uw computer bijgewerkt. Klik op Volgende om door te gaan of op Annuleren als u de wizard Setup wilt afsluiten.
+msi-welcome-title = Welkom bij de wizard Setup van { $app_title } { $app_version }
+msi-welcome-description = Met de wizard Setup wordt { $app_title } { $app_version } op uw computer geïnstalleerd. Klik op Volgende om door te gaan of op Annuleren als u de wizard Setup wilt afsluiten.
+msi-welcome-update-description = Met de wizard Setup wordt { $app_title } { $app_version } op uw computer bijgewerkt. Klik op Volgende om door te gaan of op Annuleren als u de wizard Setup wilt afsluiten.
 
 # MSI Installer UI - Exit Dialog
-msi-exit-title = De wizard Setup van { $app_title } is voltooid
+msi-exit-title = De wizard Setup van { $app_title } { $app_version } is voltooid
 msi-exit-description = Klik op de knop Voltooien om de wizard Setup af te sluiten.
-msi-exit-launch-checkbox = { $app_title } starten
+msi-exit-launch-checkbox = { $app_title } { $app_version } starten
 
 # MSI Installer UI - Prepare Dialog
-msi-prepare-title = Welkom bij de wizard Setup van { $app_title }
+msi-prepare-title = Welkom bij de wizard Setup van { $app_title } { $app_version }
 msi-prepare-description = De wizard Setup wordt voorbereid. Een ogenblik geduld.
 
 # MSI Installer UI - License Agreement Dialog
@@ -120,15 +120,15 @@ msi-scope-no-per-user-description = Vereist beheerdersrechten
 msi-scope-per-machine-description = Vereist beheerdersrechten
 
 # MSI Installer UI - Verify Ready Dialog
-msi-ready-install-title = Gereed om { $app_title } te installeren
+msi-ready-install-title = Gereed om { $app_title } { $app_version } te installeren
 msi-ready-install-text = Klik op Installeren om de installatie te starten. Klik op Vorige om uw installatie-instellingen te bekijken of te wijzigen.
-msi-ready-change-title = Gereed om { $app_title } te wijzigen
+msi-ready-change-title = Gereed om { $app_title } { $app_version } te wijzigen
 msi-ready-change-text = Klik op Wijzigen om het wijzigen van de installatie te starten. Klik op Vorige om uw installatie-instellingen te bekijken of te wijzigen.
-msi-ready-repair-title = Gereed om { $app_title } te herstellen
+msi-ready-repair-title = Gereed om { $app_title } { $app_version } te herstellen
 msi-ready-repair-text = Klik op Herstellen om het herstel te starten. Klik op Vorige om uw installatie-instellingen te bekijken of te wijzigen.
-msi-ready-remove-title = Gereed om { $app_title } te verwijderen
-msi-ready-remove-text = Klik op Verwijderen om { $app_title } van uw computer te verwijderen. Klik op Vorige om uw installatie-instellingen te bekijken of te wijzigen.
-msi-ready-update-title = Gereed om { $app_title } bij te werken
+msi-ready-remove-title = Gereed om { $app_title } { $app_version } te verwijderen
+msi-ready-remove-text = Klik op Verwijderen om { $app_title } { $app_version } van uw computer te verwijderen. Klik op Vorige om uw installatie-instellingen te bekijken of te wijzigen.
+msi-ready-update-title = Gereed om { $app_title } { $app_version } bij te werken
 msi-ready-update-text = Klik op Bijwerken om de update te starten. Klik op Vorige om uw installatie-instellingen te bekijken of te wijzigen.
 msi-ready-btn-install = &Installeren
 msi-ready-btn-change = &Wijzigen
@@ -137,21 +137,21 @@ msi-ready-btn-remove = &Verwijderen
 msi-ready-btn-update = &Bijwerken
 
 # MSI Installer UI - Progress Dialog
-msi-progress-installing-title = { $app_title } installeren
-msi-progress-installing-text = { $app_title } wordt geïnstalleerd door de wizard Setup. Een ogenblik geduld.
-msi-progress-changing-title = { $app_title } wijzigen
-msi-progress-changing-text = { $app_title } wordt gewijzigd door de wizard Setup. Een ogenblik geduld.
-msi-progress-repairing-title = { $app_title } herstellen
-msi-progress-repairing-text = { $app_title } wordt hersteld door de wizard Setup. Een ogenblik geduld.
-msi-progress-removing-title = { $app_title } verwijderen
-msi-progress-removing-text = { $app_title } wordt verwijderd door de wizard Setup. Een ogenblik geduld.
-msi-progress-updating-title = { $app_title } bijwerken
-msi-progress-updating-text = { $app_title } wordt bijgewerkt door de wizard Setup. Een ogenblik geduld.
+msi-progress-installing-title = { $app_title } { $app_version } installeren
+msi-progress-installing-text = { $app_title } { $app_version } wordt geïnstalleerd door de wizard Setup. Een ogenblik geduld.
+msi-progress-changing-title = { $app_title } { $app_version } wijzigen
+msi-progress-changing-text = { $app_title } { $app_version } wordt gewijzigd door de wizard Setup. Een ogenblik geduld.
+msi-progress-repairing-title = { $app_title } { $app_version } herstellen
+msi-progress-repairing-text = { $app_title } { $app_version } wordt hersteld door de wizard Setup. Een ogenblik geduld.
+msi-progress-removing-title = { $app_title } { $app_version } verwijderen
+msi-progress-removing-text = { $app_title } { $app_version } wordt verwijderd door de wizard Setup. Een ogenblik geduld.
+msi-progress-updating-title = { $app_title } { $app_version } bijwerken
+msi-progress-updating-text = { $app_title } { $app_version } wordt bijgewerkt door de wizard Setup. Een ogenblik geduld.
 msi-progress-status = Status:
 
 # MSI Installer UI - Maintenance Welcome Dialog
-msi-maint-welcome-title = Welkom bij de wizard Setup van { $app_title }
-msi-maint-welcome-description = Met de wizard Setup kunt u { $app_title } herstellen of verwijderen. Klik op Volgende om door te gaan of op Annuleren als u de wizard Setup wilt afsluiten.
+msi-maint-welcome-title = Welkom bij de wizard Setup van { $app_title } { $app_version }
+msi-maint-welcome-description = Met de wizard Setup kunt u { $app_title } { $app_version } herstellen of verwijderen. Klik op Volgende om door te gaan of op Annuleren als u de wizard Setup wilt afsluiten.
 
 # MSI Installer UI - Maintenance Type Dialog
 msi-maint-type-title = Installatie wijzigen, herstellen of verwijderen
@@ -166,11 +166,11 @@ msi-maint-repair-text = Hiermee worden fouten in de meest recente installatie he
 msi-maint-repair-disabled = Herstellen is momenteel uitgeschakeld.
 msi-maint-remove-button = &Verwijderen
 msi-maint-remove-tooltip = Verwijderen
-msi-maint-remove-text = Hiermee wordt { $app_title } van uw computer verwijderd.
+msi-maint-remove-text = Hiermee wordt { $app_title } { $app_version } van uw computer verwijderd.
 msi-maint-remove-disabled = Verwijderen is momenteel uitgeschakeld.
 
 # MSI Installer UI - Cancel Dialog
-msi-cancel-text = Weet u zeker dat u de installatie van { $app_title } wilt annuleren?
+msi-cancel-text = Weet u zeker dat u de installatie van { $app_title } { $app_version } wilt annuleren?
 
 # MSI Installer UI - Browse Dialog
 msi-browse-title = Huidige doelmap wijzigen
@@ -189,16 +189,16 @@ msi-disk-cost-description = De benodigde schijfruimte voor de installatie van de
 msi-disk-cost-text = De gemarkeerde volumes beschikken niet over voldoende schijfruimte voor de momenteel geselecteerde onderdelen. U kunt bestanden van de gemarkeerde volumes verwijderen, ervoor kiezen minder onderdelen op het/de lokale station(s) te installeren, of andere doelstations selecteren.
 
 # MSI Installer UI - Error Dialog
-msi-error-dlg-title = { $app_title } Installatie-informatie
+msi-error-dlg-title = { $app_title } { $app_version } Installatie-informatie
 
 # MSI Installer UI - Fatal Error Dialog
-msi-fatal-title = De wizard Setup van { $app_title } is voortijdig beëindigd
-msi-fatal-description1 = De installatie van { $app_title } is onderbroken. Het systeem is niet gewijzigd. Als u dit programma op een later tijdstip wilt installeren, voert u de installatie opnieuw uit.
+msi-fatal-title = De wizard Setup van { $app_title } { $app_version } is voortijdig beëindigd
+msi-fatal-description1 = De installatie van { $app_title } { $app_version } is onderbroken. Het systeem is niet gewijzigd. Als u dit programma op een later tijdstip wilt installeren, voert u de installatie opnieuw uit.
 msi-fatal-description2 = Klik op de knop Voltooien om de wizard Setup af te sluiten.
 
 # MSI Installer UI - User Exit Dialog
-msi-user-exit-title = De wizard Setup van { $app_title } is onderbroken
-msi-user-exit-description1 = De installatie van { $app_title } is onderbroken. Het systeem is niet gewijzigd. Als u dit programma op een later tijdstip wilt installeren, voert u de installatie opnieuw uit.
+msi-user-exit-title = De wizard Setup van { $app_title } { $app_version } is onderbroken
+msi-user-exit-description1 = De installatie van { $app_title } { $app_version } is onderbroken. Het systeem is niet gewijzigd. Als u dit programma op een later tijdstip wilt installeren, voert u de installatie opnieuw uit.
 msi-user-exit-description2 = Klik op de knop Voltooien om de wizard Setup af te sluiten.
 
 # MSI Installer UI - Files In Use Dialog
@@ -215,13 +215,13 @@ msi-rm-files-in-use-use-rm = De toepassingen automatisch &sluiten en proberen ze
 msi-rm-files-in-use-dont-use-rm = &Toepassingen niet sluiten. (Opnieuw opstarten is vereist.)
 
 # MSI Installer UI - Resume Dialog
-msi-resume-title = De wizard Setup van { $app_title } hervatten
-msi-resume-description = Met de wizard Setup wordt de installatie van { $app_title } op uw computer voltooid. Klik op Installeren om door te gaan of op Annuleren als u de wizard Setup wilt afsluiten.
+msi-resume-title = De wizard Setup van { $app_title } { $app_version } hervatten
+msi-resume-description = Met de wizard Setup wordt de installatie van { $app_title } { $app_version } op uw computer voltooid. Klik op Installeren om door te gaan of op Annuleren als u de wizard Setup wilt afsluiten.
 msi-resume-btn-install = &Installeren
 
 # MSI Installer UI - Shortcut Descriptions
-msi-desktop-shortcut-description = Bureaubladsnelkoppeling voor { $app_title }
-msi-start-menu-shortcut-description = Startmenu-snelkoppeling voor { $app_title }
+msi-desktop-shortcut-description = Bureaubladsnelkoppeling voor { $app_title } { $app_version }
+msi-start-menu-shortcut-description = Startmenu-snelkoppeling voor { $app_title } { $app_version }
 # MSI Installer UI - Readme Dialog
 msi-readme-title = Belangrijke informatie
 msi-readme-description = Lees de volgende informatie voordat u verdergaat.

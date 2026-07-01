@@ -1,4 +1,4 @@
-# Shared titles
+﻿# Shared titles
 title-update = Aktualizacja { $app_title }
 title-setup = Instalacja { $app_title }
 title-uninstall = Dezinstalacja { $app_title }
@@ -50,7 +50,7 @@ install-hook-body = Instalacja została zakończona, ale niektóre kroki mogły 
 
 # Splash fallback (splash.rs)
 splash-header = Instalowanie { $app_title }
-splash-body = Konfigurowanie { $app_title } { $app_version }, proszę czekać...
+splash-body = Konfigurowanie { $app_title }, proszę czekać...
 
 # Dependency download (prerequisite.rs)
 deps-download-header = Pobieranie wymaganego składnika
@@ -80,7 +80,7 @@ setup-update-exe-missing = W tym instalatorze brakuje krytycznego pliku binarneg
 setup-main-exe-missing = Nie można znaleźć głównego pliku wykonywalnego w pakiecie. Skontaktuj się z autorem aplikacji.
 
 # MSI Installer UI - Common
-msi-dlg-title = Instalator produktu { $app_title }
+msi-dlg-title = Instalator produktu { $app_title } { $app_version }
 msi-btn-back = &Wstecz
 msi-btn-next = &Dalej
 msi-btn-cancel = Anuluj
@@ -92,17 +92,17 @@ msi-btn-retry = &Ponów próbę
 msi-btn-ignore = &Ignoruj
 
 # MSI Installer UI - Welcome Dialog
-msi-welcome-title = Kreator instalacji produktu { $app_title } — Zapraszamy!
-msi-welcome-description = Kreator instalacji zainstaluje produkt { $app_title } na tym komputerze. Kliknij przycisk Dalej, aby kontynuować, lub Anuluj, aby zakończyć pracę Kreatora instalacji.
-msi-welcome-update-description = Kreator instalacji zaktualizuje produkt { $app_title } na tym komputerze. Kliknij przycisk Dalej, aby kontynuować, lub Anuluj, aby zakończyć pracę Kreatora instalacji.
+msi-welcome-title = Kreator instalacji produktu { $app_title } { $app_version } — Zapraszamy!
+msi-welcome-description = Kreator instalacji zainstaluje produkt { $app_title } { $app_version } na tym komputerze. Kliknij przycisk Dalej, aby kontynuować, lub Anuluj, aby zakończyć pracę Kreatora instalacji.
+msi-welcome-update-description = Kreator instalacji zaktualizuje produkt { $app_title } { $app_version } na tym komputerze. Kliknij przycisk Dalej, aby kontynuować, lub Anuluj, aby zakończyć pracę Kreatora instalacji.
 
 # MSI Installer UI - Exit Dialog
-msi-exit-title = Kreator instalacji produktu { $app_title } ukończył pracę
+msi-exit-title = Kreator instalacji produktu { $app_title } { $app_version } ukończył pracę
 msi-exit-description = Kliknij przycisk Zakończ, aby zakończyć pracę Kreatora instalacji.
-msi-exit-launch-checkbox = Uruchom { $app_title }
+msi-exit-launch-checkbox = Uruchom { $app_title } { $app_version }
 
 # MSI Installer UI - Prepare Dialog
-msi-prepare-title = Kreator instalacji produktu { $app_title } — Zapraszamy!
+msi-prepare-title = Kreator instalacji produktu { $app_title } { $app_version } — Zapraszamy!
 msi-prepare-description = Zaczekaj, aż Kreator instalacji zakończy przygotowania do przeprowadzenia instalacji.
 
 # MSI Installer UI - License Agreement Dialog
@@ -120,15 +120,15 @@ msi-scope-no-per-user-description = Wymaga uprawnień administratora
 msi-scope-per-machine-description = Wymaga uprawnień administratora
 
 # MSI Installer UI - Verify Ready Dialog
-msi-ready-install-title = Wszystko gotowe do zainstalowania produktu { $app_title }
+msi-ready-install-title = Wszystko gotowe do zainstalowania produktu { $app_title } { $app_version }
 msi-ready-install-text = Kliknij przycisk Zainstaluj, aby rozpocząć instalację. Kliknij przycisk Wstecz, aby przejrzeć lub zmienić dowolne ustawienia instalacji.
-msi-ready-change-title = Wszystko gotowe do wprowadzenia zmian w produkcie { $app_title }
+msi-ready-change-title = Wszystko gotowe do wprowadzenia zmian w produkcie { $app_title } { $app_version }
 msi-ready-change-text = Kliknij przycisk Zmień, aby rozpocząć wprowadzanie zmian w instalacji. Kliknij przycisk Wstecz, aby przejrzeć lub zmienić dowolne ustawienia instalacji.
-msi-ready-repair-title = Wszystko gotowe do naprawienia produktu { $app_title }
+msi-ready-repair-title = Wszystko gotowe do naprawienia produktu { $app_title } { $app_version }
 msi-ready-repair-text = Kliknij przycisk Napraw, aby rozpocząć naprawę. Kliknij przycisk Wstecz, aby przejrzeć lub zmienić dowolne ustawienia instalacji.
-msi-ready-remove-title = Wszystko gotowe do usunięcia produktu { $app_title }
-msi-ready-remove-text = Kliknij przycisk Usuń, aby usunąć produkt { $app_title } z tego komputera. Kliknij przycisk Wstecz, aby przejrzeć lub zmienić dowolne ustawienia instalacji.
-msi-ready-update-title = Wszystko gotowe do zaktualizowania produktu { $app_title }
+msi-ready-remove-title = Wszystko gotowe do usunięcia produktu { $app_title } { $app_version }
+msi-ready-remove-text = Kliknij przycisk Usuń, aby usunąć produkt { $app_title } { $app_version } z tego komputera. Kliknij przycisk Wstecz, aby przejrzeć lub zmienić dowolne ustawienia instalacji.
+msi-ready-update-title = Wszystko gotowe do zaktualizowania produktu { $app_title } { $app_version }
 msi-ready-update-text = Kliknij przycisk Aktualizuj, aby rozpocząć aktualizację. Kliknij przycisk Wstecz, aby przejrzeć lub zmienić dowolne ustawienia instalacji.
 msi-ready-btn-install = &Zainstaluj
 msi-ready-btn-change = Z&mień
@@ -137,21 +137,21 @@ msi-ready-btn-remove = &Usuń
 msi-ready-btn-update = Akt&ualizuj
 
 # MSI Installer UI - Progress Dialog
-msi-progress-installing-title = Instalowanie produktu { $app_title }
-msi-progress-installing-text = Czekaj, aż Kreator instalacji zainstaluje produkt { $app_title }.
-msi-progress-changing-title = Wprowadzanie zmian w produkcie { $app_title }
-msi-progress-changing-text = Czekaj, aż Kreator instalacji wprowadzi zmiany w produkcie { $app_title }.
-msi-progress-repairing-title = Naprawianie produktu { $app_title }
-msi-progress-repairing-text = Czekaj, aż Kreator instalacji naprawi produkt { $app_title }.
-msi-progress-removing-title = Usuwanie produktu { $app_title }
-msi-progress-removing-text = Czekaj, aż Kreator instalacji usunie produkt { $app_title }.
-msi-progress-updating-title = Aktualizowanie produktu { $app_title }
-msi-progress-updating-text = Czekaj, aż Kreator instalacji zaktualizuje produkt { $app_title }.
+msi-progress-installing-title = Instalowanie produktu { $app_title } { $app_version }
+msi-progress-installing-text = Czekaj, aż Kreator instalacji zainstaluje produkt { $app_title } { $app_version }.
+msi-progress-changing-title = Wprowadzanie zmian w produkcie { $app_title } { $app_version }
+msi-progress-changing-text = Czekaj, aż Kreator instalacji wprowadzi zmiany w produkcie { $app_title } { $app_version }.
+msi-progress-repairing-title = Naprawianie produktu { $app_title } { $app_version }
+msi-progress-repairing-text = Czekaj, aż Kreator instalacji naprawi produkt { $app_title } { $app_version }.
+msi-progress-removing-title = Usuwanie produktu { $app_title } { $app_version }
+msi-progress-removing-text = Czekaj, aż Kreator instalacji usunie produkt { $app_title } { $app_version }.
+msi-progress-updating-title = Aktualizowanie produktu { $app_title } { $app_version }
+msi-progress-updating-text = Czekaj, aż Kreator instalacji zaktualizuje produkt { $app_title } { $app_version }.
 msi-progress-status = Status:
 
 # MSI Installer UI - Maintenance Welcome Dialog
-msi-maint-welcome-title = Kreator instalacji produktu { $app_title } — Zapraszamy!
-msi-maint-welcome-description = Kreator instalacji pozwala naprawić lub usunąć produkt { $app_title }. Kliknij przycisk Dalej, aby kontynuować, lub Anuluj, aby zakończyć pracę Kreatora instalacji.
+msi-maint-welcome-title = Kreator instalacji produktu { $app_title } { $app_version } — Zapraszamy!
+msi-maint-welcome-description = Kreator instalacji pozwala naprawić lub usunąć produkt { $app_title } { $app_version }. Kliknij przycisk Dalej, aby kontynuować, lub Anuluj, aby zakończyć pracę Kreatora instalacji.
 
 # MSI Installer UI - Maintenance Type Dialog
 msi-maint-type-title = Zmienianie, naprawa lub usuwanie instalacji
@@ -166,11 +166,11 @@ msi-maint-repair-text = Naprawia błędy w najnowszej instalacji — rozwiązuje
 msi-maint-repair-disabled = Naprawa jest obecnie wyłączona.
 msi-maint-remove-button = &Usuń
 msi-maint-remove-tooltip = Usuń
-msi-maint-remove-text = Usuwa produkt { $app_title } z tego komputera.
+msi-maint-remove-text = Usuwa produkt { $app_title } { $app_version } z tego komputera.
 msi-maint-remove-disabled = Usuwanie jest obecnie wyłączone.
 
 # MSI Installer UI - Cancel Dialog
-msi-cancel-text = Czy na pewno chcesz anulować instalację produktu { $app_title }?
+msi-cancel-text = Czy na pewno chcesz anulować instalację produktu { $app_title } { $app_version }?
 
 # MSI Installer UI - Browse Dialog
 msi-browse-title = Zmień bieżący folder docelowy
@@ -189,16 +189,16 @@ msi-disk-cost-description = Miejsce na dysku wymagane do zainstalowania wybranyc
 msi-disk-cost-text = Wyróżnione woluminy nie mają wystarczająco dużo dostępnego miejsca na dysku na obecnie wybrane funkcje. Możesz usunąć niektóre pliki z wyróżnionych woluminów, zainstalować mniej funkcji na dysk(i) lokalny(e) lub wybrać inne dyski docelowe.
 
 # MSI Installer UI - Error Dialog
-msi-error-dlg-title = { $app_title } — informacje instalatora
+msi-error-dlg-title = { $app_title } { $app_version } — informacje instalatora
 
 # MSI Installer UI - Fatal Error Dialog
-msi-fatal-title = Kreator instalacji produktu { $app_title } przedwcześnie zakończył pracę
-msi-fatal-description1 = Instalacja produktu { $app_title } została przerwana. System nie został zmodyfikowany. Aby zainstalować ten program później, ponownie uruchom instalację.
+msi-fatal-title = Kreator instalacji produktu { $app_title } { $app_version } przedwcześnie zakończył pracę
+msi-fatal-description1 = Instalacja produktu { $app_title } { $app_version } została przerwana. System nie został zmodyfikowany. Aby zainstalować ten program później, ponownie uruchom instalację.
 msi-fatal-description2 = Kliknij przycisk Zakończ, aby zakończyć pracę Kreatora instalacji.
 
 # MSI Installer UI - User Exit Dialog
-msi-user-exit-title = Działanie Kreatora instalacji produktu { $app_title } zostało przerwane
-msi-user-exit-description1 = Instalacja produktu { $app_title } została przerwana. System nie został zmodyfikowany. Aby zainstalować ten program później, ponownie uruchom instalację.
+msi-user-exit-title = Działanie Kreatora instalacji produktu { $app_title } { $app_version } zostało przerwane
+msi-user-exit-description1 = Instalacja produktu { $app_title } { $app_version } została przerwana. System nie został zmodyfikowany. Aby zainstalować ten program później, ponownie uruchom instalację.
 msi-user-exit-description2 = Kliknij przycisk Zakończ, aby zakończyć pracę Kreatora instalacji.
 
 # MSI Installer UI - Files In Use Dialog
@@ -215,13 +215,13 @@ msi-rm-files-in-use-use-rm = Automatycznie &zamknij aplikacje i spróbuj uruchom
 msi-rm-files-in-use-dont-use-rm = &Nie zamykaj aplikacji. (Wymagane będzie ponowne uruchomienie.)
 
 # MSI Installer UI - Resume Dialog
-msi-resume-title = Wznawianie pracy Kreatora instalacji produktu { $app_title }
-msi-resume-description = Kreator instalacji wykona instalację produktu { $app_title } na tym komputerze. Kliknij przycisk Zainstaluj, aby kontynuować, lub kliknij przycisk Anuluj, aby zakończyć pracę Kreatora instalacji.
+msi-resume-title = Wznawianie pracy Kreatora instalacji produktu { $app_title } { $app_version }
+msi-resume-description = Kreator instalacji wykona instalację produktu { $app_title } { $app_version } na tym komputerze. Kliknij przycisk Zainstaluj, aby kontynuować, lub kliknij przycisk Anuluj, aby zakończyć pracę Kreatora instalacji.
 msi-resume-btn-install = &Zainstaluj
 
 # MSI Installer UI - Shortcut Descriptions
-msi-desktop-shortcut-description = Skrót na pulpicie dla { $app_title }
-msi-start-menu-shortcut-description = Skrót w menu Start dla { $app_title }
+msi-desktop-shortcut-description = Skrót na pulpicie dla { $app_title } { $app_version }
+msi-start-menu-shortcut-description = Skrót w menu Start dla { $app_title } { $app_version }
 # MSI Installer UI - Readme Dialog
 msi-readme-title = Ważne informacje
 msi-readme-description = Proszę przeczytać poniższe informacje przed kontynuowaniem.

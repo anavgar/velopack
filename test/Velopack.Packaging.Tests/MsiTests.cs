@@ -247,7 +247,7 @@ public class MsiTests
         Assert.Contains("Scope=\"perMachine\"", wxs);
         Assert.Contains("Id=\"PublisherDir\" Name=\"BiMMate\"", wxs);
         Assert.Contains("Id=\"INSTALLFOLDER\" Name=\"MyApp\"", wxs);
-        Assert.Contains("Value=\"My Application 2.5.1.0\"", wxs);
+        Assert.Contains("Name=\"My Application 2.5.1.0\"", wxs);
         Assert.Contains("ProgramFiles64Folder", wxs);
         Assert.Contains("FileAssociations", wxs);
     }

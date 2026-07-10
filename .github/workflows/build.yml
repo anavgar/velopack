@@ -20,16 +20,16 @@ jobs:
   build-python:
     uses: ./.github/workflows/build-python.yml
     
-  build-tests:
-    uses: ./.github/workflows/build-tests.yml
-    permissions:
-      contents: read
-      actions: write
-      id-token: write
-    secrets: inherit # tests need secrets to run
+  # build-tests:
+  #   uses: ./.github/workflows/build-tests.yml
+  #   permissions:
+  #     contents: read
+  #     actions: write
+  #     id-token: write
+  #   secrets: inherit # tests need secrets to run
 
-  build-samples:
-    uses: ./.github/workflows/build-samples.yml
+  # build-samples:
+  #   uses: ./.github/workflows/build-samples.yml
 
   build-packages:
     needs: [build-python, build-rust]

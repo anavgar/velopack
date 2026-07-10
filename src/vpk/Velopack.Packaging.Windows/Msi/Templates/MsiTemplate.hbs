@@ -126,6 +126,9 @@
         {{#if HasLicense}}
             <WixVariable Id="WixUILicenseRtf" Value="{{LicenseRtfFilePath}}"/>
         {{/if}}
+        {{#if HasLicenseEs}}
+            <WixVariable Id="WixUILicenseRtfEs" Value="{{LicenseEsRtfFilePath}}"/>
+        {{/if}}
 
         {{#if HasWelcomeMessage}}
             <Property Id="MsiWelcomeDescription" Value="{{{WelcomeMessage}}}"/>
@@ -134,6 +137,12 @@
         {{#if HasReadme}}
             <WixVariable Id="WixUIReadmeRtf" Value="{{ReadmeRtfFilePath}}"/>
         {{/if}}
+        {{#if HasReadmeEs}}
+            <WixVariable Id="WixUIReadmeRtfEs" Value="{{ReadmeEsRtfFilePath}}"/>
+        {{/if}}
+
+        <!-- VELOPACK_LOCALE is set at runtime by RustSetLocaleStrings -->
+        <Property Id="VELOPACK_LOCALE" Value="" />
 
         {{#if HasConclusionMessage}}
             <Property Id="WIXUI_EXITDIALOGOPTIONALTEXT" Value="{{{ConclusionMessage}}}"/>
@@ -234,6 +243,12 @@
             {{#if HasReadme}}
                 <DialogRef Id="ReadmeDlg"/>
             {{/if}}
+            {{#if HasReadmeEs}}
+                <DialogRef Id="ReadmeDlgEs"/>
+            {{/if}}
+            {{#if HasLicenseEs}}
+                <DialogRef Id="LicenseAgreementDlgEs"/>
+            {{/if}}
 
             <!-- ValidatePath actions for BrowseDlg -->
             <Publish Dialog="BrowseDlg" Control="OK" Event="DoAction" Value="RustValidatePath" Order="3"
@@ -253,17 +268,28 @@
                      Value="[VELOPACK_INSTALLDIR]" Order="2" Condition="VELOPACK_INSTALLDIR"/>
             <Publish Dialog="WelcomeDlg" Control="Next" Event="SetTargetPath" Value="INSTALLFOLDER" Order="3"/>
 
-            {{!-- Welcome -> (Readme | License | VerifyReady) --}}
+            {{!-- Welcome -> (Readme | License | VerifyReady) with ES/EN locale switching --}}
             {{#if HasReadme}}
-                <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="ReadmeDlg" Condition="NOT Installed"/>
+                {{#if HasReadmeEs}}
+                    <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="ReadmeDlgEs" Condition="NOT Installed AND VELOPACK_LOCALE = &quot;es&quot;"/>
+                    <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="ReadmeDlg" Condition="NOT Installed AND VELOPACK_LOCALE &lt;&gt; &quot;es&quot;"/>
+                {{else}}
+                    <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="ReadmeDlg" Condition="NOT Installed"/>
+                {{/if}}
             {{else if HasLicense}}
-                <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="LicenseAgreementDlg" Condition="NOT Installed"/>
+                {{#if HasLicenseEs}}
+                    <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="LicenseAgreementDlgEs" Condition="NOT Installed AND VELOPACK_LOCALE = &quot;es&quot;"/>
+                    <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="LicenseAgreementDlg" Condition="NOT Installed AND VELOPACK_LOCALE &lt;&gt; &quot;es&quot;"/>
+                {{else}}
+                    <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="LicenseAgreementDlg" Condition="NOT Installed"/>
+                {{/if}}
             {{else}}
                 <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg" Condition="NOT Installed"/>
             {{/if}}
 
             <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg" Condition="Installed AND PATCH"/>
 
+            {{!-- ReadmeDlg (EN) navigation --}}
             {{#if HasReadme}}
                 <Publish Dialog="ReadmeDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg"/>
                 {{#if HasLicense}}
@@ -273,6 +299,19 @@
                 {{/if}}
             {{/if}}
 
+            {{!-- ReadmeDlgEs (ES) navigation --}}
+            {{#if HasReadmeEs}}
+                <Publish Dialog="ReadmeDlgEs" Control="Back" Event="NewDialog" Value="WelcomeDlg"/>
+                {{#if HasLicenseEs}}
+                    <Publish Dialog="ReadmeDlgEs" Control="Next" Event="NewDialog" Value="LicenseAgreementDlgEs"/>
+                {{else if HasLicense}}
+                    <Publish Dialog="ReadmeDlgEs" Control="Next" Event="NewDialog" Value="LicenseAgreementDlg"/>
+                {{else}}
+                    <Publish Dialog="ReadmeDlgEs" Control="Next" Event="NewDialog" Value="VerifyReadyDlg"/>
+                {{/if}}
+            {{/if}}
+
+            {{!-- LicenseAgreementDlg (EN) navigation --}}
             {{#if HasLicense}}
                 {{#if HasReadme}}
                     <Publish Dialog="LicenseAgreementDlg" Control="Back" Event="NewDialog" Value="ReadmeDlg"/>
@@ -283,12 +322,39 @@
                          Condition="LicenseAccepted = &quot;1&quot;"/>
             {{/if}}
 
+            {{!-- LicenseAgreementDlgEs (ES) navigation --}}
+            {{#if HasLicenseEs}}
+                {{#if HasReadmeEs}}
+                    <Publish Dialog="LicenseAgreementDlgEs" Control="Back" Event="NewDialog" Value="ReadmeDlgEs"/>
+                {{else}}
+                    <Publish Dialog="LicenseAgreementDlgEs" Control="Back" Event="NewDialog" Value="WelcomeDlg"/>
+                {{/if}}
+                <Publish Dialog="LicenseAgreementDlgEs" Control="Next" Event="NewDialog" Value="VerifyReadyDlg"
+                         Condition="LicenseAcceptedEs = &quot;1&quot;"/>
+            {{/if}}
+
+            {{!-- VerifyReadyDlg Back navigation --}}
             {{#if HasLicense}}
-                <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="LicenseAgreementDlg" Order="1"
-                         Condition="NOT Installed"/>
+                {{!-- If both ES and EN licenses exist, go back to the locale-appropriate one --}}
+                {{#if HasLicenseEs}}
+                    <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="LicenseAgreementDlgEs" Order="1"
+                             Condition="NOT Installed AND VELOPACK_LOCALE = &quot;es&quot;"/>
+                    <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="LicenseAgreementDlg" Order="1"
+                             Condition="NOT Installed AND VELOPACK_LOCALE &lt;&gt; &quot;es&quot;"/>
+                {{else}}
+                    <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="LicenseAgreementDlg" Order="1"
+                             Condition="NOT Installed"/>
+                {{/if}}
             {{else if HasReadme}}
-                <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="ReadmeDlg" Order="1"
-                         Condition="NOT Installed"/>
+                {{#if HasReadmeEs}}
+                    <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="ReadmeDlgEs" Order="1"
+                             Condition="NOT Installed AND VELOPACK_LOCALE = &quot;es&quot;"/>
+                    <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="ReadmeDlg" Order="1"
+                             Condition="NOT Installed AND VELOPACK_LOCALE &lt;&gt; &quot;es&quot;"/>
+                {{else}}
+                    <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="ReadmeDlg" Order="1"
+                             Condition="NOT Installed"/>
+                {{/if}}
             {{else}}
                 <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="1"
                          Condition="NOT Installed"/>

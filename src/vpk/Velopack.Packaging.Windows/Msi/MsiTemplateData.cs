@@ -50,6 +50,12 @@ public class MsiTemplateData
     public bool HasReadme => !string.IsNullOrWhiteSpace(ReadmeRtfFilePath);
     public string ReadmeRtfFilePath;
 
+    public bool HasLicenseEs => !string.IsNullOrWhiteSpace(LicenseEsRtfFilePath);
+    public string LicenseEsRtfFilePath;
+
+    public bool HasReadmeEs => !string.IsNullOrWhiteSpace(ReadmeEsRtfFilePath);
+    public string ReadmeEsRtfFilePath;
+
     public bool HasTopBannerImage => !string.IsNullOrWhiteSpace(TopBannerImagePath) && File.Exists(TopBannerImagePath);
     public string TopBannerImagePath;
 

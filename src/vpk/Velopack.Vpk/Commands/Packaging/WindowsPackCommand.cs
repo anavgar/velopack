@@ -1,4 +1,4 @@
-﻿using Velopack.Packaging;
+using Velopack.Packaging;
 
 namespace Velopack.Vpk.Commands.Packaging;
 
@@ -30,6 +30,10 @@ public class WindowsPackCommand : PackCommand
     public string InstLicenseRtf { get; private set; }
 
     public string InstReadme { get; private set; }
+
+    public string InstLicenseEs { get; private set; }
+
+    public string InstReadmeEs { get; private set; }
 
     public string InstConclusion { get; private set; }
 
@@ -119,6 +123,14 @@ public class WindowsPackCommand : PackCommand
 
             AddOption<FileInfo>(v => InstConclusion = v.ToFullNameOrNull(), ["--instConclusion"])
                 .SetDescription("Set the plain-text installer package conclusion content.")
+                .SetArgumentHelpName("PATH");
+
+            AddOption<FileInfo>(v => InstLicenseEs = v.ToFullNameOrNull(), ["--instLicenseEs"])
+                .SetDescription("Set the installer package license content for Spanish locale. Can be either RTF or Markdown.")
+                .SetArgumentHelpName("PATH");
+
+            AddOption<FileInfo>(v => InstReadmeEs = v.ToFullNameOrNull(), ["--instReadmeEs"])
+                .SetDescription("Set the installer package readme content for Spanish locale. Can be RTF, Markdown, or plain text.")
                 .SetArgumentHelpName("PATH");
 
             AddOption<InstallLocation>(v => InstLocation = v, ["--instLocation"])

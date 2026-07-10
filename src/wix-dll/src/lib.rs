@@ -17,6 +17,9 @@ use windows::Win32::{
 #[no_mangle]
 pub extern "system" fn RustSetLocaleStrings(h_install: MSIHANDLE) -> c_uint {
     velopack_l18n::init();
+    
+    let locale = velopack_l18n::get_locale();
+    msi_set_property_string(h_install, "VELOPACK_LOCALE", locale);
 
     let app_title = msi_get_property(h_install, "RustAppTitle").unwrap_or_default();
     let app_version = msi_get_property(h_install, "RustAppVersion").unwrap_or_default();

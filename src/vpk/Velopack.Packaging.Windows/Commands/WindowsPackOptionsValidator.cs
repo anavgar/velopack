@@ -21,6 +21,8 @@ public sealed class WindowsPackOptionsValidator : PackOptionsValidator<WindowsPa
         RuleFor(x => x.InstWelcome).MustBeExistingFile();
         RuleFor(x => x.InstReadme).MustBeExistingFile();
         RuleFor(x => x.InstLicense).MustBeExistingFile();
+        RuleFor(x => x.InstLicenseEs).MustBeExistingFile();
+        RuleFor(x => x.InstReadmeEs).MustBeExistingFile();
         RuleFor(x => x.InstConclusion).MustBeExistingFile();
         RuleFor(x => x.SignTemplate)
             .Must((opt, _) => new[] { opt.SignTemplate, opt.SignParameters, opt.AzureTrustedSignFile }.Count(v => !string.IsNullOrEmpty(v)) <= 1)

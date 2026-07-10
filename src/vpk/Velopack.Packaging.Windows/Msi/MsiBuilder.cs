@@ -19,12 +19,12 @@ public static class MsiBuilder
 {
     private static readonly string[] DialogFiles = [
         "WelcomeDlg.wxs", "ExitDialog.wxs", "VerifyReadyDlg.wxs", "ProgressDlg.wxs",
-        "PrepareDlg.wxs", "LicenseAgreementDlg.wxs", "InstallScopeDlg.wxs",
+        "PrepareDlg.wxs", "LicenseAgreementDlg.wxs", "LicenseAgreementDlgEs.wxs", "InstallScopeDlg.wxs",
         "MaintenanceWelcomeDlg.wxs", "MaintenanceTypeDlg.wxs", "BrowseDlg.wxs",
         "InvalidDirDlg.wxs", "DiskCostDlg.wxs", "ErrorDlg.wxs", "FatalError.wxs",
         "UserExit.wxs", "FilesInUse.wxs", "MsiRMFilesInUse.wxs", "ResumeDlg.wxs",
         "CancelDlg.wxs", "OutOfRbDiskDlg.wxs", "OutOfDiskDlg.wxs",
-        "ReadmeDlg.wxs",
+        "ReadmeDlg.wxs", "ReadmeDlgEs.wxs",
     ];
 
     public static string GenerateWixTemplate(MsiTemplateData data)
@@ -32,7 +32,7 @@ public static class MsiBuilder
         if (data is null)
             throw new ArgumentNullException(nameof(data));
 
-        var templateContent = GetResourceContent("MsiTemplate.hbs");
+        var templateContent = MsiBuilder.GetResourceContent("MsiTemplate.hbs");
         var template = Handlebars.Compile(templateContent);
         return template(data);
     }
@@ -57,7 +57,7 @@ public static class MsiBuilder
             throw new ArgumentException("Installer plain-text messages must be .md or .txt", nameof(filePath));
         }
 
-        return FormatXmlMessage(content);
+        return MsiBuilder.FormatXmlMessage(content);
     }
 
     private static string GetRtfPath(string filePath, string outputFileName, DirectoryInfo tempDir)
@@ -148,10 +148,12 @@ public static class MsiBuilder
             SideBannerImagePath = options.MsiBanner,
             TopBannerImagePath = options.MsiLogo,
             RuntimeDependencies = runtimeDeps,
-            ConclusionMessage = GetPlainTextMessage(options.InstConclusion),
-            ReadmeRtfFilePath = GetRtfPath(options.InstReadme, "rendered_readme.rtf", portableDir.Parent),
-            WelcomeMessage = GetPlainTextMessage(options.InstWelcome),
-            LicenseRtfFilePath = GetRtfPath(options.InstLicense, "rendered_license.rtf", portableDir.Parent),
+            ConclusionMessage = MsiBuilder.GetPlainTextMessage(options.InstConclusion),
+            ReadmeRtfFilePath = MsiBuilder.GetRtfPath(options.InstReadme, "rendered_readme.rtf", portableDir.Parent),
+            WelcomeMessage = MsiBuilder.GetPlainTextMessage(options.InstWelcome),
+            LicenseRtfFilePath = MsiBuilder.GetRtfPath(options.InstLicense, "rendered_license.rtf", portableDir.Parent),
+            LicenseEsRtfFilePath = MsiBuilder.GetRtfPath(options.InstLicenseEs, "rendered_license_es.rtf", portableDir.Parent),
+            ReadmeEsRtfFilePath = MsiBuilder.GetRtfPath(options.InstReadmeEs, "rendered_readme_es.rtf", portableDir.Parent),
         };
     }
 
@@ -165,18 +167,18 @@ public static class MsiBuilder
         var wixId = data.WixId;
         var wxsPath = Path.Combine(outputDir, wixId + ".wxs");
 
-        data.BannerBmpPath = data.HasTopBannerImage ? data.TopBannerImagePath : ExtractResource("banner.bmp", outputDir);
-        data.DialogBmpPath = data.HasSideBannerImage ? data.SideBannerImagePath : ExtractResource("dialog.bmp", outputDir);
-        data.ExclamIcoPath = ExtractResource("exclam.ico", outputDir);
-        data.UpIcoPath = ExtractResource("up.ico", outputDir);
-        data.NewIcoPath = ExtractResource("new.ico", outputDir);
+        data.BannerBmpPath = data.HasTopBannerImage ? data.TopBannerImagePath : MsiBuilder.ExtractResource("banner.bmp", outputDir);
+        data.DialogBmpPath = data.HasSideBannerImage ? data.SideBannerImagePath : MsiBuilder.ExtractResource("dialog.bmp", outputDir);
+        data.ExclamIcoPath = MsiBuilder.ExtractResource("exclam.ico", outputDir);
+        data.UpIcoPath = MsiBuilder.ExtractResource("up.ico", outputDir);
+        data.NewIcoPath = MsiBuilder.ExtractResource("new.ico", outputDir);
 
-        var wxsContent = GenerateWixTemplate(data);
+        var wxsContent = MsiBuilder.GenerateWixTemplate(data);
         File.WriteAllText(wxsPath, wxsContent, Encoding.UTF8);
 
         var dialogPaths = new List<string>();
-        foreach (var dialogFile in DialogFiles) {
-            var content = GetResourceContent(dialogFile);
+        foreach (var dialogFile in MsiBuilder.DialogFiles) {
+            var content = MsiBuilder.GetResourceContent(dialogFile);
             var dialogPath = Path.Combine(outputDir, dialogFile);
             File.WriteAllText(dialogPath, content, Encoding.UTF8);
             dialogPaths.Add(dialogPath);

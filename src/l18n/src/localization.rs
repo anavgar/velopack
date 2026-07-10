@@ -39,6 +39,11 @@ fn select_locale() -> (&'static str, &'static str) {
     }
 }
 
+pub fn get_locale() -> &'static str {
+    select_locale().0
+}
+
+
 fn get_bundle() -> &'static FluentBundle<FluentResource> {
     BUNDLE.get_or_init(|| {
         let (lang_tag, ftl_source) = select_locale();

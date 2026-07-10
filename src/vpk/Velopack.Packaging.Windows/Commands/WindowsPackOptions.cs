@@ -1,4 +1,4 @@
-﻿using Velopack.Packaging.Abstractions;
+using Velopack.Packaging.Abstractions;
 
 namespace Velopack.Packaging.Windows.Commands;
 
@@ -31,6 +31,10 @@ public class WindowsPackOptions : WindowsReleasifyOptions, INugetPackCommand, IP
     public string InstReadme { get; set; }
 
     public string InstLicense { get; set; }
+
+    public string InstLicenseEs { get; set; }
+
+    public string InstReadmeEs { get; set; }
 
     public string InstConclusion { get; set; }
 

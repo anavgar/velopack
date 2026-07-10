@@ -23,3 +23,7 @@ pub use xdialog::init_win32_direct;
 pub fn init() {
     localization::init_localization();
 }
+
+pub fn get_locale() -> &'static str {
+    localization::get_locale()
+}
